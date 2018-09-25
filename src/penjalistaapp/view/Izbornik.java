@@ -5,6 +5,8 @@
  */
 package penjalistaapp.view;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -15,15 +17,22 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import penjalistaapp.controller.ObradaAutor;
+import penjalistaapp.model.Entitet;
 
 import penjalistaapp.model.Operater;
 
@@ -79,6 +88,8 @@ public class Izbornik extends javax.swing.JFrame {
         jmiExit = new javax.swing.JMenuItem();
         menImport = new javax.swing.JMenu();
         menExport = new javax.swing.JMenu();
+        jmnAutori = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menHelp = new javax.swing.JMenu();
         jmiOAplikaciji = new javax.swing.JMenuItem();
 
@@ -191,6 +202,19 @@ public class Izbornik extends javax.swing.JFrame {
         jmbMenu.add(menImport);
 
         menExport.setText("Export");
+
+        jmnAutori.setText("Autori");
+
+        jMenuItem1.setText("JSON");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmnAutori.add(jMenuItem1);
+
+        menExport.add(jmnAutori);
+
         jmbMenu.add(menExport);
 
         menHelp.setText("Help");
@@ -270,6 +294,13 @@ public class Izbornik extends javax.swing.JFrame {
         oAplikaciji.setVisible(true);
     }//GEN-LAST:event_jmiOAplikacijiActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        ObradaAutor o = new ObradaAutor();
+        spremiJSON(o.getListEntitet());
+        
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,9 +311,11 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JButton btnGit;
     private javax.swing.JButton btnPenjac;
     private javax.swing.JButton btnPenjaliste;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar jmbMenu;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiOAplikaciji;
+    private javax.swing.JMenu jmnAutori;
     private javax.swing.JLabel lblSlika;
     private javax.swing.JLabel lblVrijeme;
     private javax.swing.JMenu menExport;
@@ -328,6 +361,59 @@ catch (IOException exc) {
         
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlIzbornik.setBackground(Color.decode("#082F4E"));
+    }
+    
+        
+    private void spremiJSON(List<Entitet> lista){
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+        
+        String json = gson.toJson(lista);
+        
+        
+        String naziv="podaci";
+        if(lista.size()>0){
+            Entitet e = lista.get(0);
+            naziv = e.getClass().getSimpleName().toLowerCase();
+            spremiTekst(json, "JSON DATOTEKA", "json", naziv,false);
+        }
+        
+        
+    }
+    
+     private void spremiTekst(String s,String nazivEkstenzije, String ekstenzija, String nazivDatoteke,boolean otvoriNakonSpremanja){
+        JFileChooser spremiKao = new JFileChooser();
+        spremiKao.setSelectedFile(new File(System.getProperty("user.home") + File.separator + nazivDatoteke));
+        spremiKao.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(nazivEkstenzije , ekstenzija);
+       
+        spremiKao.setFileFilter(filter);
+        if (spremiKao.showSaveDialog(getParent())==JFileChooser.APPROVE_OPTION){
+            String putanja = spremiKao.getSelectedFile().getAbsolutePath();
+            if(!putanja.endsWith("." + ekstenzija)){
+                putanja+="." + ekstenzija;
+            }
+            File dat = new File(putanja);
+            if(!(!dat.exists() || 
+                    JOptionPane.showConfirmDialog(getRootPane(),"Datoteka postoji, zamijeniti?","Datoteka postoji",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION)){
+                return;
+            }
+            try {
+                FileWriter fw = new FileWriter(putanja);
+                fw.write(s);
+                fw.close();
+                if(otvoriNakonSpremanja){
+                    Desktop d = Desktop.getDesktop();  
+                    d.open(dat);
+                }
+                       
+            } catch (IOException ex) {
+                ex.printStackTrace();
+               JOptionPane.showMessageDialog(getRootPane(), "Problem kod spremanja datoteke.");
+            }
+           
+        }
     }
             
     private void definirajTimer(){
