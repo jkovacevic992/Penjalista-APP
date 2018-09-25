@@ -5,17 +5,26 @@
  */
 package penjalistaapp;
 
+import penjalistaapp.pomocno.HibernateUtil;
+import penjalistaapp.pomocno.PocetniInsert;
+import penjalistaapp.view.Loading;
+
 /**
  *
  * @author Josip
  */
-public class PenjalistaAPP {
+public class Start {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+//        PocetniInsert.izvedi();
+new Loading().setVisible(true);
+//        HibernateUtil.getSession();
+//        
+//        Izbornik izbornik = new Izbornik();
+//       izbornik.setVisible(true);
     }
-    
+
 }
