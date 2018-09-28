@@ -32,6 +32,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import penjalistaapp.controller.ObradaAutor;
+import penjalistaapp.controller.ObradaPenjac;
+import penjalistaapp.controller.ObradaPenjaliste;
 import penjalistaapp.model.Entitet;
 
 import penjalistaapp.model.Operater;
@@ -91,6 +93,12 @@ public class Izbornik extends javax.swing.JFrame {
         jmnAutori = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         menHelp = new javax.swing.JMenu();
         jmiOAplikaciji = new javax.swing.JMenuItem();
 
@@ -224,6 +232,46 @@ public class Izbornik extends javax.swing.JFrame {
 
         menExport.add(jmnAutori);
 
+        jMenu1.setText("Penjači");
+
+        jMenuItem3.setText("JSON");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("CSV");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        menExport.add(jMenu1);
+
+        jMenu2.setText("Penjališta");
+
+        jMenuItem5.setText("JSON");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem6.setText("CSV");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
+        menExport.add(jMenu2);
+
         jmbMenu.add(menExport);
 
         menHelp.setText("Help");
@@ -315,6 +363,26 @@ public class Izbornik extends javax.swing.JFrame {
         spremiCSV(o.getListEntitet());
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        ObradaPenjac o = new ObradaPenjac();
+        spremiJSON(o.getListEntitet());
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        ObradaPenjac o = new ObradaPenjac();
+        spremiCSV(o.getListEntitet());
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        ObradaPenjaliste o = new ObradaPenjaliste();
+        spremiJSON(o.getListEntitet());
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        ObradaPenjaliste o = new ObradaPenjaliste();
+        spremiCSV(o.getListEntitet());
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     
     private void spremiCSV(List<Entitet> lista){
          String naziv="podaci";
@@ -337,8 +405,14 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JButton btnGit;
     private javax.swing.JButton btnPenjac;
     private javax.swing.JButton btnPenjaliste;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar jmbMenu;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiOAplikaciji;
