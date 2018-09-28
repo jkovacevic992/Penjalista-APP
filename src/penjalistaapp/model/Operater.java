@@ -52,6 +52,11 @@ public class Operater extends Entitet{
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
     }
+
+    @Override
+    public String getCSV() {
+        return getIme() + "\t" + getPrezime() + "\t" + getEmail();
+    }
     
     
     

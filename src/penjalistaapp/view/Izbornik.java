@@ -90,6 +90,7 @@ public class Izbornik extends javax.swing.JFrame {
         menExport = new javax.swing.JMenu();
         jmnAutori = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menHelp = new javax.swing.JMenu();
         jmiOAplikaciji = new javax.swing.JMenuItem();
 
@@ -213,6 +214,14 @@ public class Izbornik extends javax.swing.JFrame {
         });
         jmnAutori.add(jMenuItem1);
 
+        jMenuItem2.setText("CSV");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmnAutori.add(jMenuItem2);
+
         menExport.add(jmnAutori);
 
         jmbMenu.add(menExport);
@@ -301,6 +310,23 @@ public class Izbornik extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ObradaAutor o = new ObradaAutor();
+        spremiCSV(o.getListEntitet());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    
+    private void spremiCSV(List<Entitet> lista){
+         String naziv="podaci";
+        if(lista.size()>0){
+            Entitet e = lista.get(0);
+            naziv = e.getClass().getSimpleName().toLowerCase();
+            StringBuilder s = new StringBuilder();
+            lista.forEach((en)->{s.append(en.getCSV());s.append("\n");});
+            spremiTekst(s.toString(), "CSV DATOTEKA", "csv", naziv,false);
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -312,6 +338,7 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JButton btnPenjac;
     private javax.swing.JButton btnPenjaliste;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar jmbMenu;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiOAplikaciji;

@@ -52,4 +52,9 @@ public class Penjac extends Entitet implements Serializable{
 
     }
 
+    @Override
+    public String getCSV() {
+        return getIme() + "\t" + getPrezime() + "\t" + getRezultat();
+    }
+
 }

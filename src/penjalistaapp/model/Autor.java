@@ -40,4 +40,9 @@ public class Autor extends Entitet implements Serializable{
     public String toString(){
         return (getPrezime() + " " + getIme());
     }
+
+    @Override
+    public String getCSV() {
+        return getIme()+ "\t" + getPrezime();
+    }
 }

@@ -50,4 +50,9 @@ public class Penjaliste extends Entitet implements Serializable{
     public String toString() {
         return getNaziv();
     }
+
+    @Override
+    public String getCSV() {
+        return getNaziv() + "\t" + getLat() + "\t" + getLon();
+    }
 }
