@@ -45,6 +45,8 @@
     <mapping class="penjalistaapp.model.Autor" /> 
     <mapping class="penjalistaapp.model.Penjaliste" />
     <mapping class="penjalistaapp.model.Operater" />
+    <mapping class="penjalistaapp.model.Smjer" />
+    <mapping class="penjalistaapp.model.Sektor" />
 
    
 </session-factory>

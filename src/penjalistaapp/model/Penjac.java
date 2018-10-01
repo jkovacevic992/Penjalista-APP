@@ -6,7 +6,9 @@
 package penjalistaapp.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -19,6 +21,16 @@ public class Penjac extends Entitet implements Serializable{
     private String ime;
     private String prezime;
     private String rezultat;
+    @ManyToMany
+    private List<Smjer> smjerovi;
+
+    public List<Smjer> getSmjerovi() {
+        return smjerovi;
+    }
+
+    public void setSmjerovi(List<Smjer> smjerovi) {
+        this.smjerovi = smjerovi;
+    }
 
  
 

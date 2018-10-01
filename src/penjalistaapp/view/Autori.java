@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import penjalistaapp.controller.ObradaAutor;
 import penjalistaapp.model.Autor;
+import penjalistaapp.pomocno.HibernateUtil;
 import penjalistaapp.pomocno.MojException;
 
 /**
@@ -61,6 +62,7 @@ public class Autori extends javax.swing.JFrame {
         txtIme = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtPrezime = new javax.swing.JTextField();
+        prbBrisanje = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstAutori = new javax.swing.JList<>();
 
@@ -141,10 +143,11 @@ public class Autori extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPodaciLayout.createSequentialGroup()
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtPrezime, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIme))
+                            .addComponent(txtIme, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(prbBrisanje, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         pnlPodaciLayout.setVerticalGroup(
@@ -163,10 +166,11 @@ public class Autori extends javax.swing.JFrame {
                     .addComponent(btnDodaj)
                     .addComponent(btnPromjena)
                     .addComponent(btnObrisi))
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
         );
 
-        lstAutori.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstAutori.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstAutoriValueChanged(evt);
@@ -182,8 +186,8 @@ public class Autori extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,8 +250,20 @@ public class Autori extends javax.swing.JFrame {
             return;
         }
 
-       o.obrisi(autor);
-       ucitajIzBaze();
+       if(lstAutori.getSelectedValuesList().size()==1){
+             try {
+                 o.obrisi(lstAutori.getSelectedValuesList().get(0));
+            } catch (Exception ex) {
+                HibernateUtil.getSession().clear();
+                JOptionPane.showMessageDialog(getRootPane(), "Autora " + 
+                        lstAutori.getSelectedValuesList().get(0)
+                        + 
+                        " ne mogu obrisati.");
+            }
+              ucitajIzBaze();
+        }else{
+            new BrisanjeAutora().start();
+        }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void lstAutoriValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAutoriValueChanged
@@ -310,6 +326,7 @@ public class Autori extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Autor> lstAutori;
     private javax.swing.JPanel pnlPodaci;
+    private javax.swing.JProgressBar prbBrisanje;
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
@@ -346,6 +363,26 @@ public class Autori extends javax.swing.JFrame {
 catch (IOException exc) {
     exc.printStackTrace();
 }
+    }
+      private class BrisanjeAutora extends Thread {
+
+        public void run() {
+             prbBrisanje.setMinimum(0);
+        prbBrisanje.setMaximum(lstAutori.getSelectedValuesList().size());
+        int i=0;
+        
+        for (Autor e : lstAutori.getSelectedValuesList()) {
+             prbBrisanje.setValue(++i);
+            try {
+                 o.obrisi(e);
+            } catch (Exception ex) {
+                 HibernateUtil.getSession().clear();
+               
+            }
+        }
+         ucitajIzBaze();
+         prbBrisanje.setValue(0);
+        }
     }
 
     private void promjenaIzgleda() {

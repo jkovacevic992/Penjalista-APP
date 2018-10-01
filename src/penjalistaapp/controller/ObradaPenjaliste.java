@@ -40,5 +40,10 @@ public class ObradaPenjaliste extends Obrada implements ObradaInterface<Penjalis
         if (!e.getNaziv().chars().allMatch(Character::isLetter)) {
             throw new MojException("Naziv može sadržavati samo slova.");
         }
-    }
+      
+
+
+
 }
+}
+

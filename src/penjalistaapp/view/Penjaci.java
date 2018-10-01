@@ -289,8 +289,7 @@ if(lstPenjaci.getSelectedValuesList().size()==1){
         }else{
             new BrisanjePenjaca().start();
         }
-//        o.obrisi(penjac);
-//        ucitajIzBaze();
+
 
 
     }//GEN-LAST:event_btnObrisiActionPerformed
