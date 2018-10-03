@@ -85,6 +85,8 @@ public class Izbornik extends javax.swing.JFrame {
         btnEra = new javax.swing.JButton();
         lblSlika = new javax.swing.JLabel();
         lblVrijeme = new javax.swing.JLabel();
+        btnSektori = new javax.swing.JButton();
+        btnSmjerovi = new javax.swing.JButton();
         jmbMenu = new javax.swing.JMenuBar();
         menFile = new javax.swing.JMenu();
         jmiExit = new javax.swing.JMenuItem();
@@ -157,6 +159,17 @@ public class Izbornik extends javax.swing.JFrame {
         lblVrijeme.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblVrijeme.setForeground(new java.awt.Color(255, 255, 255));
 
+        btnSektori.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        btnSektori.setText("Sektori");
+        btnSektori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSektoriActionPerformed(evt);
+            }
+        });
+
+        btnSmjerovi.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        btnSmjerovi.setText("Smjerovi");
+
         javax.swing.GroupLayout pnlIzbornikLayout = new javax.swing.GroupLayout(pnlIzbornik);
         pnlIzbornik.setLayout(pnlIzbornikLayout);
         pnlIzbornikLayout.setHorizontalGroup(
@@ -164,12 +177,14 @@ public class Izbornik extends javax.swing.JFrame {
             .addGroup(pnlIzbornikLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlIzbornikLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPenjac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPenjaliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblVrijeme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPenjaliste, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                    .addComponent(btnSektori, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSmjerovi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVrijeme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(lblSlika, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -177,19 +192,23 @@ public class Izbornik extends javax.swing.JFrame {
         pnlIzbornikLayout.setVerticalGroup(
             pnlIzbornikLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIzbornikLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(btnPenjaliste)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAutor)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPenjac)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSektori)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSmjerovi)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGit)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEra)
-                .addGap(65, 65, 65)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblVrijeme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(68, 68, 68))
             .addGroup(pnlIzbornikLayout.createSequentialGroup()
                 .addComponent(lblSlika)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -292,14 +311,14 @@ public class Izbornik extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlIzbornik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlIzbornik, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlIzbornik, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -383,6 +402,11 @@ public class Izbornik extends javax.swing.JFrame {
         spremiCSV(o.getListEntitet());
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void btnSektoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSektoriActionPerformed
+        Sektori sektor = new Sektori();
+        sektor.setVisible(true);
+    }//GEN-LAST:event_btnSektoriActionPerformed
+
     
     private void spremiCSV(List<Entitet> lista){
          String naziv="podaci";
@@ -405,6 +429,8 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JButton btnGit;
     private javax.swing.JButton btnPenjac;
     private javax.swing.JButton btnPenjaliste;
+    private javax.swing.JButton btnSektori;
+    private javax.swing.JButton btnSmjerovi;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;

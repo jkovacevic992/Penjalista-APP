@@ -23,7 +23,7 @@ public class ObradaPenjac extends Obrada implements ObradaInterface<Penjac>{
 
    
     public Penjac dodaj(Penjac p) throws MojException {
-        
+        kontrola(p);
         spremi(p);
         
         return p;
@@ -31,6 +31,7 @@ public class ObradaPenjac extends Obrada implements ObradaInterface<Penjac>{
 
 
     public Penjac promjena(Penjac p) throws MojException {
+        kontrola(p);
         spremi(p);
         
         return p;
