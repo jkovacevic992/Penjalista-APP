@@ -169,6 +169,11 @@ public class Izbornik extends javax.swing.JFrame {
 
         btnSmjerovi.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnSmjerovi.setText("Smjerovi");
+        btnSmjerovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSmjeroviActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlIzbornikLayout = new javax.swing.GroupLayout(pnlIzbornik);
         pnlIzbornik.setLayout(pnlIzbornikLayout);
@@ -406,6 +411,11 @@ public class Izbornik extends javax.swing.JFrame {
         Sektori sektor = new Sektori();
         sektor.setVisible(true);
     }//GEN-LAST:event_btnSektoriActionPerformed
+
+    private void btnSmjeroviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSmjeroviActionPerformed
+       Smjerovi smjer = new Smjerovi();
+       smjer.setVisible(true);
+    }//GEN-LAST:event_btnSmjeroviActionPerformed
 
     
     private void spremiCSV(List<Entitet> lista){

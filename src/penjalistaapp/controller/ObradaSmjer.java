@@ -40,6 +40,9 @@ public class ObradaSmjer extends Obrada implements ObradaInterface<Smjer>{
             throw new MojException("Naziv smjera može sadržavati samo slova.");
            
         }
+        
+
+    
     }
     
 }

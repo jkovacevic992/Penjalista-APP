@@ -5,17 +5,43 @@
  */
 package penjalistaapp.view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import penjalistaapp.controller.ObradaSmjer;
+import penjalistaapp.model.Sektor;
+import penjalistaapp.model.Smjer;
+import penjalistaapp.pomocno.HibernateUtil;
+import penjalistaapp.pomocno.MojException;
+
 /**
  *
  * @author Josip
  */
 public class Smjerovi extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Smjerovi
-     */
+    final private ObradaSmjer o;
+    private Smjer smjer;
+    final private DecimalFormat df;
     public Smjerovi() {
         initComponents();
+        promjenaIzgleda();
+       
+        o = new ObradaSmjer();
+        ucitajIzBaze();
+        NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
+        df = (DecimalFormat) nf;
+        df.applyPattern("###,##0.00");
     }
 
     /**
@@ -27,26 +53,383 @@ public class Smjerovi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlPodaci = new javax.swing.JPanel();
+        lblNaziv = new javax.swing.JLabel();
+        txtNaziv = new javax.swing.JTextField();
+        lblLon = new javax.swing.JLabel();
+        txtOcjena = new javax.swing.JTextField();
+        lblLat = new javax.swing.JLabel();
+        txtDuzina = new javax.swing.JTextField();
+        btnDodaj = new javax.swing.JButton();
+        btnPromjena = new javax.swing.JButton();
+        btnObrisi = new javax.swing.JButton();
+        prbBrisanje = new javax.swing.JProgressBar();
+        lblLat1 = new javax.swing.JLabel();
+        txtSektor = new javax.swing.JTextField();
+        lblLat2 = new javax.swing.JLabel();
+        txtAutor = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstSmjerovi = new javax.swing.JList<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
+        lblNaziv.setText("Naziv");
+
+        lblLon.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblLon.setForeground(new java.awt.Color(255, 255, 255));
+        lblLon.setText("Ocjena");
+
+        lblLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblLat.setForeground(new java.awt.Color(255, 255, 255));
+        lblLat.setText("Dužina");
+
+        btnDodaj.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        btnDodaj.setText("Dodaj");
+        btnDodaj.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDodajMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDodajMouseExited(evt);
+            }
+        });
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
+
+        btnPromjena.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        btnPromjena.setText("Promjena");
+        btnPromjena.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPromjenaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPromjenaMouseExited(evt);
+            }
+        });
+        btnPromjena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromjenaActionPerformed(evt);
+            }
+        });
+
+        btnObrisi.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        btnObrisi.setText("Obriši");
+        btnObrisi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnObrisiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnObrisiMouseExited(evt);
+            }
+        });
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
+
+        lblLat1.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblLat1.setForeground(new java.awt.Color(255, 255, 255));
+        lblLat1.setText("Sektor");
+
+        txtSektor.setEditable(false);
+
+        lblLat2.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblLat2.setForeground(new java.awt.Color(255, 255, 255));
+        lblLat2.setText("Autor");
+
+        txtAutor.setEditable(false);
+
+        javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
+        pnlPodaci.setLayout(pnlPodaciLayout);
+        pnlPodaciLayout.setHorizontalGroup(
+            pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPodaciLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLat2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNaziv)
+                            .addComponent(lblLon)
+                            .addComponent(lblLat)
+                            .addComponent(lblLat1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(prbBrisanje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPodaciLayout.createSequentialGroup()
+                                    .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSektor, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNaziv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                                .addComponent(txtOcjena, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDuzina, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlPodaciLayout.setVerticalGroup(
+            pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPodaciLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNaziv)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtOcjena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtDuzina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblLat1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSektor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblLat2)
+                .addGap(18, 18, 18)
+                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDodaj)
+                    .addComponent(btnPromjena)
+                    .addComponent(btnObrisi))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lstSmjerovi.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstSmjeroviValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstSmjerovi);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDodajMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDodajMouseEntered
+        btnDodaj.setBackground(Color.LIGHT_GRAY);
+    }//GEN-LAST:event_btnDodajMouseEntered
+
+    private void btnDodajMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDodajMouseExited
+        btnDodaj.setBackground(new JButton().getBackground());
+    }//GEN-LAST:event_btnDodajMouseExited
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        smjer = new Smjer();
+
+        if (!popuniSvojstva()) {
+            return;
+        }
+        try {
+            o.dodaj(smjer);
+            ucitajIzBaze();
+        } catch (MojException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
+
+    private void btnPromjenaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPromjenaMouseEntered
+        btnPromjena.setBackground(Color.LIGHT_GRAY);
+    }//GEN-LAST:event_btnPromjenaMouseEntered
+
+    private void btnPromjenaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPromjenaMouseExited
+        btnPromjena.setBackground(new JButton().getBackground());
+    }//GEN-LAST:event_btnPromjenaMouseExited
+
+    private void btnPromjenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjenaActionPerformed
+        smjer = lstSmjerovi.getSelectedValue();
+        if (smjer == null) {
+            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberi smjer.");
+            return;
+        }
+
+        if (!popuniSvojstva()) {
+            return;
+        }
+
+        try {
+            o.promjena(smjer);
+            ucitajIzBaze();
+
+        } catch (MojException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+        }
+    }//GEN-LAST:event_btnPromjenaActionPerformed
+
+    private void btnObrisiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnObrisiMouseEntered
+        btnObrisi.setBackground(Color.LIGHT_GRAY);
+    }//GEN-LAST:event_btnObrisiMouseEntered
+
+    private void btnObrisiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnObrisiMouseExited
+        btnObrisi.setBackground(new JButton().getBackground());
+    }//GEN-LAST:event_btnObrisiMouseExited
+
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+        smjer = lstSmjerovi.getSelectedValue();
+        if (smjer == null) {
+            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberi sektor.");
+            return;
+        }
+
+        if(lstSmjerovi.getSelectedValuesList().size()==1){
+            try {
+                o.obrisi(lstSmjerovi.getSelectedValuesList().get(0));
+            } catch (Exception ex) {
+                HibernateUtil.getSession().clear();
+                JOptionPane.showMessageDialog(getRootPane(), "Penjalište " +
+                    lstSmjerovi.getSelectedValuesList().get(0)
+                    +
+                    " ne mogu obrisati.");
+            }
+            ucitajIzBaze();
+        }else{
+            new BrisanjeSmjerova().start();
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void lstSmjeroviValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSmjeroviValueChanged
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
+
+        Smjer s = lstSmjerovi.getSelectedValue();
+        if (s == null) {
+            return;
+        }
+        ocistiPolja();
+
+        txtNaziv.setText(s.getNaziv());
+        txtDuzina.setText(String.valueOf(s.getDuzina()));
+        txtOcjena.setText(s.getOcjena());
+        
+    }//GEN-LAST:event_lstSmjeroviValueChanged
 
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnObrisi;
+    private javax.swing.JButton btnPromjena;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblLat;
+    private javax.swing.JLabel lblLat1;
+    private javax.swing.JLabel lblLat2;
+    private javax.swing.JLabel lblLon;
+    private javax.swing.JLabel lblNaziv;
+    private javax.swing.JList<Smjer> lstSmjerovi;
+    private javax.swing.JPanel pnlPodaci;
+    private javax.swing.JProgressBar prbBrisanje;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtDuzina;
+    private javax.swing.JTextField txtNaziv;
+    private javax.swing.JTextField txtOcjena;
+    private javax.swing.JTextField txtSektor;
     // End of variables declaration//GEN-END:variables
+       private void ocistiPolja() {
+
+        for (Component c : pnlPodaci.getComponents()) {
+
+            if (c instanceof JTextField) {
+                ((JTextField) c).setText("");
+            }
+        }
+    }
+      
+      private boolean popuniSvojstva() {
+        try {
+            smjer.setNaziv(txtNaziv.getText().substring(0, 1).toUpperCase() + txtNaziv.getText().substring(1).toLowerCase());
+            smjer.setOcjena(txtOcjena.getText());
+            smjer.setDuzina(Integer.parseInt(txtDuzina.getText()));
+//            smjer.setSektor(txtSektor.getText());
+//            smjer.setAutor(txtAutor.getText());
+        } catch (StringIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
+            return false;
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(getRootPane(), "Dužina može sadržavati samo brojeve.");
+            return false;
+        }
+
+        return true;
+    }
+    
+    private void ucitajIzBaze() {
+       DefaultListModel<Smjer> m = new DefaultListModel<>();
+        o.getEntiteti().forEach((s) -> {
+            m.addElement(s);
+        });
+        lstSmjerovi.setModel(m);
+    }
+
+    private void promjenaIzgleda() {
+        getContentPane().setBackground(Color.decode("#082F4E"));
+        pnlPodaci.setBackground(Color.decode("#082F4E"));
+        changeIcon();
+    }
+    
+      private void changeIcon() {
+               try {
+    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+}
+catch (IOException exc) {
+    exc.printStackTrace();
+}
+
+}
+      private class BrisanjeSmjerova extends Thread {
+
+        public void run() {
+             prbBrisanje.setMinimum(0);
+        prbBrisanje.setMaximum(lstSmjerovi.getSelectedValuesList().size());
+        int i=0;
+        
+        for (Smjer e : lstSmjerovi.getSelectedValuesList()) {
+             prbBrisanje.setValue(++i);
+            try {
+                 o.obrisi(e);
+            } catch (Exception ex) {
+                 HibernateUtil.getSession().clear();
+               
+            }
+        }
+         ucitajIzBaze();
+         prbBrisanje.setValue(0);
+        }
+    }
 }
