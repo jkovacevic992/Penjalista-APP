@@ -59,7 +59,6 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblNaziv" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblLon" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblLat" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblLat1" min="-2" pref="398" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="prbBrisanje" alignment="0" max="32767" attributes="0"/>
@@ -78,6 +77,7 @@
                                   <Component id="txtOcjena" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtDuzina" alignment="0" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="lblLat" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -157,7 +157,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Du&#x17e;ina"/>
+            <Property name="text" type="java.lang.String" value="Du&#x17e;ina (m)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDuzina">

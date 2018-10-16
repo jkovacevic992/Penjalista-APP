@@ -83,7 +83,7 @@ public class Smjerovi extends javax.swing.JFrame {
 
         lblLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLat.setForeground(new java.awt.Color(255, 255, 255));
-        lblLat.setText("Dužina");
+        lblLat.setText("Dužina (m)");
 
         btnDodaj.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnDodaj.setText("Dodaj");
@@ -157,7 +157,6 @@ public class Smjerovi extends javax.swing.JFrame {
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNaziv)
                             .addComponent(lblLon)
-                            .addComponent(lblLat)
                             .addComponent(lblLat1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(prbBrisanje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,7 +171,8 @@ public class Smjerovi extends javax.swing.JFrame {
                             .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtNaziv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                                 .addComponent(txtOcjena, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDuzina, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addComponent(txtDuzina, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(lblLat, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -373,7 +373,7 @@ public class Smjerovi extends javax.swing.JFrame {
       
       private boolean popuniSvojstva() {
         try {
-            smjer.setNaziv(txtNaziv.getText().substring(0, 1).toUpperCase() + txtNaziv.getText().substring(1).toLowerCase());
+            smjer.setNaziv(txtNaziv.getText());
             smjer.setOcjena(txtOcjena.getText());
             smjer.setDuzina(Integer.parseInt(txtDuzina.getText()));
 //            smjer.setSektor(txtSektor.getText());

@@ -414,7 +414,7 @@ public class Penjalista extends javax.swing.JFrame {
 
     private boolean popuniSvojstva() {
         try {
-            penjaliste.setNaziv(txtNaziv.getText().substring(0, 1).toUpperCase() + txtNaziv.getText().substring(1).toLowerCase());
+            penjaliste.setNaziv(txtNaziv.getText() );
             penjaliste.setLat(Double.parseDouble(txtLat.getText()));
             penjaliste.setLon(Double.parseDouble(txtLon.getText()));
         } catch (StringIndexOutOfBoundsException e) {

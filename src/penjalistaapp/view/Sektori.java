@@ -421,7 +421,7 @@ catch (IOException exc) {
       
       private boolean popuniSvojstva() {
         try {
-            sektor.setNaziv(txtNaziv.getText().substring(0, 1).toUpperCase() + txtNaziv.getText().substring(1).toLowerCase());
+            sektor.setNaziv(txtNaziv.getText());
             sektor.setLat(Double.parseDouble(txtLat.getText()));
             sektor.setLon(Double.parseDouble(txtLon.getText()));
         } catch (StringIndexOutOfBoundsException e) {

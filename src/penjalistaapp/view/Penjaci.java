@@ -357,9 +357,9 @@ private void ucitajIzBaze() {
 
     private boolean popuniSvojstva() {
         try {
-            penjac.setIme(txtIme.getText().substring(0, 1).toUpperCase() + txtIme.getText().substring(1).toLowerCase());
-            penjac.setPrezime(txtPrezime.getText().substring(0, 1).toUpperCase() + txtPrezime.getText().substring(1).toLowerCase());
-            penjac.setRezultat(txtRezultat.getText().substring(0, 1).toUpperCase() + txtRezultat.getText().substring(1).toLowerCase());
+            penjac.setIme(txtIme.getText() );
+            penjac.setPrezime(txtPrezime.getText() );
+            penjac.setRezultat(txtRezultat.getText() );
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;

@@ -341,8 +341,8 @@ public class Autori extends javax.swing.JFrame {
 
     private boolean popuniSvojstva() {
         try {
-            autor.setIme(txtIme.getText().substring(0, 1).toUpperCase() + txtIme.getText().substring(1).toLowerCase());
-        autor.setPrezime(txtPrezime.getText().substring(0, 1).toUpperCase() + txtPrezime.getText().substring(1).toLowerCase());
+            autor.setIme(txtIme.getText());
+        autor.setPrezime(txtPrezime.getText());
 
         
             
