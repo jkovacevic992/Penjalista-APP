@@ -37,8 +37,8 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
     }
 
     private void kontrola(Sektor s) throws MojException {
-        if (!s.getNaziv().chars().allMatch(Character::isLetter)) {
-            throw new MojException("Naziv smjera može sadržavati samo slova.");
+        if (s.getNaziv().matches("/^[a-zA-Z\\s]*$/")) {
+            throw new MojException("Naziv sektora može sadržavati samo slova.");
         }
 
     }

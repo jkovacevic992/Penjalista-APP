@@ -6,6 +6,9 @@
 package penjalistaapp.view;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -68,9 +71,15 @@ public class OAplikaciji extends javax.swing.JFrame {
         
         
         getContentPane().setBackground(Color.decode("#082F4E"));
-       
+         try {
+    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+}
+catch (IOException exc) {
+    exc.printStackTrace();
+}
    
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

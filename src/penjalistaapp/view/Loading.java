@@ -59,6 +59,7 @@ public class Loading extends javax.swing.JFrame {
         lblLoading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         lblLoading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjalistaapp/view/loading.gif"))); // NOI18N
 

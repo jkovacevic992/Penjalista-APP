@@ -64,7 +64,7 @@ public class Izbornik extends javax.swing.JFrame {
          
  
 
-        changeIcon();
+        
         minimizeToSysTray();
     }
 
@@ -485,19 +485,18 @@ public class Izbornik extends javax.swing.JFrame {
     }
             }
 
-    private void changeIcon() {
-               try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
-    }
+  
 
     private void promjenaIzgleda() {
         
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlIzbornik.setBackground(Color.decode("#082F4E"));
+          try {
+    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+}
+catch (IOException exc) {
+    exc.printStackTrace();
+}
     }
     
         

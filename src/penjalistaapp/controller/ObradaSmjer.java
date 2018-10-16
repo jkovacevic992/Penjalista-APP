@@ -36,7 +36,7 @@ public class ObradaSmjer extends Obrada implements ObradaInterface<Smjer>{
         return s;
     }
      private void kontrola(Smjer s) throws MojException{
-        if(!s.getNaziv().chars().allMatch(Character::isLetter)){
+        if(s.getNaziv().matches("/^[a-zA-Z\\s]*$/")){
             throw new MojException("Naziv smjera može sadržavati samo slova.");
            
         }

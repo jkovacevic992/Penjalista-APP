@@ -39,7 +39,7 @@ public class ObradaAutor extends Obrada implements ObradaInterface<Autor>{
     }
     
        private void kontrola(Autor a) throws MojException{
-        if(!a.getIme().chars().allMatch(Character::isLetter) || !a.getPrezime().chars().allMatch(Character::isLetter)){
+        if(a.getIme().matches("/^[a-zA-Z\\s]*$/") || a.getPrezime().matches("/^[a-zA-Z\\s]*$/")){
             throw new MojException("Ime i prezime autora mogu sadržavati samo slova.");
            
         }

@@ -427,19 +427,17 @@ public class Penjalista extends javax.swing.JFrame {
 
         return true;
     }
-        private void changeIcon() {
+        
+
+    private void promjenaIzgleda() {
+        getContentPane().setBackground(Color.decode("#082F4E"));
+        pnlPodaci.setBackground(Color.decode("#082F4E"));
                try {
     setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
 }
 catch (IOException exc) {
     exc.printStackTrace();
 }
-    }
-
-    private void promjenaIzgleda() {
-        getContentPane().setBackground(Color.decode("#082F4E"));
-        pnlPodaci.setBackground(Color.decode("#082F4E"));
-        changeIcon();
 
     }
 

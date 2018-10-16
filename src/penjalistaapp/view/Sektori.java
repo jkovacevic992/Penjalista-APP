@@ -400,18 +400,15 @@ private class BrisanjeSektora extends Thread {
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-        changeIcon();
-    }
-    
-      private void changeIcon() {
-               try {
+             try {
     setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
 }
 catch (IOException exc) {
     exc.printStackTrace();
 }
-            
     }
+    
+     
       private void ocistiPolja() {
 
         for (Component c : pnlPodaci.getComponents()) {

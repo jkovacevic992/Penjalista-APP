@@ -356,14 +356,7 @@ public class Autori extends javax.swing.JFrame {
 
         return true;
     }
-     private void changeIcon() {
-               try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
-    }
+ 
       private class BrisanjeAutora extends Thread {
 
         public void run() {
@@ -388,7 +381,12 @@ catch (IOException exc) {
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-        changeIcon();
+             try {
+    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+}
+catch (IOException exc) {
+    exc.printStackTrace();
+}
     }
 
 }

@@ -37,7 +37,7 @@ public class ObradaPenjaliste extends Obrada implements ObradaInterface<Penjalis
     }
 
     private void kontrola(Penjaliste e) throws MojException {
-        if (!e.getNaziv().chars().allMatch(Character::isLetter)) {
+        if (e.getNaziv().matches("/^[a-zA-Z\\s]*$/")) {
             throw new MojException("Naziv može sadržavati samo slova.");
         }
       

@@ -38,7 +38,7 @@ public class ObradaPenjac extends Obrada implements ObradaInterface<Penjac>{
     }
     
     private void kontrola(Penjac p) throws MojException{
-        if(!p.getIme().chars().allMatch(Character::isLetter) || !p.getPrezime().chars().allMatch(Character::isLetter)){
+        if(p.getIme().matches("/^[a-zA-Z\\s]*$/") || p.getPrezime().matches("/^[a-zA-Z\\s]*$/")){
             throw new MojException("Ime i prezime penjača mogu sadržavati samo slova.");
            
         }

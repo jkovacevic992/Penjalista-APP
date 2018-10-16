@@ -368,19 +368,16 @@ private void ucitajIzBaze() {
          return true;
     }
     
-        private void changeIcon() {
-               try {
+       
+    private void promjenaIzgleda() {
+        getContentPane().setBackground(Color.decode("#082F4E"));
+        pnlPodaci.setBackground(Color.decode("#082F4E"));
+           try {
     setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
 }
 catch (IOException exc) {
     exc.printStackTrace();
 }
-    }
-
-    private void promjenaIzgleda() {
-        getContentPane().setBackground(Color.decode("#082F4E"));
-        pnlPodaci.setBackground(Color.decode("#082F4E"));
-        changeIcon();
     }
         
          private class BrisanjePenjaca extends Thread {

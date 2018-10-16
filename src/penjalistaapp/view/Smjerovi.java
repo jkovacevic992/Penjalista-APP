@@ -71,7 +71,7 @@ public class Smjerovi extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSmjerovi = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
@@ -400,18 +400,15 @@ public class Smjerovi extends javax.swing.JFrame {
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-        changeIcon();
-    }
-    
-      private void changeIcon() {
-               try {
+            try {
     setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
 }
 catch (IOException exc) {
     exc.printStackTrace();
 }
-
-}
+    }
+    
+  
       private class BrisanjeSmjerova extends Thread {
 
         public void run() {
