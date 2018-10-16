@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import penjalistaapp.controller.ObradaPenjaliste;
 import penjalistaapp.controller.ObradaSektor;
+import penjalistaapp.controller.ObradaSmjer;
 import penjalistaapp.model.Sektor;
 import penjalistaapp.model.Smjer;
 import penjalistaapp.pomocno.HibernateUtil;
@@ -33,12 +36,14 @@ public class Sektori extends javax.swing.JFrame {
     final private ObradaSektor o;
     private Sektor sektor;
     final private DecimalFormat df;
+    private List<Smjer> smjeroviUBazi;
     public Sektori() {
         initComponents();
         promjenaIzgleda();
        
         o = new ObradaSektor();
         ucitajIzBaze();
+        ucitajSmjerove();
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
         df.applyPattern("###,##0.00");
@@ -395,6 +400,15 @@ private class BrisanjeSektora extends Thread {
             m.addElement(s);
         });
         lstSektori.setModel(m);
+        
+        ObradaSmjer opo = new ObradaSmjer();
+        DefaultListModel<Smjer> m1 = new DefaultListModel<>();
+        smjeroviUBazi = opo.getEntiteti();
+        smjeroviUBazi.forEach((s) -> {
+            
+            m1.addElement(s);
+        });
+        lstSmjeroviUBazi.setModel(m1);
     }
 
     private void promjenaIzgleda() {
@@ -430,7 +444,19 @@ catch (IOException exc) {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(getRootPane(), "Geografska širina ili dužina nije unesena.");
         }
-
-        return true;
+       return true;
     }
+      
+      public void ucitajSmjerove(){
+           ObradaSmjer opo = new ObradaSmjer();
+        DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+        smjeroviUBazi = opo.getEntiteti();
+        smjeroviUBazi.forEach((s) -> {
+            // System.out.println( s + " - " + s.hashCode());
+            m2.addElement(s);
+        });
+        lstSmjeroviUBazi.setModel(m2);
+
+        
+      }
 }

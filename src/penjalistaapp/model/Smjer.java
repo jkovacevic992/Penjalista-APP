@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Smjer extends Entitet implements Serializable{
     private String naziv;
     private String ocjena;
     private int duzina;
-    @ManyToOne
+    @OneToOne
     private Sektor sektor;
     @ManyToOne
     private Autor autor;

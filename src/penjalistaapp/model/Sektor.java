@@ -6,8 +6,11 @@
 package penjalistaapp.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,8 +21,22 @@ public class Sektor extends Entitet implements Serializable{
       private String naziv;
     private Double lat;
     private Double lon;
-    @ManyToOne
+    @OneToOne
     private Penjaliste penjaliste;
+    
+    @OneToMany
+    private List<Smjer> smjerovi;
+
+    public List<Smjer> getSmjerovi() {
+        return smjerovi;
+    }
+
+    public void setSmjerovi(List<Smjer> smjerovi) {
+        this.smjerovi = smjerovi;
+    }
+
+  
+    
 
     public String getNaziv() {
         return naziv;
