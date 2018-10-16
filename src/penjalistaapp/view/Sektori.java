@@ -19,7 +19,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import penjalistaapp.controller.ObradaPenjaliste;
 import penjalistaapp.controller.ObradaSektor;
 import penjalistaapp.controller.ObradaSmjer;
 import penjalistaapp.model.Sektor;
@@ -42,11 +41,13 @@ public class Sektori extends javax.swing.JFrame {
         promjenaIzgleda();
        
         o = new ObradaSektor();
-        ucitajIzBaze();
         ucitajSmjerove();
+        ucitajIzBaze();
+        
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
         df.applyPattern("###,##0.00");
+        lstSmjeroviNaSektoru.setModel(new DefaultListModel<>());
     }
 
     /**
@@ -74,7 +75,7 @@ public class Sektori extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         lstSmjeroviNaSektoru = new javax.swing.JList<>();
         btnMinus = new javax.swing.JButton();
-        btnPlus1 = new javax.swing.JButton();
+        btnPlus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSektori = new javax.swing.JList<>();
 
@@ -146,7 +147,12 @@ public class Sektori extends javax.swing.JFrame {
 
         btnMinus.setText("-");
 
-        btnPlus1.setText("+");
+        btnPlus.setText("+");
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
@@ -175,7 +181,7 @@ public class Sektori extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPodaciLayout.createSequentialGroup()
-                                .addComponent(btnPlus1)
+                                .addComponent(btnPlus)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnMinus)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -209,7 +215,7 @@ public class Sektori extends javax.swing.JFrame {
                         .addGap(0, 9, Short.MAX_VALUE)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnMinus)
-                            .addComponent(btnPlus1))
+                            .addComponent(btnPlus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,6 +354,20 @@ public class Sektori extends javax.swing.JFrame {
         txtLon.setText(String.valueOf(s.getLon()));
     }//GEN-LAST:event_lstSektoriValueChanged
 
+    private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
+          if (lstSmjeroviUBazi.getSelectedValue() == null) {
+            return;
+        }
+Smjer s = lstSmjeroviUBazi.getSelectedValue();
+        if (!((DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel()).contains(s)) {
+            ((DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel()).addElement(s);
+            lstSmjeroviNaSektoru.repaint();
+            lstSmjeroviNaSektoru.revalidate();
+        }
+ 
+
+    }//GEN-LAST:event_btnPlusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,7 +377,7 @@ public class Sektori extends javax.swing.JFrame {
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnObrisi;
-    private javax.swing.JButton btnPlus1;
+    private javax.swing.JButton btnPlus;
     private javax.swing.JButton btnPromjena;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -401,14 +421,7 @@ private class BrisanjeSektora extends Thread {
         });
         lstSektori.setModel(m);
         
-        ObradaSmjer opo = new ObradaSmjer();
-        DefaultListModel<Smjer> m1 = new DefaultListModel<>();
-        smjeroviUBazi = opo.getEntiteti();
-        smjeroviUBazi.forEach((s) -> {
-            
-            m1.addElement(s);
-        });
-        lstSmjeroviUBazi.setModel(m1);
+        
     }
 
     private void promjenaIzgleda() {
@@ -438,12 +451,19 @@ catch (IOException exc) {
             sektor.setNaziv(txtNaziv.getText());
             sektor.setLat(Double.parseDouble(txtLat.getText()));
             sektor.setLon(Double.parseDouble(txtLon.getText()));
+      
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(getRootPane(), "Geografska širina ili dužina nije unesena.");
         }
+        List<Smjer> smjerovi = new ArrayList<>();
+        DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel();
+        for (int i = 0; i < m.getSize(); i++) {
+            smjerovi.add(m.getElementAt(i));
+        }
+        sektor.setSmjerovi(smjerovi);
        return true;
     }
       
@@ -452,7 +472,7 @@ catch (IOException exc) {
         DefaultListModel<Smjer> m2 = new DefaultListModel<>();
         smjeroviUBazi = opo.getEntiteti();
         smjeroviUBazi.forEach((s) -> {
-            // System.out.println( s + " - " + s.hashCode());
+        
             m2.addElement(s);
         });
         lstSmjeroviUBazi.setModel(m2);

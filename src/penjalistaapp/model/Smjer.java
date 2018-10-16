@@ -22,7 +22,7 @@ public class Smjer extends Entitet implements Serializable{
     private String naziv;
     private String ocjena;
     private int duzina;
-    @OneToOne
+    
     private Sektor sektor;
     @ManyToOne
     private Autor autor;
