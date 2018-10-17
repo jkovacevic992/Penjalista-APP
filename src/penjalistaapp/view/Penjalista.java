@@ -7,8 +7,11 @@ package penjalistaapp.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -71,6 +74,7 @@ public class Penjalista extends javax.swing.JFrame {
         btnMinus = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lstSektoriNaPenjalistu = new javax.swing.JList<>();
+        btnMap = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstPenjalista = new javax.swing.JList<>();
 
@@ -145,6 +149,13 @@ public class Penjalista extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(lstSektoriNaPenjalistu);
 
+        btnMap.setText("Google maps");
+        btnMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMapActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
         pnlPodaciLayout.setHorizontalGroup(
@@ -154,19 +165,23 @@ public class Penjalista extends javax.swing.JFrame {
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(prbBrisanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNaziv)
-                            .addComponent(lblLon)
-                            .addComponent(lblLat)
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtLon)
                             .addComponent(txtLat)
+                            .addComponent(txtNaziv)
+                            .addComponent(btnMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNaziv))
+                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNaziv)
+                                    .addComponent(lblLon)
+                                    .addComponent(lblLat)
+                                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
@@ -199,17 +214,18 @@ public class Penjalista extends javax.swing.JFrame {
                             .addComponent(btnMinus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
                         .addComponent(lblLat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnMap)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
-                            .addComponent(btnObrisi))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(btnObrisi))))
                 .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
         );
@@ -348,6 +364,21 @@ public class Penjalista extends javax.swing.JFrame {
         btnObrisi.setBackground(new JButton().getBackground());
     }//GEN-LAST:event_btnObrisiMouseExited
 
+    private void btnMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapActionPerformed
+       try {
+
+
+
+                Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q="+txtLon.getText()+","+txtLat.getText()));
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_btnMapActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,6 +414,7 @@ public class Penjalista extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnMap;
     private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPlus1;
@@ -415,8 +447,8 @@ public class Penjalista extends javax.swing.JFrame {
     private boolean popuniSvojstva() {
         try {
             penjaliste.setNaziv(txtNaziv.getText() );
-            penjaliste.setLat(Double.parseDouble(txtLat.getText()));
-            penjaliste.setLon(Double.parseDouble(txtLon.getText()));
+            penjaliste.setLat(Double.parseDouble(txtLat.getText().replace(',', '.')));
+            penjaliste.setLon(Double.parseDouble(txtLon.getText().replace(',', '.')));
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
