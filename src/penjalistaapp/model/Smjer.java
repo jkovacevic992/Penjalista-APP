@@ -24,7 +24,9 @@ public class Smjer extends Entitet implements Serializable{
     private String naziv;
     private String ocjena;
     private int duzina;
+    
     @ManyToOne
+    @JoinColumn(name="sektor_id")
     private Sektor sektor;
     @ManyToOne
     private Autor autor;
@@ -70,6 +72,8 @@ public class Smjer extends Entitet implements Serializable{
     public void setSektor(Sektor sektor) {
         this.sektor = sektor;
     }
+
+
 
     public Autor getAutor() {
         return autor;

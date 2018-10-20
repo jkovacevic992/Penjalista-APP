@@ -7,6 +7,7 @@ package penjalistaapp.model;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -33,6 +34,8 @@ public class Sektor extends Entitet implements Serializable{
     public void setSmjerovi(List<Smjer> smjerovi) {
         this.smjerovi = smjerovi;
     }
+
+
 
   
     

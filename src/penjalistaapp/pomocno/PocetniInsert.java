@@ -7,6 +7,8 @@ package penjalistaapp.pomocno;
 
 import penjalistaapp.model.Operater;
 import org.hibernate.Session;
+import penjalistaapp.model.Sektor;
+import penjalistaapp.model.Smjer;
 
 /**
  *
@@ -23,6 +25,8 @@ public class PocetniInsert {
         o.setEmail("jkovacevic@gmail.com");
         o.setLozinka(Autorizacija.getHash("j"));
         session.save(o);
+        
+       
         
         session.getTransaction().commit();
     }

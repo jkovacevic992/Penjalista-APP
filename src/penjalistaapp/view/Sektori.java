@@ -369,6 +369,15 @@ public class Sektori extends javax.swing.JFrame {
         txtNaziv.setText(s.getNaziv());
         txtLat.setText(String.valueOf(s.getLat()));
         txtLon.setText(String.valueOf(s.getLon()));
+        if (s.getSmjerovi()!= null) {
+                  
+                    DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+                    s.getSmjerovi().forEach((d) -> {
+                        // System.out.println( s + " - " + s.hashCode());
+                        m2.addElement(d);
+                    });
+                    lstSmjeroviNaSektoru.setModel(m2);
+                }
     }//GEN-LAST:event_lstSektoriValueChanged
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed

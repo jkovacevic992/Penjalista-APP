@@ -15,12 +15,12 @@ import penjalistaapp.pomocno.MojException;
  */
 public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
 
-    @Override
+  
     public List<Sektor> getEntiteti() {
         return session.createQuery(" from Sektor").list();
     }
 
-    @Override
+ 
     public Sektor dodaj(Sektor s) throws MojException {
         kontrola(s);
         spremi(s);
@@ -28,7 +28,7 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
         return s;
     }
 
-    @Override
+
     public Sektor promjena(Sektor s) throws MojException {
         kontrola(s);
         spremi(s);
