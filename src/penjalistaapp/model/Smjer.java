@@ -8,6 +8,8 @@ package penjalistaapp.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -22,7 +24,7 @@ public class Smjer extends Entitet implements Serializable{
     private String naziv;
     private String ocjena;
     private int duzina;
-    
+    @ManyToOne
     private Sektor sektor;
     @ManyToOne
     private Autor autor;

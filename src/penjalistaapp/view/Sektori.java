@@ -451,6 +451,12 @@ catch (IOException exc) {
             sektor.setNaziv(txtNaziv.getText());
             sektor.setLat(Double.parseDouble(txtLat.getText()));
             sektor.setLon(Double.parseDouble(txtLon.getText()));
+            List<Smjer> smjerovi = new ArrayList<>();
+        DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel();
+        for (int i = 0; i < m.getSize(); i++) {
+            smjerovi.add(m.getElementAt(i));
+        }
+        sektor.setSmjerovi(smjerovi);
       
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
@@ -458,12 +464,7 @@ catch (IOException exc) {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(getRootPane(), "Geografska širina ili dužina nije unesena.");
         }
-        List<Smjer> smjerovi = new ArrayList<>();
-        DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel();
-        for (int i = 0; i < m.getSize(); i++) {
-            smjerovi.add(m.getElementAt(i));
-        }
-        sektor.setSmjerovi(smjerovi);
+        
        return true;
     }
       

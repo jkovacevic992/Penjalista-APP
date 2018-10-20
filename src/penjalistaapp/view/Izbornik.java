@@ -17,6 +17,8 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -25,15 +27,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import penjalistaapp.controller.ObradaAutor;
 import penjalistaapp.controller.ObradaPenjac;
 import penjalistaapp.controller.ObradaPenjaliste;
+import penjalistaapp.model.Autor;
 import penjalistaapp.model.Entitet;
 
 import penjalistaapp.model.Operater;
@@ -95,6 +104,7 @@ public class Izbornik extends javax.swing.JFrame {
         jmnAutori = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jmiExcel = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -253,6 +263,14 @@ public class Izbornik extends javax.swing.JFrame {
             }
         });
         jmnAutori.add(jMenuItem2);
+
+        jmiExcel.setText("MS Excel");
+        jmiExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcelActionPerformed(evt);
+            }
+        });
+        jmnAutori.add(jmiExcel);
 
         menExport.add(jmnAutori);
 
@@ -417,6 +435,33 @@ public class Izbornik extends javax.swing.JFrame {
        smjer.setVisible(true);
     }//GEN-LAST:event_btnSmjeroviActionPerformed
 
+    private void jmiExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelActionPerformed
+        ObradaAutor o = new ObradaAutor();
+        List<Autor> lista = o.getEntiteti();
+        try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
+
+            HSSFSheet s = wb.createSheet("Podaci");
+            int rownum;
+            for (rownum = 0; rownum < lista.size(); rownum++) {
+                HSSFRow r = s.createRow(rownum);
+                HSSFCell c = r.createCell(0);
+                c.setCellValue(lista.get(rownum).getIme());
+                c = r.createCell(1);
+                c.setCellValue(lista.get(rownum).getPrezime());
+                
+
+            }
+            HSSFRow r = s.createRow(++rownum);
+            
+
+            // Create various cells and rows for spreadsheet.
+            spremiExcel("autori.xls", wb, true);
+
+        } catch (IOException e) {
+
+        }
+    }//GEN-LAST:event_jmiExcelActionPerformed
+
     
     private void spremiCSV(List<Entitet> lista){
          String naziv="podaci";
@@ -450,6 +495,7 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar jmbMenu;
+    private javax.swing.JMenuItem jmiExcel;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiOAplikaciji;
     private javax.swing.JMenu jmnAutori;
@@ -577,6 +623,37 @@ catch (IOException exc) {
         diff[3]));
             }
         }, 0, 1000);
+    }
+
+     private void spremiExcel(String nazivDatoteke, HSSFWorkbook wb, boolean otvoriNakonSpremanja) {
+        JFileChooser spremiKao = new JFileChooser();
+        spremiKao.setSelectedFile(new File(System.getProperty("user.home") + File.separator + nazivDatoteke));
+        spremiKao.setCurrentDirectory(new File(System.getProperty("user.home")));
+        spremiKao.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (spremiKao.showSaveDialog(getParent()) == JFileChooser.APPROVE_OPTION) {
+            FileOutputStream fileOut = null;
+            try {
+                String putanja = spremiKao.getSelectedFile().getAbsolutePath();
+                File dat = new File(spremiKao.getSelectedFile() + File.separator + nazivDatoteke);
+                fileOut = new FileOutputStream(dat);
+                wb.write(fileOut);
+                if (otvoriNakonSpremanja) {
+                    Desktop d = Desktop.getDesktop();
+                    d.open(dat);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Izbornik.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Izbornik.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    fileOut.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Izbornik.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
     }
     }
 

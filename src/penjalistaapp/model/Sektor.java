@@ -8,7 +8,7 @@ package penjalistaapp.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,8 +23,7 @@ public class Sektor extends Entitet implements Serializable{
     private Double lon;
     @OneToOne
     private Penjaliste penjaliste;
-    
-    @OneToMany
+    @OneToMany(mappedBy = "sektor")
     private List<Smjer> smjerovi;
 
     public List<Smjer> getSmjerovi() {
