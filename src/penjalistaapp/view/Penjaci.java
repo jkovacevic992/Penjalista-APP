@@ -11,14 +11,19 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import penjalistaapp.controller.ObradaPenjac;
+import penjalistaapp.controller.ObradaSmjer;
 import penjalistaapp.model.Penjac;
+import penjalistaapp.model.Smjer;
 import penjalistaapp.pomocno.HibernateUtil;
 import penjalistaapp.pomocno.MojException;
 
@@ -31,6 +36,7 @@ public class Penjaci extends javax.swing.JFrame {
     private ObradaPenjac o;
     private Penjac penjac;
     final private DecimalFormat df;
+    private List<Smjer> smjeroviUBazi;
 
     public Penjaci() {
         initComponents();
@@ -38,10 +44,13 @@ public class Penjaci extends javax.swing.JFrame {
         
 
         o = new ObradaPenjac();
+         ucitajSmjerove();
         ucitajIzBaze();
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
         df.applyPattern("###,##0.00");
+        
+        lstSmjeroviPenjac.setModel(new DefaultListModel<>());
     }
 
     /**
@@ -56,7 +65,6 @@ public class Penjaci extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstPenjaci = new javax.swing.JList<>();
         pnlPodaci = new javax.swing.JPanel();
-        lblIme = new javax.swing.JLabel();
         txtIme = new javax.swing.JTextField();
         lblPrezime = new javax.swing.JLabel();
         txtPrezime = new javax.swing.JTextField();
@@ -66,6 +74,14 @@ public class Penjaci extends javax.swing.JFrame {
         btnPromjena = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
         prbBrisanje = new javax.swing.JProgressBar();
+        lblIme = new javax.swing.JLabel();
+        lblSmjerovi = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstSmjeroviUBazi = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstSmjeroviPenjac = new javax.swing.JList<>();
+        btnPlus = new javax.swing.JButton();
+        btnMinus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Penjači");
@@ -77,10 +93,6 @@ public class Penjaci extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(lstPenjaci);
-
-        lblIme.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
-        lblIme.setForeground(new java.awt.Color(255, 255, 255));
-        lblIme.setText("Ime");
 
         lblPrezime.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblPrezime.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,6 +150,31 @@ public class Penjaci extends javax.swing.JFrame {
             }
         });
 
+        lblIme.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblIme.setForeground(new java.awt.Color(255, 255, 255));
+        lblIme.setText("Ime");
+
+        lblSmjerovi.setText("Smjerovi");
+
+        lstSmjeroviUBazi.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(lstSmjeroviUBazi);
+
+        jScrollPane3.setViewportView(lstSmjeroviPenjac);
+
+        btnPlus.setText("+");
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusActionPerformed(evt);
+            }
+        });
+
+        btnMinus.setText("-");
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
         pnlPodaciLayout.setHorizontalGroup(
@@ -145,47 +182,75 @@ public class Penjaci extends javax.swing.JFrame {
             .addGroup(pnlPodaciLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(prbBrisanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtRezultat)
-                    .addComponent(txtIme)
-                    .addComponent(txtPrezime)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblIme)
-                            .addComponent(lblPrezime)
-                            .addComponent(lblRezultat)
+                        .addComponent(lblIme)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSmjerovi)
+                        .addGap(154, 154, 154))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPodaciLayout.createSequentialGroup()
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(prbBrisanje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblRezultat)
+                                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtRezultat))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlPodaciLayout.createSequentialGroup()
+                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPrezime)
+                                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(68, 68, 68))))
         );
         pnlPodaciLayout.setVerticalGroup(
             pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPodaciLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblIme)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPrezime)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblRezultat)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtRezultat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(4, 4, 4)
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDodaj)
-                    .addComponent(btnPromjena)
-                    .addComponent(btnObrisi))
+                    .addComponent(lblIme)
+                    .addComponent(lblSmjerovi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPrezime)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRezultat)
+                    .addComponent(btnPlus)
+                    .addComponent(btnMinus))
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(txtRezultat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDodaj)
+                            .addComponent(btnPromjena)
+                            .addComponent(btnObrisi)))
+                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,21 +259,19 @@ public class Penjaci extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,6 +292,15 @@ public class Penjaci extends javax.swing.JFrame {
         txtIme.setText(p.getIme());
         txtPrezime.setText(p.getPrezime());
         txtRezultat.setText(p.getRezultat());
+        if (p.getSmjerovi()!= null) {
+                  
+                    DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+                    p.getSmjerovi().forEach((s) -> {
+                        // System.out.println( s + " - " + s.hashCode());
+                        m2.addElement(s);
+                    });
+                    lstSmjeroviPenjac.setModel(m2);
+                }
 
 
     }//GEN-LAST:event_lstPenjaciValueChanged
@@ -318,6 +390,31 @@ if(lstPenjaci.getSelectedValuesList().size()==1){
         btnObrisi.setBackground(new JButton().getBackground());
     }//GEN-LAST:event_btnObrisiMouseExited
 
+    private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
+         if (lstSmjeroviUBazi.getSelectedValue() == null) {
+            return;
+        }
+Smjer s = lstSmjeroviUBazi.getSelectedValue();
+        if (!((DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel()).contains(s)) {
+            ((DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel()).addElement(s);
+            lstSmjeroviPenjac.repaint();
+            lstSmjeroviPenjac.revalidate();
+        }
+    }//GEN-LAST:event_btnPlusActionPerformed
+
+    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
+         if (lstSmjeroviPenjac.getSelectedValue() == null) {
+            return;
+        }
+
+        DefaultListModel<Smjer> m2 = (DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel();
+
+        m2.removeElement(lstSmjeroviPenjac.getSelectedValue());
+
+        lstSmjeroviPenjac.repaint();
+        lstSmjeroviPenjac.revalidate();
+    }//GEN-LAST:event_btnMinusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,18 +425,26 @@ if(lstPenjaci.getSelectedValuesList().size()==1){
             if (c instanceof JTextField) {
                 ((JTextField) c).setText("");
             }
+            
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnObrisi;
+    private javax.swing.JButton btnPlus;
     private javax.swing.JButton btnPromjena;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblIme;
     private javax.swing.JLabel lblPrezime;
     private javax.swing.JLabel lblRezultat;
+    private javax.swing.JLabel lblSmjerovi;
     private javax.swing.JList<Penjac> lstPenjaci;
+    private javax.swing.JList<Smjer> lstSmjeroviPenjac;
+    private javax.swing.JList<Smjer> lstSmjeroviUBazi;
     private javax.swing.JPanel pnlPodaci;
     private javax.swing.JProgressBar prbBrisanje;
     private javax.swing.JTextField txtIme;
@@ -360,6 +465,12 @@ private void ucitajIzBaze() {
             penjac.setIme(txtIme.getText() );
             penjac.setPrezime(txtPrezime.getText() );
             penjac.setRezultat(txtRezultat.getText() );
+            List<Smjer> smjerovi = new ArrayList<>();
+        DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel();
+        for (int i = 0; i < m.getSize(); i++) {
+            smjerovi.add(m.getElementAt(i));
+        }
+        penjac.setSmjerovi(smjerovi);
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
@@ -400,5 +511,17 @@ catch (IOException exc) {
          prbBrisanje.setValue(0);
         }
     }
+         public void ucitajSmjerove(){
+           ObradaSmjer opo = new ObradaSmjer();
+        DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+        smjeroviUBazi = opo.getEntiteti();
+        smjeroviUBazi.forEach((s) -> {
+        
+            m2.addElement(s);
+        });
+        lstSmjeroviUBazi.setModel(m2);
+
+        
+      }
 
 }

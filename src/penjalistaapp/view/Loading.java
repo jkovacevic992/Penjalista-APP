@@ -25,8 +25,9 @@ public class Loading extends javax.swing.JFrame {
      */
     public Loading() {
         initComponents();
+        changeIcon();
          new SpojiSeNaBazu().start();
-         changeIcon();
+         
     }
     
     private class SpojiSeNaBazu extends Thread {

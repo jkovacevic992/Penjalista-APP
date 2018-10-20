@@ -7,6 +7,9 @@ package penjalistaapp.view;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -23,6 +26,7 @@ public class Autorizacija extends javax.swing.JFrame {
      */
     public Autorizacija() {
         initComponents();
+        changeIcon();
         getContentPane().setBackground(Color.decode("#082F4E"));
         staviFokusNaLogin();
        
@@ -144,5 +148,14 @@ public class Autorizacija extends javax.swing.JFrame {
                 JComponent.WHEN_FOCUSED);
         getRootPane().setDefaultButton(btnLogin);
         btnLogin.requestFocus();
+    }
+
+    private void changeIcon() {
+             try {
+    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+}
+catch (IOException exc) {
+    exc.printStackTrace();
+}
     }
 }
