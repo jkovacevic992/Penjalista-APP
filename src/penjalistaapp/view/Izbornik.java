@@ -46,6 +46,8 @@ import penjalistaapp.model.Autor;
 import penjalistaapp.model.Entitet;
 
 import penjalistaapp.model.Operater;
+import penjalistaapp.model.Penjac;
+import penjalistaapp.model.Penjaliste;
 
 /**
  *
@@ -101,16 +103,26 @@ public class Izbornik extends javax.swing.JFrame {
         jmiExit = new javax.swing.JMenuItem();
         menImport = new javax.swing.JMenu();
         menExport = new javax.swing.JMenu();
-        jmnAutori = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jmiExcel = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jmiJsonPenjalista = new javax.swing.JMenuItem();
+        jmiCsvPenjalista = new javax.swing.JMenuItem();
+        jmiExcelPenjalista = new javax.swing.JMenuItem();
+        jmnAutori = new javax.swing.JMenu();
+        jmiJsonAutori = new javax.swing.JMenuItem();
+        jmiCsvAutori = new javax.swing.JMenuItem();
+        jmiExcelAutori = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmiJsonPenjaci = new javax.swing.JMenuItem();
+        jmiCsvPenjaci = new javax.swing.JMenuItem();
+        jmiExcelPenjaci = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jmiJsonSektori = new javax.swing.JMenuItem();
+        jmiCsvSektori = new javax.swing.JMenuItem();
+        jmiExcelSektori = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jmiJsonSmjerovi = new javax.swing.JMenuItem();
+        jmiCsvSmjerovi = new javax.swing.JMenuItem();
+        jmiExcelSmjerovi = new javax.swing.JMenuItem();
         menHelp = new javax.swing.JMenu();
         jmiOAplikaciji = new javax.swing.JMenuItem();
 
@@ -246,73 +258,115 @@ public class Izbornik extends javax.swing.JFrame {
 
         menExport.setText("Export");
 
+        jMenu2.setText("Penjališta");
+
+        jmiJsonPenjalista.setText("JSON");
+        jmiJsonPenjalista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiJsonPenjalistaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiJsonPenjalista);
+
+        jmiCsvPenjalista.setText("CSV");
+        jmiCsvPenjalista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCsvPenjalistaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiCsvPenjalista);
+
+        jmiExcelPenjalista.setText("MS Excel");
+        jmiExcelPenjalista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcelPenjalistaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiExcelPenjalista);
+
+        menExport.add(jMenu2);
+
         jmnAutori.setText("Autori");
 
-        jMenuItem1.setText("JSON");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiJsonAutori.setText("JSON");
+        jmiJsonAutori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiJsonAutoriActionPerformed(evt);
             }
         });
-        jmnAutori.add(jMenuItem1);
+        jmnAutori.add(jmiJsonAutori);
 
-        jMenuItem2.setText("CSV");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmiCsvAutori.setText("CSV");
+        jmiCsvAutori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmiCsvAutoriActionPerformed(evt);
             }
         });
-        jmnAutori.add(jMenuItem2);
+        jmnAutori.add(jmiCsvAutori);
 
-        jmiExcel.setText("MS Excel");
-        jmiExcel.addActionListener(new java.awt.event.ActionListener() {
+        jmiExcelAutori.setText("MS Excel");
+        jmiExcelAutori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiExcelActionPerformed(evt);
+                jmiExcelAutoriActionPerformed(evt);
             }
         });
-        jmnAutori.add(jmiExcel);
+        jmnAutori.add(jmiExcelAutori);
 
         menExport.add(jmnAutori);
 
         jMenu1.setText("Penjači");
 
-        jMenuItem3.setText("JSON");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiJsonPenjaci.setText("JSON");
+        jmiJsonPenjaci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiJsonPenjaciActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jmiJsonPenjaci);
 
-        jMenuItem4.setText("CSV");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmiCsvPenjaci.setText("CSV");
+        jmiCsvPenjaci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiCsvPenjaciActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(jmiCsvPenjaci);
+
+        jmiExcelPenjaci.setText("MS Excel");
+        jmiExcelPenjaci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcelPenjaciActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiExcelPenjaci);
 
         menExport.add(jMenu1);
 
-        jMenu2.setText("Penjališta");
+        jMenu3.setText("Sektori");
 
-        jMenuItem5.setText("JSON");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
+        jmiJsonSektori.setText("JSON");
+        jMenu3.add(jmiJsonSektori);
 
-        jMenuItem6.setText("CSV");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
+        jmiCsvSektori.setText("CSV");
+        jMenu3.add(jmiCsvSektori);
 
-        menExport.add(jMenu2);
+        jmiExcelSektori.setText("MS Excel");
+        jMenu3.add(jmiExcelSektori);
+
+        menExport.add(jMenu3);
+
+        jMenu4.setText("Smjerovi");
+
+        jmiJsonSmjerovi.setText("JSON");
+        jMenu4.add(jmiJsonSmjerovi);
+
+        jmiCsvSmjerovi.setText("CSV");
+        jMenu4.add(jmiCsvSmjerovi);
+
+        jmiExcelSmjerovi.setText("MS Excel");
+        jMenu4.add(jmiExcelSmjerovi);
+
+        menExport.add(jMenu4);
 
         jmbMenu.add(menExport);
 
@@ -393,37 +447,37 @@ public class Izbornik extends javax.swing.JFrame {
         oAplikaciji.setVisible(true);
     }//GEN-LAST:event_jmiOAplikacijiActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiJsonAutoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiJsonAutoriActionPerformed
         ObradaAutor o = new ObradaAutor();
         spremiJSON(o.getListEntitet());
         
         
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiJsonAutoriActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmiCsvAutoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCsvAutoriActionPerformed
         ObradaAutor o = new ObradaAutor();
         spremiCSV(o.getListEntitet());
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmiCsvAutoriActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiJsonPenjaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiJsonPenjaciActionPerformed
         ObradaPenjac o = new ObradaPenjac();
         spremiJSON(o.getListEntitet());
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmiJsonPenjaciActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiCsvPenjaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCsvPenjaciActionPerformed
         ObradaPenjac o = new ObradaPenjac();
         spremiCSV(o.getListEntitet());
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jmiCsvPenjaciActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jmiJsonPenjalistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiJsonPenjalistaActionPerformed
         ObradaPenjaliste o = new ObradaPenjaliste();
         spremiJSON(o.getListEntitet());
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jmiJsonPenjalistaActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jmiCsvPenjalistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCsvPenjalistaActionPerformed
         ObradaPenjaliste o = new ObradaPenjaliste();
         spremiCSV(o.getListEntitet());
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jmiCsvPenjalistaActionPerformed
 
     private void btnSektoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSektoriActionPerformed
         Sektori sektor = new Sektori();
@@ -435,7 +489,7 @@ public class Izbornik extends javax.swing.JFrame {
        smjer.setVisible(true);
     }//GEN-LAST:event_btnSmjeroviActionPerformed
 
-    private void jmiExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelActionPerformed
+    private void jmiExcelAutoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelAutoriActionPerformed
         ObradaAutor o = new ObradaAutor();
         List<Autor> lista = o.getEntiteti();
         try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
@@ -460,7 +514,63 @@ public class Izbornik extends javax.swing.JFrame {
         } catch (IOException e) {
 
         }
-    }//GEN-LAST:event_jmiExcelActionPerformed
+    }//GEN-LAST:event_jmiExcelAutoriActionPerformed
+
+    private void jmiExcelPenjalistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelPenjalistaActionPerformed
+         ObradaPenjaliste o = new ObradaPenjaliste();
+        List<Penjaliste> lista = o.getEntiteti();
+        try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
+
+            HSSFSheet s = wb.createSheet("Podaci");
+            int rownum;
+            for (rownum = 0; rownum < lista.size(); rownum++) {
+                HSSFRow r = s.createRow(rownum);
+                HSSFCell c = r.createCell(0);
+                c.setCellValue(lista.get(rownum).getNaziv());
+                c = r.createCell(1);
+                c.setCellValue(lista.get(rownum).getLon());
+                c = r.createCell(2);
+                c.setCellValue(lista.get(rownum).getLat());
+                
+
+            }
+            HSSFRow r = s.createRow(++rownum);
+            
+
+            // Create various cells and rows for spreadsheet.
+            spremiExcel("penjalista.xls", wb, true);
+
+        } catch (IOException e) {
+
+        }
+    }//GEN-LAST:event_jmiExcelPenjalistaActionPerformed
+
+    private void jmiExcelPenjaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelPenjaciActionPerformed
+       ObradaPenjac o = new ObradaPenjac();
+        List<Penjac> lista = o.getEntiteti();
+        try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
+
+            HSSFSheet s = wb.createSheet("Podaci");
+            int rownum;
+            for (rownum = 0; rownum < lista.size(); rownum++) {
+                HSSFRow r = s.createRow(rownum);
+                HSSFCell c = r.createCell(0);
+                c.setCellValue(lista.get(rownum).getIme());
+                c = r.createCell(1);
+                c.setCellValue(lista.get(rownum).getPrezime());
+                
+
+            }
+            HSSFRow r = s.createRow(++rownum);
+            
+
+            // Create various cells and rows for spreadsheet.
+            spremiExcel("penjaci.xls", wb, true);
+
+        } catch (IOException e) {
+
+        }
+    }//GEN-LAST:event_jmiExcelPenjaciActionPerformed
 
     
     private void spremiCSV(List<Entitet> lista){
@@ -488,15 +598,25 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JButton btnSmjerovi;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jmbMenu;
-    private javax.swing.JMenuItem jmiExcel;
+    private javax.swing.JMenuItem jmiCsvAutori;
+    private javax.swing.JMenuItem jmiCsvPenjaci;
+    private javax.swing.JMenuItem jmiCsvPenjalista;
+    private javax.swing.JMenuItem jmiCsvSektori;
+    private javax.swing.JMenuItem jmiCsvSmjerovi;
+    private javax.swing.JMenuItem jmiExcelAutori;
+    private javax.swing.JMenuItem jmiExcelPenjaci;
+    private javax.swing.JMenuItem jmiExcelPenjalista;
+    private javax.swing.JMenuItem jmiExcelSektori;
+    private javax.swing.JMenuItem jmiExcelSmjerovi;
     private javax.swing.JMenuItem jmiExit;
+    private javax.swing.JMenuItem jmiJsonAutori;
+    private javax.swing.JMenuItem jmiJsonPenjaci;
+    private javax.swing.JMenuItem jmiJsonPenjalista;
+    private javax.swing.JMenuItem jmiJsonSektori;
+    private javax.swing.JMenuItem jmiJsonSmjerovi;
     private javax.swing.JMenuItem jmiOAplikaciji;
     private javax.swing.JMenu jmnAutori;
     private javax.swing.JLabel lblSlika;
