@@ -81,7 +81,7 @@ public class Smjer extends Entitet implements Serializable{
     
     @Override
     public String getCSV() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getNaziv()+ "\t" + getOcjena()+ "\t" + getDuzina();
     }
 
     @Override

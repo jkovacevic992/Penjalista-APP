@@ -42,12 +42,16 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import penjalistaapp.controller.ObradaAutor;
 import penjalistaapp.controller.ObradaPenjac;
 import penjalistaapp.controller.ObradaPenjaliste;
+import penjalistaapp.controller.ObradaSektor;
+import penjalistaapp.controller.ObradaSmjer;
 import penjalistaapp.model.Autor;
 import penjalistaapp.model.Entitet;
 
 import penjalistaapp.model.Operater;
 import penjalistaapp.model.Penjac;
 import penjalistaapp.model.Penjaliste;
+import penjalistaapp.model.Sektor;
+import penjalistaapp.model.Smjer;
 
 /**
  *
@@ -345,12 +349,27 @@ public class Izbornik extends javax.swing.JFrame {
         jMenu3.setText("Sektori");
 
         jmiJsonSektori.setText("JSON");
+        jmiJsonSektori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiJsonSektoriActionPerformed(evt);
+            }
+        });
         jMenu3.add(jmiJsonSektori);
 
         jmiCsvSektori.setText("CSV");
+        jmiCsvSektori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCsvSektoriActionPerformed(evt);
+            }
+        });
         jMenu3.add(jmiCsvSektori);
 
         jmiExcelSektori.setText("MS Excel");
+        jmiExcelSektori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcelSektoriActionPerformed(evt);
+            }
+        });
         jMenu3.add(jmiExcelSektori);
 
         menExport.add(jMenu3);
@@ -358,12 +377,27 @@ public class Izbornik extends javax.swing.JFrame {
         jMenu4.setText("Smjerovi");
 
         jmiJsonSmjerovi.setText("JSON");
+        jmiJsonSmjerovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiJsonSmjeroviActionPerformed(evt);
+            }
+        });
         jMenu4.add(jmiJsonSmjerovi);
 
         jmiCsvSmjerovi.setText("CSV");
+        jmiCsvSmjerovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCsvSmjeroviActionPerformed(evt);
+            }
+        });
         jMenu4.add(jmiCsvSmjerovi);
 
         jmiExcelSmjerovi.setText("MS Excel");
+        jmiExcelSmjerovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExcelSmjeroviActionPerformed(evt);
+            }
+        });
         jMenu4.add(jmiExcelSmjerovi);
 
         menExport.add(jMenu4);
@@ -571,6 +605,86 @@ public class Izbornik extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jmiExcelPenjaciActionPerformed
+
+    private void jmiJsonSektoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiJsonSektoriActionPerformed
+        ObradaSektor o = new ObradaSektor();
+        spremiJSON(o.getListEntitet());
+    }//GEN-LAST:event_jmiJsonSektoriActionPerformed
+
+    private void jmiCsvSektoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCsvSektoriActionPerformed
+        ObradaSektor o = new ObradaSektor();
+        spremiCSV(o.getListEntitet());
+    }//GEN-LAST:event_jmiCsvSektoriActionPerformed
+
+    private void jmiExcelSektoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelSektoriActionPerformed
+        ObradaSektor o = new ObradaSektor();
+        List<Sektor> lista = o.getEntiteti();
+        try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
+
+            HSSFSheet s = wb.createSheet("Podaci");
+            int rownum;
+            for (rownum = 0; rownum < lista.size(); rownum++) {
+                HSSFRow r = s.createRow(rownum);
+                HSSFCell c = r.createCell(0);
+                 c.setCellValue(lista.get(rownum).getNaziv());
+                c = r.createCell(1);
+                c.setCellValue(lista.get(rownum).getLon());
+                c = r.createCell(2);
+                c.setCellValue(lista.get(rownum).getLat());
+                
+                
+
+            }
+            HSSFRow r = s.createRow(++rownum);
+            
+
+            // Create various cells and rows for spreadsheet.
+            spremiExcel("sektori.xls", wb, true);
+
+        } catch (IOException e) {
+
+        }
+    }//GEN-LAST:event_jmiExcelSektoriActionPerformed
+
+    private void jmiJsonSmjeroviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiJsonSmjeroviActionPerformed
+        ObradaSmjer o = new ObradaSmjer();
+        spremiJSON(o.getListEntitet());
+    }//GEN-LAST:event_jmiJsonSmjeroviActionPerformed
+
+    private void jmiCsvSmjeroviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCsvSmjeroviActionPerformed
+        ObradaSmjer o = new ObradaSmjer();
+        spremiCSV(o.getListEntitet());
+    }//GEN-LAST:event_jmiCsvSmjeroviActionPerformed
+
+    private void jmiExcelSmjeroviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelSmjeroviActionPerformed
+        ObradaSmjer o = new ObradaSmjer();
+        List<Smjer> lista = o.getEntiteti();
+        try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
+
+            HSSFSheet s = wb.createSheet("Podaci");
+            int rownum;
+            for (rownum = 0; rownum < lista.size(); rownum++) {
+                HSSFRow r = s.createRow(rownum);
+                HSSFCell c = r.createCell(0);
+                 c.setCellValue(lista.get(rownum).getNaziv());
+                c = r.createCell(1);
+                c.setCellValue(lista.get(rownum).getOcjena());
+                c = r.createCell(2);
+                c.setCellValue(lista.get(rownum).getDuzina()+"m");
+                
+                
+
+            }
+            HSSFRow r = s.createRow(++rownum);
+            
+
+            // Create various cells and rows for spreadsheet.
+            spremiExcel("smjerovi.xls", wb, true);
+
+        } catch (IOException e) {
+
+        }
+    }//GEN-LAST:event_jmiExcelSmjeroviActionPerformed
 
     
     private void spremiCSV(List<Entitet> lista){

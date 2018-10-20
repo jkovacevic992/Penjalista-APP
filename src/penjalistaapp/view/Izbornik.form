@@ -131,16 +131,25 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="JSON"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiJsonSektoriActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiCsvSektori">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="CSV"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiCsvSektoriActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiExcelSektori">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MS Excel"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiExcelSektoriActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -153,16 +162,25 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="JSON"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiJsonSmjeroviActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiCsvSmjerovi">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="CSV"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiCsvSmjeroviActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiExcelSmjerovi">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MS Excel"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiExcelSmjeroviActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
