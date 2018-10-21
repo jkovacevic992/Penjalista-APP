@@ -29,6 +29,7 @@ public class Smjer extends Entitet implements Serializable{
     @JoinColumn(name="sektor_sifra")
     private Sektor sektor;
     @ManyToOne
+    @JoinColumn(name="autor_sifra")
     private Autor autor;
     @ManyToMany(mappedBy = "smjerovi")
     private List<Penjac> penjaci;
@@ -85,7 +86,7 @@ public class Smjer extends Entitet implements Serializable{
     
     @Override
     public String getCSV() {
-        return getNaziv()+ "\t" + getOcjena()+ "\t" + getDuzina();
+        return getNaziv()+ "\t" + getOcjena()+ "\t" + getDuzina() + "\t" + getSektor();
     }
 
     @Override

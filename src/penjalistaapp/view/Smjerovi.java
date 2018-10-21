@@ -18,9 +18,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import penjalistaapp.controller.ObradaAutor;
 import penjalistaapp.controller.ObradaSektor;
 
 import penjalistaapp.controller.ObradaSmjer;
+import penjalistaapp.model.Autor;
 import penjalistaapp.model.Sektor;
 import penjalistaapp.model.Smjer;
 import penjalistaapp.pomocno.HibernateUtil;
@@ -40,7 +42,7 @@ public class Smjerovi extends javax.swing.JFrame {
         promjenaIzgleda();
        
         o = new ObradaSmjer();
-        ucitajSektore();
+        ucitajSektoreAutore();
         ucitajIzBaze();
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
@@ -69,8 +71,8 @@ public class Smjerovi extends javax.swing.JFrame {
         prbBrisanje = new javax.swing.JProgressBar();
         lblLat1 = new javax.swing.JLabel();
         lblLat2 = new javax.swing.JLabel();
-        txtAutor = new javax.swing.JTextField();
         cmbSektori = new javax.swing.JComboBox<>();
+        cmbAutori = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSmjerovi = new javax.swing.JList<>();
 
@@ -144,10 +146,6 @@ public class Smjerovi extends javax.swing.JFrame {
         lblLat2.setForeground(new java.awt.Color(255, 255, 255));
         lblLat2.setText("Autor");
 
-        txtAutor.setEditable(false);
-
-        cmbSektori.setSelectedIndex(-1);
-
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
         pnlPodaciLayout.setHorizontalGroup(
@@ -160,15 +158,13 @@ public class Smjerovi extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblLat1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNaziv)
                             .addComponent(lblLon)
-                            .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtNaziv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                                .addComponent(txtOcjena, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDuzina, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(prbBrisanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNaziv)
+                            .addComponent(txtOcjena)
+                            .addComponent(txtDuzina)
                             .addComponent(lblLat, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
                                 .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +172,8 @@ public class Smjerovi extends javax.swing.JFrame {
                                 .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmbSektori, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbSektori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbAutori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -201,8 +198,8 @@ public class Smjerovi extends javax.swing.JFrame {
                 .addComponent(cmbSektori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(lblLat2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(cmbAutori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDodaj)
@@ -340,6 +337,7 @@ public class Smjerovi extends javax.swing.JFrame {
         txtDuzina.setText(String.valueOf(s.getDuzina()));
         txtOcjena.setText(s.getOcjena());
         cmbSektori.setSelectedItem(s.getSektor());
+        cmbAutori.setSelectedItem(s.getAutor());
         
         
         
@@ -353,6 +351,7 @@ public class Smjerovi extends javax.swing.JFrame {
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPromjena;
+    private javax.swing.JComboBox<Autor> cmbAutori;
     private javax.swing.JComboBox<Sektor> cmbSektori;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLat;
@@ -363,7 +362,6 @@ public class Smjerovi extends javax.swing.JFrame {
     private javax.swing.JList<Smjer> lstSmjerovi;
     private javax.swing.JPanel pnlPodaci;
     private javax.swing.JProgressBar prbBrisanje;
-    private javax.swing.JTextField txtAutor;
     private javax.swing.JTextField txtDuzina;
     private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtOcjena;
@@ -384,6 +382,7 @@ public class Smjerovi extends javax.swing.JFrame {
             smjer.setOcjena(txtOcjena.getText());
             smjer.setDuzina(Integer.parseInt(txtDuzina.getText()));
             smjer.setSektor((Sektor) cmbSektori.getSelectedItem());
+            smjer.setAutor((Autor) cmbAutori.getSelectedItem());
             
 //            smjer.setAutor(txtAutor.getText());
         } catch (StringIndexOutOfBoundsException e) {
@@ -439,7 +438,7 @@ catch (IOException exc) {
         }
     }
       
-      public void ucitajSektore() {
+      public void ucitajSektoreAutore() {
 
           ObradaSektor o = new ObradaSektor();
         DefaultComboBoxModel<Sektor> m = new DefaultComboBoxModel<>();
@@ -448,6 +447,15 @@ catch (IOException exc) {
             m.addElement(s);
         });
         cmbSektori.setModel(m);
+        
+          ObradaAutor a = new ObradaAutor();
+        DefaultComboBoxModel<Autor> m2 = new DefaultComboBoxModel<>();
+        a.getEntiteti().forEach((s) -> {
+            // System.out.println( s + " - " + s.hashCode());
+            m2.addElement(s);
+        });
+        cmbAutori.setModel(m2);
+
 
         
 

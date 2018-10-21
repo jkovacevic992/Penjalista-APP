@@ -6,7 +6,10 @@
 package penjalistaapp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,6 +21,16 @@ public class Autor extends Entitet implements Serializable{
 
     private String ime;
     private String prezime;
+    @OneToMany(mappedBy = "autor")
+    private List<Smjer> smjerovi =  new ArrayList<>();
+
+    public List<Smjer> getSmjerovi() {
+        return smjerovi;
+    }
+
+    public void setSmjerovi(List<Smjer> smjerovi) {
+        this.smjerovi = smjerovi;
+    }
 
  
     public String getIme() {

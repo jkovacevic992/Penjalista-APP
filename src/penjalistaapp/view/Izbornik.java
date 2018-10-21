@@ -5,6 +5,8 @@
  */
 package penjalistaapp.view;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.awt.AWTException;
@@ -790,6 +792,8 @@ catch (IOException exc) {
         
     private void spremiJSON(List<Entitet> lista){
         Gson gson = new GsonBuilder()
+                .setExclusionStrategies(new IzbjegniPovratnoSektore())
+                .setExclusionStrategies(new IzbjegniPovratnoPenjalista())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
         
@@ -896,6 +900,32 @@ catch (IOException exc) {
             }
 
         }
+    }
+      private class IzbjegniPovratnoSektore implements ExclusionStrategy {
+
+        public boolean shouldSkipClass(Class<?> arg0) {
+            return false;
+        }
+
+        public boolean shouldSkipField(FieldAttributes f) {
+
+            return (f.getDeclaringClass() == Smjer.class && f.getName().equals("sektor")
+                    );
+        }
+
+    }
+       private class IzbjegniPovratnoPenjalista implements ExclusionStrategy {
+
+        public boolean shouldSkipClass(Class<?> arg0) {
+            return false;
+        }
+
+        public boolean shouldSkipField(FieldAttributes f) {
+
+            return (f.getDeclaringClass() == Sektor.class && f.getName().equals("penjaliste")
+                    );
+        }
+
     }
     }
 
