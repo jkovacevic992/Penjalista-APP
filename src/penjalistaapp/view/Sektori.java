@@ -88,6 +88,7 @@ public class Sektori extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sektori");
 
         lblNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
@@ -274,6 +275,7 @@ public class Sektori extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDodajMouseEntered

@@ -56,6 +56,6 @@ public class Autor extends Entitet implements Serializable{
 
     @Override
     public String getCSV() {
-        return getIme()+ "\t" + getPrezime();
+        return getIme()+ "\t" + getPrezime() + "\t" + getSmjerovi();
     }
 }

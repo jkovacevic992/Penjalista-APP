@@ -5,7 +5,10 @@
  */
 package penjalistaapp.controller;
 
+import com.mysql.jdbc.StringUtils;
+import java.math.BigInteger;
 import java.util.List;
+import org.apache.poi.util.StringUtil;
 import penjalistaapp.model.Smjer;
 import penjalistaapp.pomocno.MojException;
 
@@ -35,10 +38,20 @@ public class ObradaSmjer extends Obrada implements ObradaInterface<Smjer>{
         
         return s;
     }
+
      private void kontrola(Smjer s) throws MojException{
         if(s.getNaziv().matches("/^[a-zA-Z\\s]*$/")){
             throw new MojException("Naziv smjera može sadržavati samo slova.");
            
+        }
+        BigInteger postojeciNaziv  = (BigInteger)session.createSQLQuery("select count(sifra) from smjer where naziv=:naziv and sektor_sifra=:sektor_sifra").
+                setString("naziv", s.getNaziv()).setString("sektor_sifra", s.getSektor().getSifra().toString()).uniqueResult();
+        
+         
+         System.out.println(postojeciNaziv.intValue());
+         System.out.println();
+        if(postojeciNaziv.intValue()==1){
+                  throw new MojException("Taj smjer već postoji.");      
         }
         
         

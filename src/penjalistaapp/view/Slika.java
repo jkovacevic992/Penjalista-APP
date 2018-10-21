@@ -32,14 +32,14 @@ public class Slika extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblSlika = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ERA");
         getContentPane().setLayout(new java.awt.FlowLayout());
 
-        lblSlika.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjalistaapp/view/penjalista.png"))); // NOI18N
-        getContentPane().add(lblSlika);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjalistaapp/view/penjalista.png"))); // NOI18N
+        getContentPane().add(jLabel1);
 
         pack();
         setLocationRelativeTo(null);
@@ -51,7 +51,7 @@ public class Slika extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblSlika;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
     private void changeIcon() {
                try {

@@ -65,6 +65,6 @@ public class Penjaliste extends Entitet implements Serializable{
 
     @Override
     public String getCSV() {
-        return getNaziv() + "\t" + getLat() + "\t" + getLon();
+        return getNaziv() + "\t" + getLat() + "\t" + getLon() + "\t" + getSektori();
     }
 }

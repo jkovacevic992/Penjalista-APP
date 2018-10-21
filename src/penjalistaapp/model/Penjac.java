@@ -20,9 +20,9 @@ public class Penjac extends Entitet implements Serializable{
    
     private String ime;
     private String prezime;
-    private String rezultat;
+ 
     @ManyToMany
-    private List<Smjer> smjerovi;
+    private  List<Smjer> smjerovi;
 
     public List<Smjer> getSmjerovi() {
         return smjerovi;
@@ -50,13 +50,7 @@ public class Penjac extends Entitet implements Serializable{
         this.prezime = prezime;
     }
 
-    public String getRezultat() {
-        return rezultat;
-    }
 
-    public void setRezultat(String rezultat) {
-        this.rezultat = rezultat;
-    }
 
     @Override
     public String toString() {
@@ -66,7 +60,7 @@ public class Penjac extends Entitet implements Serializable{
 
     @Override
     public String getCSV() {
-        return getIme() + "\t" + getPrezime() + "\t" + getRezultat();
+        return getIme() + "\t" + getPrezime() +  "\t" + getSmjerovi();
     }
 
 }

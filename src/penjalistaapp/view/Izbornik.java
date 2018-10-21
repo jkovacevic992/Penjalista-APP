@@ -792,8 +792,8 @@ catch (IOException exc) {
         
     private void spremiJSON(List<Entitet> lista){
         Gson gson = new GsonBuilder()
-                .setExclusionStrategies(new IzbjegniPovratnoSektore())
-                .setExclusionStrategies(new IzbjegniPovratnoPenjalista())
+                .setExclusionStrategies(new IzbjegniPovratno())
+//                .setExclusionStrategies(new IzbjegniPovratnoPenjalista())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
         
@@ -901,7 +901,7 @@ catch (IOException exc) {
 
         }
     }
-      private class IzbjegniPovratnoSektore implements ExclusionStrategy {
+      private class IzbjegniPovratno implements ExclusionStrategy {
 
         public boolean shouldSkipClass(Class<?> arg0) {
             return false;
@@ -910,23 +910,26 @@ catch (IOException exc) {
         public boolean shouldSkipField(FieldAttributes f) {
 
             return (f.getDeclaringClass() == Smjer.class && f.getName().equals("sektor")
-                    );
+                    || f.getDeclaringClass() == Sektor.class && f.getName().equals("penjaliste")
+                    || f.getDeclaringClass() == Smjer.class && f.getName().equals("autor")
+                    || f.getDeclaringClass() == Smjer.class && f.getName().equals("penjac")
+                    || f.getDeclaringClass() == Penjac.class && f.getName().equals("smjer"));
         }
 
     }
-       private class IzbjegniPovratnoPenjalista implements ExclusionStrategy {
-
-        public boolean shouldSkipClass(Class<?> arg0) {
-            return false;
-        }
-
-        public boolean shouldSkipField(FieldAttributes f) {
-
-            return (f.getDeclaringClass() == Sektor.class && f.getName().equals("penjaliste")
-                    );
-        }
-
-    }
+//       private class IzbjegniPovratnoPenjalista implements ExclusionStrategy {
+//
+//        public boolean shouldSkipClass(Class<?> arg0) {
+//            return false;
+//        }
+//
+//        public boolean shouldSkipField(FieldAttributes f) {
+//
+//            return (f.getDeclaringClass() == Sektor.class && f.getName().equals("penjaliste")
+//                    );
+//        }
+//
+//    }
     }
 
 

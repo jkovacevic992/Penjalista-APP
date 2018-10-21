@@ -68,8 +68,6 @@ public class Penjaci extends javax.swing.JFrame {
         txtIme = new javax.swing.JTextField();
         lblPrezime = new javax.swing.JLabel();
         txtPrezime = new javax.swing.JTextField();
-        lblRezultat = new javax.swing.JLabel();
-        txtRezultat = new javax.swing.JTextField();
         btnDodaj = new javax.swing.JButton();
         btnPromjena = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
@@ -82,6 +80,7 @@ public class Penjaci extends javax.swing.JFrame {
         lstSmjeroviPenjac = new javax.swing.JList<>();
         btnPlus = new javax.swing.JButton();
         btnMinus = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Penjači");
@@ -97,10 +96,6 @@ public class Penjaci extends javax.swing.JFrame {
         lblPrezime.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblPrezime.setForeground(new java.awt.Color(255, 255, 255));
         lblPrezime.setText("Prezime");
-
-        lblRezultat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
-        lblRezultat.setForeground(new java.awt.Color(255, 255, 255));
-        lblRezultat.setText("Rezultat");
 
         btnDodaj.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnDodaj.setText("Dodaj");
@@ -154,6 +149,8 @@ public class Penjaci extends javax.swing.JFrame {
         lblIme.setForeground(new java.awt.Color(255, 255, 255));
         lblIme.setText("Ime");
 
+        lblSmjerovi.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        lblSmjerovi.setForeground(new java.awt.Color(255, 255, 255));
         lblSmjerovi.setText("Smjerovi");
 
         lstSmjeroviUBazi.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -191,15 +188,11 @@ public class Penjaci extends javax.swing.JFrame {
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(prbBrisanje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblRezultat)
-                                    .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtRezultat))
+                                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,14 +226,11 @@ public class Penjaci extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRezultat)
                     .addComponent(btnPlus)
                     .addComponent(btnMinus))
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(txtRezultat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(54, 54, 54)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
@@ -253,13 +243,19 @@ public class Penjaci extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Penjači");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -269,8 +265,12 @@ public class Penjaci extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -291,7 +291,7 @@ public class Penjaci extends javax.swing.JFrame {
 
         txtIme.setText(p.getIme());
         txtPrezime.setText(p.getPrezime());
-        txtRezultat.setText(p.getRezultat());
+        
         if (p.getSmjerovi()!= null) {
                   
                     DefaultListModel<Smjer> m2 = new DefaultListModel<>();
@@ -435,12 +435,12 @@ Smjer s = lstSmjeroviUBazi.getSelectedValue();
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPlus;
     private javax.swing.JButton btnPromjena;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblIme;
     private javax.swing.JLabel lblPrezime;
-    private javax.swing.JLabel lblRezultat;
     private javax.swing.JLabel lblSmjerovi;
     private javax.swing.JList<Penjac> lstPenjaci;
     private javax.swing.JList<Smjer> lstSmjeroviPenjac;
@@ -449,7 +449,6 @@ Smjer s = lstSmjeroviUBazi.getSelectedValue();
     private javax.swing.JProgressBar prbBrisanje;
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtPrezime;
-    private javax.swing.JTextField txtRezultat;
     // End of variables declaration//GEN-END:variables
 private void ucitajIzBaze() {
         DefaultListModel<Penjac> m = new DefaultListModel<>();
@@ -464,7 +463,7 @@ private void ucitajIzBaze() {
         try {
             penjac.setIme(txtIme.getText() );
             penjac.setPrezime(txtPrezime.getText() );
-            penjac.setRezultat(txtRezultat.getText() );
+            
             List<Smjer> smjerovi = new ArrayList<>();
         DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel();
         for (int i = 0; i < m.getSize(); i++) {

@@ -77,6 +77,7 @@ public class Smjerovi extends javax.swing.JFrame {
         lstSmjerovi = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Smjerovi");
 
         lblNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
@@ -239,6 +240,7 @@ public class Smjerovi extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDodajMouseEntered
