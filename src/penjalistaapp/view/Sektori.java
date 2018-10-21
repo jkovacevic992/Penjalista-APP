@@ -18,13 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import penjalistaapp.controller.ObradaPenjaliste;
 import penjalistaapp.controller.ObradaSektor;
 import penjalistaapp.controller.ObradaSmjer;
 import penjalistaapp.model.Entitet;
+import penjalistaapp.model.Penjaliste;
 import penjalistaapp.model.Sektor;
 import penjalistaapp.model.Smjer;
 import penjalistaapp.pomocno.HibernateUtil;
@@ -45,7 +48,7 @@ public class Sektori extends javax.swing.JFrame {
         promjenaIzgleda();
        
         o = new ObradaSektor();
-//        ucitajSmjerove();
+        ucitajPenjalista();
         ucitajIzBaze();
         
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
@@ -78,6 +81,8 @@ public class Sektori extends javax.swing.JFrame {
         lstSmjeroviNaSektoru = new javax.swing.JList<>();
         btnMaps = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cmbPenjalista = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSektori = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
@@ -157,6 +162,10 @@ public class Sektori extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Smjerovi na sektoru");
 
+        jLabel3.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Penjalište");
+
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
         pnlPodaciLayout.setHorizontalGroup(
@@ -172,7 +181,7 @@ public class Sektori extends javax.swing.JFrame {
                             .addComponent(txtNaziv)
                             .addComponent(btnMaps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblNaziv)
                                     .addComponent(lblLon)
                                     .addComponent(lblLat)
@@ -181,7 +190,9 @@ public class Sektori extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3)
+                                    .addComponent(cmbPenjalista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,13 +215,17 @@ public class Sektori extends javax.swing.JFrame {
                         .addComponent(lblLon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(lblLat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(lblLat)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbPenjalista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnMaps)
-                        .addGap(39, 39, 39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
@@ -255,7 +270,7 @@ public class Sektori extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();
@@ -354,10 +369,11 @@ public class Sektori extends javax.swing.JFrame {
             return;
         }
         ocistiPolja();
-
+        
         txtNaziv.setText(s.getNaziv());
         txtLat.setText(String.valueOf(s.getLat()));
         txtLon.setText(String.valueOf(s.getLon()));
+        cmbPenjalista.setSelectedItem(s.getPenjaliste());
         if (s.getSmjerovi()!= null) {
                   
                     DefaultListModel<Smjer> m2 = new DefaultListModel<>();
@@ -366,9 +382,11 @@ public class Sektori extends javax.swing.JFrame {
                         m2.addElement(d);
                     });
                     lstSmjeroviNaSektoru.setModel(m2);
-                    
+                    lstSmjeroviNaSektoru.repaint();
+                    lstSmjeroviNaSektoru.revalidate();
 
                 }
+        
     }//GEN-LAST:event_lstSektoriValueChanged
 
     private void btnMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapsActionPerformed
@@ -396,8 +414,10 @@ public class Sektori extends javax.swing.JFrame {
     private javax.swing.JButton btnMaps;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPromjena;
+    private javax.swing.JComboBox<Penjaliste> cmbPenjalista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblLat;
@@ -439,6 +459,7 @@ private class BrisanjeSektora extends Thread {
         lstSektori.setModel(m);
         
         
+        
     }
 
     private void promjenaIzgleda() {
@@ -468,6 +489,7 @@ catch (IOException exc) {
             sektor.setNaziv(txtNaziv.getText());
             sektor.setLat(Double.parseDouble(txtLat.getText()));
             sektor.setLon(Double.parseDouble(txtLon.getText()));
+            sektor.setPenjaliste((Penjaliste) cmbPenjalista.getSelectedItem());
 
         
 
@@ -484,6 +506,19 @@ catch (IOException exc) {
         }
         
        return true;
+    }
+      public void ucitajPenjalista() {
+
+          ObradaPenjaliste o = new ObradaPenjaliste();
+        DefaultComboBoxModel<Penjaliste> m = new DefaultComboBoxModel<>();
+        o.getEntiteti().forEach((s) -> {
+            // System.out.println( s + " - " + s.hashCode());
+            m.addElement(s);
+        });
+        cmbPenjalista.setModel(m);
+
+        
+
     }
       
 

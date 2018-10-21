@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,10 +24,11 @@ public class Sektor extends Entitet implements Serializable{
       private String naziv;
     private Double lat;
     private Double lon;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="penjaliste_sifra")
     private Penjaliste penjaliste;
     @OneToMany(mappedBy = "sektor")
-    private List<Smjer> smjerovi =  new ArrayList<>();;
+    private List<Smjer> smjerovi =  new ArrayList<>();
 
     public List<Smjer> getSmjerovi() {
         return smjerovi;

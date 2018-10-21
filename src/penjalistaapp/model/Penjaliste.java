@@ -6,7 +6,10 @@
 package penjalistaapp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -19,7 +22,16 @@ public class Penjaliste extends Entitet implements Serializable{
     private String naziv;
     private Double lat;
     private Double lon;
+    @OneToMany(mappedBy = "penjaliste")
+    private List<Sektor> sektori =  new ArrayList<>();
 
+    public List<Sektor> getSektori() {
+        return sektori;
+    }
+
+    public void setSektori(List<Sektor> sektori) {
+        this.sektori = sektori;
+    }
    
 
     public String getNaziv() {

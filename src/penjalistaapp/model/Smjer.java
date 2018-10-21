@@ -26,7 +26,7 @@ public class Smjer extends Entitet implements Serializable{
     private int duzina;
     
     @ManyToOne
-    @JoinColumn(name="sektor_id")
+    @JoinColumn(name="sektor_sifra")
     private Sektor sektor;
     @ManyToOne
     private Autor autor;

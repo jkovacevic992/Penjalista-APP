@@ -68,15 +68,13 @@ public class Penjalista extends javax.swing.JFrame {
         btnPromjena = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
         prbBrisanje = new javax.swing.JProgressBar();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lstSektoriUBazi = new javax.swing.JList<>();
-        btnPlus1 = new javax.swing.JButton();
-        btnMinus = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lstSektoriNaPenjalistu = new javax.swing.JList<>();
         btnMap = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstSektoriNaPenjalistu = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstPenjalista = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Penjališta");
@@ -141,20 +139,19 @@ public class Penjalista extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setViewportView(lstSektoriUBazi);
-
-        btnPlus1.setText("+");
-
-        btnMinus.setText("-");
-
-        jScrollPane3.setViewportView(lstSektoriNaPenjalistu);
-
         btnMap.setText("Google maps");
         btnMap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMapActionPerformed(evt);
             }
         });
+
+        lstSektoriNaPenjalistu.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jScrollPane4.setViewportView(lstSektoriNaPenjalistu);
+
+        jLabel2.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Sektori na penjalištu");
 
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
@@ -182,40 +179,29 @@ public class Penjalista extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addComponent(btnPlus1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMinus))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(38, 38, 38)
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPodaciLayout.setVerticalGroup(
             pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPodaciLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNaziv)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addComponent(lblNaziv)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblLon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPlus1)
-                            .addComponent(btnMinus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 2, Short.MAX_VALUE))
-                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblLat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,7 +211,10 @@ public class Penjalista extends javax.swing.JFrame {
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
-                            .addComponent(btnObrisi))))
+                            .addComponent(btnObrisi)))
+                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)))
                 .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
         );
@@ -237,13 +226,19 @@ public class Penjalista extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstPenjalista);
 
+        jLabel1.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Penjališta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(38, 38, 38)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -253,8 +248,10 @@ public class Penjalista extends javax.swing.JFrame {
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -276,6 +273,18 @@ public class Penjalista extends javax.swing.JFrame {
         txtNaziv.setText(p.getNaziv());
         txtLat.setText(String.valueOf(p.getLat()));
         txtLon.setText(String.valueOf(p.getLon()));
+         if (p.getSektori()!= null) {
+                  
+                    DefaultListModel<Sektor> m2 = new DefaultListModel<>();
+                    p.getSektori().forEach((d) -> {
+                        // System.out.println( s + " - " + s.hashCode());
+                        m2.addElement(d);
+                    });
+                    lstSektoriNaPenjalistu.setModel(m2);
+                    lstSektoriNaPenjalistu.repaint();
+                    lstSektoriNaPenjalistu.revalidate();
+
+                }
     }//GEN-LAST:event_lstPenjalistaValueChanged
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
@@ -415,19 +424,17 @@ public class Penjalista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnMap;
-    private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnObrisi;
-    private javax.swing.JButton btnPlus1;
     private javax.swing.JButton btnPromjena;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblLat;
     private javax.swing.JLabel lblLon;
     private javax.swing.JLabel lblNaziv;
     private javax.swing.JList<Penjaliste> lstPenjalista;
     private javax.swing.JList<Sektor> lstSektoriNaPenjalistu;
-    private javax.swing.JList<Sektor> lstSektoriUBazi;
     private javax.swing.JPanel pnlPodaci;
     private javax.swing.JProgressBar prbBrisanje;
     private javax.swing.JTextField txtLat;

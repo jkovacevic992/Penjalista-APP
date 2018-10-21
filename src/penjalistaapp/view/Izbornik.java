@@ -631,7 +631,10 @@ public class Izbornik extends javax.swing.JFrame {
                 c.setCellValue(lista.get(rownum).getLon());
                 c = r.createCell(2);
                 c.setCellValue(lista.get(rownum).getLat());
-                
+                if(lista.get(rownum).getPenjaliste()!=null){
+                    c = r.createCell(3);
+                c.setCellValue(lista.get(rownum).getPenjaliste().toString());
+                }
                 
 
             }
@@ -671,6 +674,11 @@ public class Izbornik extends javax.swing.JFrame {
                 c.setCellValue(lista.get(rownum).getOcjena());
                 c = r.createCell(2);
                 c.setCellValue(lista.get(rownum).getDuzina()+"m");
+                if(lista.get(rownum).getSektor()!=null){
+                    c = r.createCell(3);
+                c.setCellValue(lista.get(rownum).getSektor().toString());
+                }
+                
                 
                 
 
