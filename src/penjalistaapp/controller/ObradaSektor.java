@@ -5,6 +5,7 @@
  */
 package penjalistaapp.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 import penjalistaapp.model.Sektor;
 import penjalistaapp.pomocno.MojException;
@@ -40,6 +41,18 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
         if (s.getNaziv().matches("/^[a-zA-Z\\s]*$/")) {
             throw new MojException("Naziv sektora može sadržavati samo slova.");
         }
+        try {
+             BigInteger postojeciNaziv  = (BigInteger)session.createSQLQuery("select count(sifra) from sektor where naziv=:naziv and penjaliste_sifra=:penjaliste_sifra").
+                setString("naziv", s.getNaziv()).setString("penjaliste_sifra", s.getPenjaliste().getSifra().toString()).uniqueResult();
+        
+         
+       
+        if(postojeciNaziv.intValue()==1){
+                  throw new MojException("Taj sektor već postoji.");      
+        }
+         } catch (NullPointerException e) {
+              throw new MojException("Penjalište obavezno.");
+         }
 
     }
 }

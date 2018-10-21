@@ -44,15 +44,28 @@ public class ObradaSmjer extends Obrada implements ObradaInterface<Smjer>{
             throw new MojException("Naziv smjera može sadržavati samo slova.");
            
         }
-        BigInteger postojeciNaziv  = (BigInteger)session.createSQLQuery("select count(sifra) from smjer where naziv=:naziv and sektor_sifra=:sektor_sifra").
+         try {
+             BigInteger postojeciNaziv  = (BigInteger)session.createSQLQuery("select count(sifra) from smjer where naziv=:naziv and sektor_sifra=:sektor_sifra").
                 setString("naziv", s.getNaziv()).setString("sektor_sifra", s.getSektor().getSifra().toString()).uniqueResult();
         
          
-         System.out.println(postojeciNaziv.intValue());
-         System.out.println();
+       
         if(postojeciNaziv.intValue()==1){
                   throw new MojException("Taj smjer već postoji.");      
         }
+         } catch (NullPointerException e) {
+              throw new MojException("Sektor obavezan.");
+         }
+
+        
+         try {
+             if(s.getAutor().equals(null)){
+           return;
+        }
+         } catch (NullPointerException e) {
+             throw new MojException("Autor obavezan.");
+         }
+
         
         
 

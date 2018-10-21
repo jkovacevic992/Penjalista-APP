@@ -345,6 +345,7 @@ public class Penjalista extends javax.swing.JFrame {
         }else{
             new BrisanjePenjalista().start();
         }
+        ocistiPolja();
 
 
     }//GEN-LAST:event_btnObrisiActionPerformed

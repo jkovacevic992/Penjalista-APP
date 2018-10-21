@@ -322,6 +322,7 @@ public class Smjerovi extends javax.swing.JFrame {
         }else{
             new BrisanjeSmjerova().start();
         }
+        ocistiPolja();
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void lstSmjeroviValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSmjeroviValueChanged

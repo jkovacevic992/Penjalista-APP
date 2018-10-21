@@ -358,6 +358,7 @@ public class Sektori extends javax.swing.JFrame {
         }else{
             new BrisanjeSektora().start();
         }
+        ocistiPolja();
 
     }//GEN-LAST:event_btnObrisiActionPerformed
 

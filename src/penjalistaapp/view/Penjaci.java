@@ -41,15 +41,14 @@ public class Penjaci extends javax.swing.JFrame {
     public Penjaci() {
         initComponents();
         promjenaIzgleda();
-        
 
         o = new ObradaPenjac();
-         ucitajSmjerove();
+        ucitajSmjerove();
         ucitajIzBaze();
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
         df.applyPattern("###,##0.00");
-        
+
         lstSmjeroviPenjac.setModel(new DefaultListModel<>());
     }
 
@@ -291,16 +290,16 @@ public class Penjaci extends javax.swing.JFrame {
 
         txtIme.setText(p.getIme());
         txtPrezime.setText(p.getPrezime());
-        
-        if (p.getSmjerovi()!= null) {
-                  
-                    DefaultListModel<Smjer> m2 = new DefaultListModel<>();
-                    p.getSmjerovi().forEach((s) -> {
-                        // System.out.println( s + " - " + s.hashCode());
-                        m2.addElement(s);
-                    });
-                    lstSmjeroviPenjac.setModel(m2);
-                }
+
+        if (p.getSmjerovi() != null) {
+
+            DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+            p.getSmjerovi().forEach((s) -> {
+                // System.out.println( s + " - " + s.hashCode());
+                m2.addElement(s);
+            });
+            lstSmjeroviPenjac.setModel(m2);
+        }
 
 
     }//GEN-LAST:event_lstPenjaciValueChanged
@@ -347,21 +346,20 @@ public class Penjaci extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberi penjača.");
             return;
         }
-if(lstPenjaci.getSelectedValuesList().size()==1){
-             try {
-                 o.obrisi(lstPenjaci.getSelectedValuesList().get(0));
+        if (lstPenjaci.getSelectedValuesList().size() == 1) {
+            try {
+                o.obrisi(lstPenjaci.getSelectedValuesList().get(0));
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Penjača " + 
-                        lstPenjaci.getSelectedValuesList().get(0)
-                        + 
-                        " ne mogu obrisati.");
+                JOptionPane.showMessageDialog(getRootPane(), "Penjača "
+                        + lstPenjaci.getSelectedValuesList().get(0)
+                        + " ne mogu obrisati.");
             }
-              ucitajIzBaze();
-        }else{
+            ucitajIzBaze();
+        } else {
             new BrisanjePenjaca().start();
         }
-
+        ocistiPolja();
 
 
     }//GEN-LAST:event_btnObrisiActionPerformed
@@ -391,10 +389,10 @@ if(lstPenjaci.getSelectedValuesList().size()==1){
     }//GEN-LAST:event_btnObrisiMouseExited
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
-         if (lstSmjeroviUBazi.getSelectedValue() == null) {
+        if (lstSmjeroviUBazi.getSelectedValue() == null) {
             return;
         }
-Smjer s = lstSmjeroviUBazi.getSelectedValue();
+        Smjer s = lstSmjeroviUBazi.getSelectedValue();
         if (!((DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel()).contains(s)) {
             ((DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel()).addElement(s);
             lstSmjeroviPenjac.repaint();
@@ -403,7 +401,7 @@ Smjer s = lstSmjeroviUBazi.getSelectedValue();
     }//GEN-LAST:event_btnPlusActionPerformed
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
-         if (lstSmjeroviPenjac.getSelectedValue() == null) {
+        if (lstSmjeroviPenjac.getSelectedValue() == null) {
             return;
         }
 
@@ -425,7 +423,7 @@ Smjer s = lstSmjeroviUBazi.getSelectedValue();
             if (c instanceof JTextField) {
                 ((JTextField) c).setText("");
             }
-            
+
         }
     }
 
@@ -461,66 +459,64 @@ private void ucitajIzBaze() {
 
     private boolean popuniSvojstva() {
         try {
-            penjac.setIme(txtIme.getText() );
-            penjac.setPrezime(txtPrezime.getText() );
-            
+            penjac.setIme(txtIme.getText());
+            penjac.setPrezime(txtPrezime.getText());
+
             List<Smjer> smjerovi = new ArrayList<>();
-        DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel();
-        for (int i = 0; i < m.getSize(); i++) {
-            smjerovi.add(m.getElementAt(i));
-        }
-        penjac.setSmjerovi(smjerovi);
+            DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviPenjac.getModel();
+            for (int i = 0; i < m.getSize(); i++) {
+                smjerovi.add(m.getElementAt(i));
+            }
+            penjac.setSmjerovi(smjerovi);
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
         }
 
-         return true;
+        return true;
     }
-    
-       
+
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-           try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
-        
-         private class BrisanjePenjaca extends Thread {
+
+    private class BrisanjePenjaca extends Thread {
 
         public void run() {
-             prbBrisanje.setMinimum(0);
-        prbBrisanje.setMaximum(lstPenjaci.getSelectedValuesList().size());
-        int i=0;
-        
-        for (Penjac e : lstPenjaci.getSelectedValuesList()) {
-             prbBrisanje.setValue(++i);
-            try {
-                 o.obrisi(e);
-            } catch (Exception ex) {
-                 HibernateUtil.getSession().clear();
-               
+            prbBrisanje.setMinimum(0);
+            prbBrisanje.setMaximum(lstPenjaci.getSelectedValuesList().size());
+            int i = 0;
+
+            for (Penjac e : lstPenjaci.getSelectedValuesList()) {
+                prbBrisanje.setValue(++i);
+                try {
+                    o.obrisi(e);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+
+                }
             }
-        }
-         ucitajIzBaze();
-         prbBrisanje.setValue(0);
+            ucitajIzBaze();
+            prbBrisanje.setValue(0);
         }
     }
-         public void ucitajSmjerove(){
-           ObradaSmjer opo = new ObradaSmjer();
+
+    public void ucitajSmjerove() {
+        ObradaSmjer opo = new ObradaSmjer();
         DefaultListModel<Smjer> m2 = new DefaultListModel<>();
         smjeroviUBazi = opo.getEntiteti();
         smjeroviUBazi.forEach((s) -> {
-        
+
             m2.addElement(s);
         });
         lstSmjeroviUBazi.setModel(m2);
 
-        
-      }
+    }
 
 }

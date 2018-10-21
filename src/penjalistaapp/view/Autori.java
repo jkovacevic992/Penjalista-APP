@@ -36,7 +36,6 @@ public class Autori extends javax.swing.JFrame {
     public Autori() {
         initComponents();
         promjenaIzgleda();
-        
 
         o = new ObradaAutor();
         ucitajIzBaze();
@@ -242,9 +241,9 @@ public class Autori extends javax.swing.JFrame {
         try {
             o.dodaj(autor);
             ucitajIzBaze();
-                
-                    } catch (MojException ex) {
-             JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+
+        } catch (MojException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
         }
 
     }//GEN-LAST:event_btnDodajActionPerformed
@@ -262,9 +261,9 @@ public class Autori extends javax.swing.JFrame {
         try {
             o.promjena(autor);
             ucitajIzBaze();
-                    
-                    } catch (MojException ex) {
-             JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+
+        } catch (MojException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
         }
 
     }//GEN-LAST:event_btnPromjenaActionPerformed
@@ -276,20 +275,20 @@ public class Autori extends javax.swing.JFrame {
             return;
         }
 
-       if(lstAutori.getSelectedValuesList().size()==1){
-             try {
-                 o.obrisi(lstAutori.getSelectedValuesList().get(0));
+        if (lstAutori.getSelectedValuesList().size() == 1) {
+            try {
+                o.obrisi(lstAutori.getSelectedValuesList().get(0));
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Autora " + 
-                        lstAutori.getSelectedValuesList().get(0)
-                        + 
-                        " ne mogu obrisati.");
+                JOptionPane.showMessageDialog(getRootPane(), "Autora "
+                        + lstAutori.getSelectedValuesList().get(0)
+                        + " ne mogu obrisati.");
             }
-              ucitajIzBaze();
-        }else{
+            ucitajIzBaze();
+        } else {
             new BrisanjeAutora().start();
         }
+        ocistiPolja();
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void lstAutoriValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAutoriValueChanged
@@ -305,18 +304,18 @@ public class Autori extends javax.swing.JFrame {
 
         txtIme.setText(a.getIme());
         txtPrezime.setText(a.getPrezime());
-        if (a.getSmjerovi()!= null) {
-                  
-                    DefaultListModel<Smjer> m2 = new DefaultListModel<>();
-                    a.getSmjerovi().forEach((d) -> {
-                        // System.out.println( s + " - " + s.hashCode());
-                        m2.addElement(d);
-                    });
-                    lstAutoroviSmjerovi.setModel(m2);
-                    lstAutoroviSmjerovi.repaint();
-                    lstAutoroviSmjerovi.revalidate();
+        if (a.getSmjerovi() != null) {
 
-                }
+            DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+            a.getSmjerovi().forEach((d) -> {
+                // System.out.println( s + " - " + s.hashCode());
+                m2.addElement(d);
+            });
+            lstAutoroviSmjerovi.setModel(m2);
+            lstAutoroviSmjerovi.repaint();
+            lstAutoroviSmjerovi.revalidate();
+
+        }
     }//GEN-LAST:event_lstAutoriValueChanged
 
     private void btnDodajMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDodajMouseEntered
@@ -384,51 +383,45 @@ public class Autori extends javax.swing.JFrame {
     private boolean popuniSvojstva() {
         try {
             autor.setIme(txtIme.getText());
-        autor.setPrezime(txtPrezime.getText());
-
-        
-            
+            autor.setPrezime(txtPrezime.getText());
 
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
         }
 
-       
-
         return true;
     }
- 
-      private class BrisanjeAutora extends Thread {
+
+    private class BrisanjeAutora extends Thread {
 
         public void run() {
-             prbBrisanje.setMinimum(0);
-        prbBrisanje.setMaximum(lstAutori.getSelectedValuesList().size());
-        int i=0;
-        
-        for (Autor e : lstAutori.getSelectedValuesList()) {
-             prbBrisanje.setValue(++i);
-            try {
-                 o.obrisi(e);
-            } catch (Exception ex) {
-                 HibernateUtil.getSession().clear();
-               
+            prbBrisanje.setMinimum(0);
+            prbBrisanje.setMaximum(lstAutori.getSelectedValuesList().size());
+            int i = 0;
+
+            for (Autor e : lstAutori.getSelectedValuesList()) {
+                prbBrisanje.setValue(++i);
+                try {
+                    o.obrisi(e);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+
+                }
             }
-        }
-         ucitajIzBaze();
-         prbBrisanje.setValue(0);
+            ucitajIzBaze();
+            prbBrisanje.setValue(0);
         }
     }
 
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-             try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
 
 }
