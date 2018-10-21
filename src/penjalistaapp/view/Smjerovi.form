@@ -71,7 +71,6 @@
                                   <Component id="txtDuzina" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="lblLat" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                              <Component id="txtSektor" alignment="0" min="-2" pref="306" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnDodaj" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -79,6 +78,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnObrisi" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="cmbSektori" alignment="0" min="-2" pref="306" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -105,8 +105,8 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblLat1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtSektor" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="cmbSektori" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Component id="lblLat2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtAutor" min="-2" max="-2" attributes="0"/>
@@ -231,10 +231,16 @@
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSektor">
+        <Component class="javax.swing.JComboBox" name="cmbSektori">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sektor&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

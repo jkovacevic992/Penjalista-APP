@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import penjalistaapp.controller.ObradaSektor;
 import penjalistaapp.controller.ObradaSmjer;
+import penjalistaapp.model.Entitet;
 import penjalistaapp.model.Sektor;
 import penjalistaapp.model.Smjer;
 import penjalistaapp.pomocno.HibernateUtil;
@@ -38,13 +39,13 @@ public class Sektori extends javax.swing.JFrame {
     final private ObradaSektor o;
     private Sektor sektor;
     final private DecimalFormat df;
-    private List<Smjer> smjeroviUBazi;
+//    private List<Smjer> smjeroviUBazi;
     public Sektori() {
         initComponents();
         promjenaIzgleda();
        
         o = new ObradaSektor();
-        ucitajSmjerove();
+//        ucitajSmjerove();
         ucitajIzBaze();
         
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
@@ -73,15 +74,13 @@ public class Sektori extends javax.swing.JFrame {
         btnPromjena = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
         prbBrisanje = new javax.swing.JProgressBar();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lstSmjeroviUBazi = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         lstSmjeroviNaSektoru = new javax.swing.JList<>();
-        btnMinus = new javax.swing.JButton();
-        btnPlus = new javax.swing.JButton();
         btnMaps = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSektori = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -145,18 +144,7 @@ public class Sektori extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setViewportView(lstSmjeroviUBazi);
-
         jScrollPane3.setViewportView(lstSmjeroviNaSektoru);
-
-        btnMinus.setText("-");
-
-        btnPlus.setText("+");
-        btnPlus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlusActionPerformed(evt);
-            }
-        });
 
         btnMaps.setText("Google Maps");
         btnMaps.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +152,10 @@ public class Sektori extends javax.swing.JFrame {
                 btnMapsActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Smjerovi na sektoru");
 
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
@@ -192,50 +184,39 @@ public class Sektori extends javax.swing.JFrame {
                                         .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPodaciLayout.createSequentialGroup()
-                                .addComponent(btnPlus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMinus)))))
+                            .addComponent(jLabel1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPodaciLayout.setVerticalGroup(
             pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPodaciLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNaziv)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addComponent(lblNaziv)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblLon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPodaciLayout.createSequentialGroup()
+                        .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(lblLat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnMaps)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(39, 39, 39)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
                             .addComponent(btnObrisi)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPodaciLayout.createSequentialGroup()
-                        .addGap(0, 9, Short.MAX_VALUE)
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnMinus)
-                            .addComponent(btnPlus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane3))
+                .addGap(23, 23, 23)
                 .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
         );
@@ -247,14 +228,20 @@ public class Sektori extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstSektori);
 
+        jLabel2.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Sektori");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -264,8 +251,10 @@ public class Sektori extends javax.swing.JFrame {
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -343,7 +332,7 @@ public class Sektori extends javax.swing.JFrame {
                 o.obrisi(lstSektori.getSelectedValuesList().get(0));
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Penjalište " +
+                JOptionPane.showMessageDialog(getRootPane(), "Sektor " +
                     lstSektori.getSelectedValuesList().get(0)
                     +
                     " ne mogu obrisati.");
@@ -377,22 +366,10 @@ public class Sektori extends javax.swing.JFrame {
                         m2.addElement(d);
                     });
                     lstSmjeroviNaSektoru.setModel(m2);
+                    
+
                 }
     }//GEN-LAST:event_lstSektoriValueChanged
-
-    private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
-          if (lstSmjeroviUBazi.getSelectedValue() == null) {
-            return;
-        }
-Smjer s = lstSmjeroviUBazi.getSelectedValue();
-        if (!((DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel()).contains(s)) {
-            ((DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel()).addElement(s);
-            lstSmjeroviNaSektoru.repaint();
-            lstSmjeroviNaSektoru.revalidate();
-        }
- 
-
-    }//GEN-LAST:event_btnPlusActionPerformed
 
     private void btnMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapsActionPerformed
            try {
@@ -417,19 +394,17 @@ Smjer s = lstSmjeroviUBazi.getSelectedValue();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnMaps;
-    private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnObrisi;
-    private javax.swing.JButton btnPlus;
     private javax.swing.JButton btnPromjena;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblLat;
     private javax.swing.JLabel lblLon;
     private javax.swing.JLabel lblNaziv;
     private javax.swing.JList<Sektor> lstSektori;
     private javax.swing.JList<Smjer> lstSmjeroviNaSektoru;
-    private javax.swing.JList<Smjer> lstSmjeroviUBazi;
     private javax.swing.JPanel pnlPodaci;
     private javax.swing.JProgressBar prbBrisanje;
     private javax.swing.JTextField txtLat;
@@ -493,12 +468,13 @@ catch (IOException exc) {
             sektor.setNaziv(txtNaziv.getText());
             sektor.setLat(Double.parseDouble(txtLat.getText()));
             sektor.setLon(Double.parseDouble(txtLon.getText()));
-            List<Smjer> smjerovi = new ArrayList<>();
-        DefaultListModel<Smjer> m = (DefaultListModel<Smjer>) lstSmjeroviNaSektoru.getModel();
-        for (int i = 0; i < m.getSize(); i++) {
-            smjerovi.add(m.getElementAt(i));
-        }
-        sektor.setSmjerovi(smjerovi);
+
+        
+
+        
+
+        
+        
       
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
@@ -510,16 +486,5 @@ catch (IOException exc) {
        return true;
     }
       
-      public void ucitajSmjerove(){
-           ObradaSmjer opo = new ObradaSmjer();
-        DefaultListModel<Smjer> m2 = new DefaultListModel<>();
-        smjeroviUBazi = opo.getEntiteti();
-        smjeroviUBazi.forEach((s) -> {
-        
-            m2.addElement(s);
-        });
-        lstSmjeroviUBazi.setModel(m2);
 
-        
-      }
 }

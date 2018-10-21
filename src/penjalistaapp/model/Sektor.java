@@ -6,6 +6,7 @@
 package penjalistaapp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Sektor extends Entitet implements Serializable{
     @OneToOne
     private Penjaliste penjaliste;
     @OneToMany(mappedBy = "sektor")
-    private List<Smjer> smjerovi;
+    private List<Smjer> smjerovi =  new ArrayList<>();;
 
     public List<Smjer> getSmjerovi() {
         return smjerovi;

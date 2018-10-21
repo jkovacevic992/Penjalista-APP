@@ -5,6 +5,7 @@
  */
 package penjalistaapp;
 
+import org.apache.log4j.BasicConfigurator;
 import penjalistaapp.pomocno.HibernateUtil;
 import penjalistaapp.pomocno.PocetniInsert;
 import penjalistaapp.view.Loading;
@@ -20,6 +21,7 @@ public class Start {
      */
     public static void main(String[] args) {
 //        PocetniInsert.izvedi();
+
 new Loading().setVisible(true);
 //        HibernateUtil.getSession();
 //        

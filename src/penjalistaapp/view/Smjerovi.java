@@ -13,10 +13,12 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import penjalistaapp.controller.ObradaSektor;
 
 import penjalistaapp.controller.ObradaSmjer;
 import penjalistaapp.model.Sektor;
@@ -38,6 +40,7 @@ public class Smjerovi extends javax.swing.JFrame {
         promjenaIzgleda();
        
         o = new ObradaSmjer();
+        ucitajSektore();
         ucitajIzBaze();
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
@@ -67,7 +70,7 @@ public class Smjerovi extends javax.swing.JFrame {
         lblLat1 = new javax.swing.JLabel();
         lblLat2 = new javax.swing.JLabel();
         txtAutor = new javax.swing.JTextField();
-        txtSektor = new javax.swing.JTextField();
+        cmbSektori = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSmjerovi = new javax.swing.JList<>();
 
@@ -143,7 +146,7 @@ public class Smjerovi extends javax.swing.JFrame {
 
         txtAutor.setEditable(false);
 
-        txtSektor.setEditable(false);
+        cmbSektori.setSelectedIndex(-1);
 
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
@@ -167,13 +170,13 @@ public class Smjerovi extends javax.swing.JFrame {
                                 .addComponent(txtOcjena, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtDuzina, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(lblLat, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSektor, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
                                 .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbSektori, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -195,8 +198,8 @@ public class Smjerovi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblLat1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSektor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbSektori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(lblLat2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,7 +305,7 @@ public class Smjerovi extends javax.swing.JFrame {
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         smjer = lstSmjerovi.getSelectedValue();
         if (smjer == null) {
-            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberi sektor.");
+            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberi smjer.");
             return;
         }
 
@@ -311,7 +314,7 @@ public class Smjerovi extends javax.swing.JFrame {
                 o.obrisi(lstSmjerovi.getSelectedValuesList().get(0));
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Penjalište " +
+                JOptionPane.showMessageDialog(getRootPane(), "Smjer " +
                     lstSmjerovi.getSelectedValuesList().get(0)
                     +
                     " ne mogu obrisati.");
@@ -336,7 +339,8 @@ public class Smjerovi extends javax.swing.JFrame {
         txtNaziv.setText(s.getNaziv());
         txtDuzina.setText(String.valueOf(s.getDuzina()));
         txtOcjena.setText(s.getOcjena());
-        txtSektor.setText(String.valueOf(s.getSektor()));
+        cmbSektori.setSelectedItem(s.getSektor());
+        
         
         
     }//GEN-LAST:event_lstSmjeroviValueChanged
@@ -349,6 +353,7 @@ public class Smjerovi extends javax.swing.JFrame {
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPromjena;
+    private javax.swing.JComboBox<Sektor> cmbSektori;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLat;
     private javax.swing.JLabel lblLat1;
@@ -362,7 +367,6 @@ public class Smjerovi extends javax.swing.JFrame {
     private javax.swing.JTextField txtDuzina;
     private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtOcjena;
-    private javax.swing.JTextField txtSektor;
     // End of variables declaration//GEN-END:variables
        private void ocistiPolja() {
 
@@ -379,6 +383,7 @@ public class Smjerovi extends javax.swing.JFrame {
             smjer.setNaziv(txtNaziv.getText());
             smjer.setOcjena(txtOcjena.getText());
             smjer.setDuzina(Integer.parseInt(txtDuzina.getText()));
+            smjer.setSektor((Sektor) cmbSektori.getSelectedItem());
             
 //            smjer.setAutor(txtAutor.getText());
         } catch (StringIndexOutOfBoundsException e) {
@@ -398,6 +403,7 @@ public class Smjerovi extends javax.swing.JFrame {
             m.addElement(s);
         });
         lstSmjerovi.setModel(m);
+        ocistiPolja();
     }
 
     private void promjenaIzgleda() {
@@ -431,5 +437,19 @@ catch (IOException exc) {
          ucitajIzBaze();
          prbBrisanje.setValue(0);
         }
+    }
+      
+      public void ucitajSektore() {
+
+          ObradaSektor o = new ObradaSektor();
+        DefaultComboBoxModel<Sektor> m = new DefaultComboBoxModel<>();
+        o.getEntiteti().forEach((s) -> {
+            // System.out.println( s + " - " + s.hashCode());
+            m.addElement(s);
+        });
+        cmbSektori.setModel(m);
+
+        
+
     }
 }
