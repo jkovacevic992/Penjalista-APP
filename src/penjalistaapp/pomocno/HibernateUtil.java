@@ -8,7 +8,7 @@ public class HibernateUtil {
     private static Session session = null;
 
     protected HibernateUtil() {
-        
+
     }
 
     public static Session getSession() {

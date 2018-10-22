@@ -8,6 +8,7 @@ package penjalistaapp.model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
 /**
  *
  * @author Josip
@@ -15,7 +16,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Entitet {
-    
+
     public abstract String getCSV();
     @Id
     @GeneratedValue
@@ -28,5 +29,5 @@ public abstract class Entitet {
     public void setSifra(Integer sifra) {
         this.sifra = sifra;
     }
-    
+
 }

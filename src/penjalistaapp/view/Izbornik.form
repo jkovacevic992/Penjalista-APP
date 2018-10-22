@@ -19,11 +19,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menImport">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Import"/>
-          </Properties>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="menExport">
           <Properties>
             <Property name="text" type="java.lang.String" value="Export"/>

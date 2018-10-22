@@ -16,13 +16,12 @@ import javax.persistence.OneToMany;
  * @author Josip
  */
 @Entity
-public class Autor extends Entitet implements Serializable{
-
+public class Autor extends Entitet implements Serializable {
 
     private String ime;
     private String prezime;
     @OneToMany(mappedBy = "autor")
-    private List<Smjer> smjerovi =  new ArrayList<>();
+    private List<Smjer> smjerovi = new ArrayList<>();
 
     public List<Smjer> getSmjerovi() {
         return smjerovi;
@@ -32,7 +31,6 @@ public class Autor extends Entitet implements Serializable{
         this.smjerovi = smjerovi;
     }
 
- 
     public String getIme() {
         return ime;
     }
@@ -48,14 +46,14 @@ public class Autor extends Entitet implements Serializable{
     public void setPrezime(String prezime) {
         this.prezime = prezime;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return (getPrezime() + " " + getIme());
     }
 
     @Override
     public String getCSV() {
-        return getIme()+ "\t" + getPrezime() + "\t" + getSmjerovi();
+        return getIme() + "\t" + getPrezime() + "\t" + getSmjerovi();
     }
 }

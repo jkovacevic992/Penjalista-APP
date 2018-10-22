@@ -10,13 +10,12 @@ package penjalistaapp.pomocno;
  * @author Josip
  */
 public class MojException extends Exception {
-    
-    
+
     private String poruka;
-    
-    public MojException(String poruka){
+
+    public MojException(String poruka) {
         super();
-        this.poruka=poruka;
+        this.poruka = poruka;
     }
 
     public String getPoruka() {
@@ -26,6 +25,5 @@ public class MojException extends Exception {
     public void setPoruka(String poruka) {
         this.poruka = poruka;
     }
-    
-    
+
 }

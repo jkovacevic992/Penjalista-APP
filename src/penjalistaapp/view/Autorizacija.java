@@ -29,7 +29,7 @@ public class Autorizacija extends javax.swing.JFrame {
         changeIcon();
         getContentPane().setBackground(Color.decode("#082F4E"));
         staviFokusNaLogin();
-       
+
     }
 
     /**
@@ -137,7 +137,7 @@ public class Autorizacija extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void staviFokusNaLogin() {
-         btnLogin.registerKeyboardAction(btnLogin.getActionForKeyStroke(
+        btnLogin.registerKeyboardAction(btnLogin.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
                 JComponent.WHEN_FOCUSED);
@@ -151,11 +151,10 @@ public class Autorizacija extends javax.swing.JFrame {
     }
 
     private void changeIcon() {
-             try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
 }

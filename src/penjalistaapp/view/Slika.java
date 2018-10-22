@@ -20,7 +20,7 @@ public class Slika extends javax.swing.JFrame {
      */
     public Slika() {
         initComponents();
-    changeIcon();
+        changeIcon();
     }
 
     /**
@@ -48,17 +48,15 @@ public class Slika extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
     private void changeIcon() {
-               try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
 }

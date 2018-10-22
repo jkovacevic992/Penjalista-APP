@@ -8,28 +8,26 @@ package penjalistaapp.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Josip
  */
 @Entity
-public class Smjer extends Entitet implements Serializable{
+public class Smjer extends Entitet implements Serializable {
 
     private String naziv;
     private String ocjena;
     private int duzina;
-    
+
     @ManyToOne
-    @JoinColumn(name="sektor_sifra")
+    @JoinColumn(name = "sektor_sifra")
     private Sektor sektor;
     @ManyToOne
-    @JoinColumn(name="autor_sifra")
+    @JoinColumn(name = "autor_sifra")
     private Autor autor;
     @ManyToMany(mappedBy = "smjerovi")
     private transient List<Penjac> penjaci;
@@ -74,8 +72,6 @@ public class Smjer extends Entitet implements Serializable{
         this.sektor = sektor;
     }
 
-
-
     public Autor getAutor() {
         return autor;
     }
@@ -83,16 +79,15 @@ public class Smjer extends Entitet implements Serializable{
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
-    
+
     @Override
     public String getCSV() {
-        return getNaziv()+ "\t" + getOcjena()+ "\t" + getDuzina() + "\t" + getSektor() + "\t" + getAutor();
+        return getNaziv() + "\t" + getOcjena() + "\t" + getDuzina() + "\t" + getSektor() + "\t" + getAutor();
     }
 
     @Override
     public String toString() {
         return getNaziv();
     }
-    
-    
+
 }

@@ -13,8 +13,8 @@ import javax.persistence.Entity;
  * @author Profesor
  */
 @Entity
-public class Operater extends Entitet{
-    
+public class Operater extends Entitet {
+
     private String ime;
     private String prezime;
     @Column(unique = true)
@@ -57,7 +57,5 @@ public class Operater extends Entitet{
     public String getCSV() {
         return getIme() + "\t" + getPrezime() + "\t" + getEmail();
     }
-    
-    
-    
+
 }

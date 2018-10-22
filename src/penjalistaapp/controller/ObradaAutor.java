@@ -43,5 +43,8 @@ public class ObradaAutor extends Obrada implements ObradaInterface<Autor>{
             throw new MojException("Ime i prezime autora mogu sadržavati samo slova.");
            
         }
+           if ((a.getIme() == null || a.getIme().isEmpty()) || (a.getPrezime() == null || a.getPrezime().isEmpty())) {
+               throw new MojException("Ime i prezime obavezni.");
+           }
     }
 }

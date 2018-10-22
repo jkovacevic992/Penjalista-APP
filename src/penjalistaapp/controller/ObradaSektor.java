@@ -16,19 +16,16 @@ import penjalistaapp.pomocno.MojException;
  */
 public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
 
-  
     public List<Sektor> getEntiteti() {
         return session.createQuery(" from Sektor").list();
     }
 
- 
     public Sektor dodaj(Sektor s) throws MojException {
         kontrola(s);
         spremi(s);
 
         return s;
     }
-
 
     public Sektor promjena(Sektor s) throws MojException {
         kontrola(s);
@@ -42,17 +39,15 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
             throw new MojException("Naziv sektora može sadržavati samo slova.");
         }
         try {
-             BigInteger postojeciNaziv  = (BigInteger)session.createSQLQuery("select count(sifra) from sektor where naziv=:naziv and penjaliste_sifra=:penjaliste_sifra").
-                setString("naziv", s.getNaziv()).setString("penjaliste_sifra", s.getPenjaliste().getSifra().toString()).uniqueResult();
-        
-         
-       
-        if(postojeciNaziv.intValue()==1){
-                  throw new MojException("Taj sektor već postoji.");      
+            BigInteger postojeciNaziv = (BigInteger) session.createSQLQuery("select count(sifra) from sektor where naziv=:naziv and lat=:lat and lon=:lon").
+                    setString("naziv", s.getNaziv()).setString("lat", s.getLat().toString()).setString("lon", s.getLon().toString()).uniqueResult();
+
+            if (postojeciNaziv.intValue() == 1) {
+                throw new MojException("Taj sektor već postoji.");
+            }
+        } catch (NullPointerException e) {
+            throw new MojException("Penjalište obavezno.");
         }
-         } catch (NullPointerException e) {
-              throw new MojException("Penjalište obavezno.");
-         }
 
     }
 }

@@ -14,8 +14,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
@@ -25,8 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import penjalistaapp.controller.ObradaPenjaliste;
 import penjalistaapp.controller.ObradaSektor;
-import penjalistaapp.controller.ObradaSmjer;
-import penjalistaapp.model.Entitet;
 import penjalistaapp.model.Penjaliste;
 import penjalistaapp.model.Sektor;
 import penjalistaapp.model.Smjer;
@@ -43,14 +39,15 @@ public class Sektori extends javax.swing.JFrame {
     private Sektor sektor;
     final private DecimalFormat df;
 //    private List<Smjer> smjeroviUBazi;
+
     public Sektori() {
         initComponents();
         promjenaIzgleda();
-       
+
         o = new ObradaSektor();
         ucitajPenjalista();
         ucitajIzBaze();
-        
+
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
         df = (DecimalFormat) nf;
         df.applyPattern("###,##0.00");
@@ -224,7 +221,7 @@ public class Sektori extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbPenjalista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(btnMaps)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,9 +252,9 @@ public class Sektori extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -270,8 +267,8 @@ public class Sektori extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -344,18 +341,17 @@ public class Sektori extends javax.swing.JFrame {
             return;
         }
 
-        if(lstSektori.getSelectedValuesList().size()==1){
+        if (lstSektori.getSelectedValuesList().size() == 1) {
             try {
                 o.obrisi(lstSektori.getSelectedValuesList().get(0));
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Sektor " +
-                    lstSektori.getSelectedValuesList().get(0)
-                    +
-                    " ne mogu obrisati.");
+                JOptionPane.showMessageDialog(getRootPane(), "Sektor "
+                        + lstSektori.getSelectedValuesList().get(0)
+                        + " ne mogu obrisati.");
             }
             ucitajIzBaze();
-        }else{
+        } else {
             new BrisanjeSektora().start();
         }
         ocistiPolja();
@@ -372,45 +368,42 @@ public class Sektori extends javax.swing.JFrame {
             return;
         }
         ocistiPolja();
-        
+
         txtNaziv.setText(s.getNaziv());
         txtLat.setText(String.valueOf(s.getLat()));
         txtLon.setText(String.valueOf(s.getLon()));
         cmbPenjalista.setSelectedItem(s.getPenjaliste());
-        if (s.getSmjerovi()!= null) {
-                  
-                    DefaultListModel<Smjer> m2 = new DefaultListModel<>();
-                    s.getSmjerovi().forEach((d) -> {
-                        // System.out.println( s + " - " + s.hashCode());
-                        m2.addElement(d);
-                    });
-                    lstSmjeroviNaSektoru.setModel(m2);
-                    lstSmjeroviNaSektoru.repaint();
-                    lstSmjeroviNaSektoru.revalidate();
+        if (s.getSmjerovi() != null) {
 
-                }
-        
+            DefaultListModel<Smjer> m2 = new DefaultListModel<>();
+            s.getSmjerovi().forEach((d) -> {
+                // System.out.println( s + " - " + s.hashCode());
+                m2.addElement(d);
+            });
+            lstSmjeroviNaSektoru.setModel(m2);
+            lstSmjeroviNaSektoru.repaint();
+            lstSmjeroviNaSektoru.revalidate();
+
+        }
+
     }//GEN-LAST:event_lstSektoriValueChanged
 
     private void btnMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapsActionPerformed
-           try {
+        try {
 
-
-
-                Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q="+txtLon.getText()+","+txtLat.getText()));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q=" + txtLon.getText() + "," + txtLat.getText()));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnMapsActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
@@ -437,47 +430,44 @@ public class Sektori extends javax.swing.JFrame {
 private class BrisanjeSektora extends Thread {
 
         public void run() {
-             prbBrisanje.setMinimum(0);
-        prbBrisanje.setMaximum(lstSektori.getSelectedValuesList().size());
-        int i=0;
-        
-        for (Sektor e : lstSektori.getSelectedValuesList()) {
-             prbBrisanje.setValue(++i);
-            try {
-                 o.obrisi(e);
-            } catch (Exception ex) {
-                 HibernateUtil.getSession().clear();
-               
+            prbBrisanje.setMinimum(0);
+            prbBrisanje.setMaximum(lstSektori.getSelectedValuesList().size());
+            int i = 0;
+
+            for (Sektor e : lstSektori.getSelectedValuesList()) {
+                prbBrisanje.setValue(++i);
+                try {
+                    o.obrisi(e);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+
+                }
             }
-        }
-         ucitajIzBaze();
-         prbBrisanje.setValue(0);
+            ucitajIzBaze();
+            prbBrisanje.setValue(0);
         }
     }
+
     private void ucitajIzBaze() {
-       DefaultListModel<Sektor> m = new DefaultListModel<>();
+        DefaultListModel<Sektor> m = new DefaultListModel<>();
         o.getEntiteti().forEach((s) -> {
             m.addElement(s);
         });
         lstSektori.setModel(m);
-        
-        
-        
+
     }
 
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-             try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
-    
-     
-      private void ocistiPolja() {
+
+    private void ocistiPolja() {
 
         for (Component c : pnlPodaci.getComponents()) {
 
@@ -486,33 +476,27 @@ catch (IOException exc) {
             }
         }
     }
-      
-      private boolean popuniSvojstva() {
+
+    private boolean popuniSvojstva() {
         try {
             sektor.setNaziv(txtNaziv.getText());
             sektor.setLat(Double.parseDouble(txtLat.getText()));
             sektor.setLon(Double.parseDouble(txtLon.getText()));
             sektor.setPenjaliste((Penjaliste) cmbPenjalista.getSelectedItem());
 
-        
-
-        
-
-        
-        
-      
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(getRootPane(), "Geografska širina ili dužina nije unesena.");
         }
-        
-       return true;
-    }
-      public void ucitajPenjalista() {
 
-          ObradaPenjaliste o = new ObradaPenjaliste();
+        return true;
+    }
+
+    public void ucitajPenjalista() {
+
+        ObradaPenjaliste o = new ObradaPenjaliste();
         DefaultComboBoxModel<Penjaliste> m = new DefaultComboBoxModel<>();
         o.getEntiteti().forEach((s) -> {
             // System.out.println( s + " - " + s.hashCode());
@@ -520,9 +504,6 @@ catch (IOException exc) {
         });
         cmbPenjalista.setModel(m);
 
-        
-
     }
-      
 
 }

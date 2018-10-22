@@ -13,7 +13,10 @@ import penjalistaapp.pomocno.MojException;
  * @author Josip
  */
 public interface ObradaInterface<T> {
-        public List<T> getEntiteti();
+
+    public List<T> getEntiteti();
+
     public T dodaj(T e) throws MojException;
+
     public T promjena(T e) throws MojException;
 }

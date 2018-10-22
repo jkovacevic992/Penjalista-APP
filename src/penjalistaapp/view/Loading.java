@@ -26,25 +26,25 @@ public class Loading extends javax.swing.JFrame {
     public Loading() {
         initComponents();
         changeIcon();
-         new SpojiSeNaBazu().start();
-         
+        new SpojiSeNaBazu().start();
+
     }
-    
+
     private class SpojiSeNaBazu extends Thread {
 
         public void run() {
             Session s = HibernateUtil.getSession();
-           
+
             List<Operater> lista = s.createQuery("From Operater").list();
             Operater o = lista.isEmpty() ? null : lista.get(0);
-            
-                if (o!=null && o.getSifra() > 0) {
-                    new Autorizacija().setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(getRootPane(), "Greška, "
-                            + "zovite proizvođača programa");
-                }
+
+            if (o != null && o.getSifra() > 0) {
+                new Autorizacija().setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(getRootPane(), "Greška, "
+                        + "zovite proizvođača programa");
+            }
         }
     }
 
@@ -82,20 +82,17 @@ public class Loading extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblLoading;
     // End of variables declaration//GEN-END:variables
 
     private void changeIcon() {
-               try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
-
 
 }

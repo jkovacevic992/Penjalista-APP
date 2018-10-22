@@ -15,14 +15,13 @@ import javax.persistence.ManyToMany;
  * @author Josip
  */
 @Entity
-public class Penjac extends Entitet implements Serializable{
+public class Penjac extends Entitet implements Serializable {
 
-   
     private String ime;
     private String prezime;
- 
+
     @ManyToMany
-    private  List<Smjer> smjerovi;
+    private List<Smjer> smjerovi;
 
     public List<Smjer> getSmjerovi() {
         return smjerovi;
@@ -31,8 +30,6 @@ public class Penjac extends Entitet implements Serializable{
     public void setSmjerovi(List<Smjer> smjerovi) {
         this.smjerovi = smjerovi;
     }
-
- 
 
     public String getIme() {
         return ime;
@@ -50,8 +47,6 @@ public class Penjac extends Entitet implements Serializable{
         this.prezime = prezime;
     }
 
-
-
     @Override
     public String toString() {
         return (getPrezime() + " " + getIme());
@@ -60,7 +55,7 @@ public class Penjac extends Entitet implements Serializable{
 
     @Override
     public String getCSV() {
-        return getIme() + "\t" + getPrezime() +  "\t" + getSmjerovi();
+        return getIme() + "\t" + getPrezime() + "\t" + getSmjerovi();
     }
 
 }

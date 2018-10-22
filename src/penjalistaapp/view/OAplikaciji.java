@@ -65,21 +65,17 @@ public class OAplikaciji extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
-
     private void promjenaIzgleda() {
-        
-        
+
         getContentPane().setBackground(Color.decode("#082F4E"));
-         try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
-   
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
+
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

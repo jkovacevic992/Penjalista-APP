@@ -16,30 +16,37 @@ import org.hibernate.Session;
  * @author Josip
  */
 public abstract class Obrada<T extends Entitet> {
+
     protected Session session;
+
     public abstract List<T> getEntiteti();
-    public  Obrada(){
-        session=HibernateUtil.getSession();
+
+    public Obrada() {
+        session = HibernateUtil.getSession();
     }
-    
-    public List<Entitet> getListEntitet(){
+
+    public List<Entitet> getListEntitet() {
         List<T> lista = getEntiteti();
         List<Entitet> vrati = new ArrayList<>();
-        lista.forEach((l)->{vrati.add((l));});
-       return vrati;
+        lista.forEach((l) -> {
+            vrati.add((l));
+        });
+        return vrati;
     }
-    
-    protected void spremi(Entitet e){
+
+    protected void spremi(Entitet e) {
         System.out.println(e.getClass().toString());
         session.beginTransaction();
         session.save(e);
         session.getTransaction().commit();
+        session.clear();
     }
-    
-    public void obrisi(Entitet e){
+
+    public void obrisi(Entitet e) {
         session.beginTransaction();
         session.delete(e);
         session.getTransaction().commit();
+        session.clear();
     }
-    
+
 }

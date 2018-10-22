@@ -16,14 +16,13 @@ import javax.persistence.OneToMany;
  * @author Josip
  */
 @Entity
-public class Penjaliste extends Entitet implements Serializable{
-
+public class Penjaliste extends Entitet implements Serializable {
 
     private String naziv;
     private Double lat;
     private Double lon;
     @OneToMany(mappedBy = "penjaliste")
-    private List<Sektor> sektori =  new ArrayList<>();
+    private List<Sektor> sektori = new ArrayList<>();
 
     public List<Sektor> getSektori() {
         return sektori;
@@ -32,7 +31,6 @@ public class Penjaliste extends Entitet implements Serializable{
     public void setSektori(List<Sektor> sektori) {
         this.sektori = sektori;
     }
-   
 
     public String getNaziv() {
         return naziv;

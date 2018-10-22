@@ -39,7 +39,7 @@ public class Penjalista extends javax.swing.JFrame {
     public Penjalista() {
         initComponents();
         promjenaIzgleda();
-       
+
         o = new ObradaPenjaliste();
         ucitajIzBaze();
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("hr", "HR"));
@@ -159,32 +159,28 @@ public class Penjalista extends javax.swing.JFrame {
             pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPodaciLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(prbBrisanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLon)
-                            .addComponent(txtLat)
-                            .addComponent(txtNaziv)
-                            .addComponent(btnMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMap, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNaziv)
+                            .addComponent(lblLon)
+                            .addComponent(lblLat)
                             .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNaziv)
-                                    .addComponent(lblLon)
-                                    .addComponent(lblLat)
-                                    .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(38, 38, 38)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 15, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         pnlPodaciLayout.setVerticalGroup(
             pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,16 +203,15 @@ public class Penjalista extends javax.swing.JFrame {
                         .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnMap)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
                             .addComponent(btnObrisi)))
-                    .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane4))
+                .addGap(9, 9, 9)
                 .addComponent(prbBrisanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7))
+                .addGap(16, 16, 16))
         );
 
         lstPenjalista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -237,7 +232,7 @@ public class Penjalista extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                     .addComponent(jLabel1))
                 .addGap(38, 38, 38)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -251,7 +246,7 @@ public class Penjalista extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -273,18 +268,17 @@ public class Penjalista extends javax.swing.JFrame {
         txtNaziv.setText(p.getNaziv());
         txtLat.setText(String.valueOf(p.getLat()));
         txtLon.setText(String.valueOf(p.getLon()));
-         if (p.getSektori()!= null) {
-                  
-                    DefaultListModel<Sektor> m2 = new DefaultListModel<>();
-                    p.getSektori().forEach((d) -> {
-                        // System.out.println( s + " - " + s.hashCode());
-                        m2.addElement(d);
-                    });
-                    lstSektoriNaPenjalistu.setModel(m2);
-                    lstSektoriNaPenjalistu.repaint();
-                    lstSektoriNaPenjalistu.revalidate();
+//         if (p.getSektori()!= null) {
 
-                }
+        DefaultListModel<Sektor> m2 = new DefaultListModel<>();
+        p.getSektori().forEach((d) -> {
+
+            m2.addElement(d);
+        });
+        lstSektoriNaPenjalistu.setModel(m2);
+
+//                }
+
     }//GEN-LAST:event_lstPenjalistaValueChanged
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
@@ -331,18 +325,17 @@ public class Penjalista extends javax.swing.JFrame {
             return;
         }
 
-        if(lstPenjalista.getSelectedValuesList().size()==1){
-             try {
-                 o.obrisi(lstPenjalista.getSelectedValuesList().get(0));
+        if (lstPenjalista.getSelectedValuesList().size() == 1) {
+            try {
+                o.obrisi(lstPenjalista.getSelectedValuesList().get(0));
             } catch (Exception ex) {
-                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Penjalište " + 
-                        lstPenjalista.getSelectedValuesList().get(0)
-                        + 
-                        " ne mogu obrisati.");
+                HibernateUtil.getSession().clear();
+                JOptionPane.showMessageDialog(getRootPane(), "Penjalište "
+                        + lstPenjalista.getSelectedValuesList().get(0)
+                        + " ne mogu obrisati.");
             }
-              ucitajIzBaze();
-        }else{
+            ucitajIzBaze();
+        } else {
             new BrisanjePenjalista().start();
         }
         ocistiPolja();
@@ -375,44 +368,42 @@ public class Penjalista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnObrisiMouseExited
 
     private void btnMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapActionPerformed
-       try {
+        try {
 
-
-
-                Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q="+txtLon.getText()+","+txtLat.getText()));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q=" + txtLon.getText() + "," + txtLat.getText()));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnMapActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-          private class BrisanjePenjalista extends Thread {
+    private class BrisanjePenjalista extends Thread {
 
         public void run() {
-             prbBrisanje.setMinimum(0);
-        prbBrisanje.setMaximum(lstPenjalista.getSelectedValuesList().size());
-        int i=0;
-        
-        for (Penjaliste e : lstPenjalista.getSelectedValuesList()) {
-             prbBrisanje.setValue(++i);
-            try {
-                 o.obrisi(e);
-            } catch (Exception ex) {
-                 HibernateUtil.getSession().clear();
-               
+            prbBrisanje.setMinimum(0);
+            prbBrisanje.setMaximum(lstPenjalista.getSelectedValuesList().size());
+            int i = 0;
+
+            for (Penjaliste e : lstPenjalista.getSelectedValuesList()) {
+                prbBrisanje.setValue(++i);
+                try {
+                    o.obrisi(e);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+
+                }
             }
-        }
-         ucitajIzBaze();
-         prbBrisanje.setValue(0);
+            ucitajIzBaze();
+            prbBrisanje.setValue(0);
         }
     }
+
     private void ocistiPolja() {
 
         for (Component c : pnlPodaci.getComponents()) {
@@ -435,7 +426,7 @@ public class Penjalista extends javax.swing.JFrame {
     private javax.swing.JLabel lblLon;
     private javax.swing.JLabel lblNaziv;
     private javax.swing.JList<Penjaliste> lstPenjalista;
-    private javax.swing.JList<Sektor> lstSektoriNaPenjalistu;
+    protected javax.swing.JList<Sektor> lstSektoriNaPenjalistu;
     private javax.swing.JPanel pnlPodaci;
     private javax.swing.JProgressBar prbBrisanje;
     private javax.swing.JTextField txtLat;
@@ -449,12 +440,15 @@ public class Penjalista extends javax.swing.JFrame {
             m.addElement(s);
         });
         lstPenjalista.setModel(m);
-
+        ocistiPolja();
+        if (m.getSize() > 0) {
+            lstPenjalista.setSelectedIndex(0);
+        }
     }
 
     private boolean popuniSvojstva() {
         try {
-            penjaliste.setNaziv(txtNaziv.getText() );
+            penjaliste.setNaziv(txtNaziv.getText());
             penjaliste.setLat(Double.parseDouble(txtLat.getText().replace(',', '.')));
             penjaliste.setLon(Double.parseDouble(txtLon.getText().replace(',', '.')));
         } catch (StringIndexOutOfBoundsException e) {
@@ -467,17 +461,15 @@ public class Penjalista extends javax.swing.JFrame {
 
         return true;
     }
-        
 
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-               try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
 
     }
 

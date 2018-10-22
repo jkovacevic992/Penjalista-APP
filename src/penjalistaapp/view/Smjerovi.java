@@ -37,10 +37,11 @@ public class Smjerovi extends javax.swing.JFrame {
     final private ObradaSmjer o;
     private Smjer smjer;
     final private DecimalFormat df;
+
     public Smjerovi() {
         initComponents();
         promjenaIzgleda();
-       
+
         o = new ObradaSmjer();
         ucitajSektoreAutore();
         ucitajIzBaze();
@@ -223,20 +224,20 @@ public class Smjerovi extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 38, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -308,18 +309,17 @@ public class Smjerovi extends javax.swing.JFrame {
             return;
         }
 
-        if(lstSmjerovi.getSelectedValuesList().size()==1){
+        if (lstSmjerovi.getSelectedValuesList().size() == 1) {
             try {
                 o.obrisi(lstSmjerovi.getSelectedValuesList().get(0));
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Smjer " +
-                    lstSmjerovi.getSelectedValuesList().get(0)
-                    +
-                    " ne mogu obrisati.");
+                JOptionPane.showMessageDialog(getRootPane(), "Smjer "
+                        + lstSmjerovi.getSelectedValuesList().get(0)
+                        + " ne mogu obrisati.");
             }
             ucitajIzBaze();
-        }else{
+        } else {
             new BrisanjeSmjerova().start();
         }
         ocistiPolja();
@@ -341,15 +341,14 @@ public class Smjerovi extends javax.swing.JFrame {
         txtOcjena.setText(s.getOcjena());
         cmbSektori.setSelectedItem(s.getSektor());
         cmbAutori.setSelectedItem(s.getAutor());
-        
-        
-        
+
+
     }//GEN-LAST:event_lstSmjeroviValueChanged
 
     /**
      * @param args the command line arguments
      */
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnObrisi;
@@ -378,29 +377,29 @@ public class Smjerovi extends javax.swing.JFrame {
             }
         }
     }
-      
-      private boolean popuniSvojstva() {
+
+    private boolean popuniSvojstva() {
         try {
             smjer.setNaziv(txtNaziv.getText());
             smjer.setOcjena(txtOcjena.getText());
             smjer.setDuzina(Integer.parseInt(txtDuzina.getText()));
             smjer.setSektor((Sektor) cmbSektori.getSelectedItem());
             smjer.setAutor((Autor) cmbAutori.getSelectedItem());
-            
+
 //            smjer.setAutor(txtAutor.getText());
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(getRootPane(), "Dužina može sadržavati samo brojeve.");
             return false;
         }
 
         return true;
     }
-    
+
     private void ucitajIzBaze() {
-       DefaultListModel<Smjer> m = new DefaultListModel<>();
+        DefaultListModel<Smjer> m = new DefaultListModel<>();
         o.getEntiteti().forEach((s) -> {
             m.addElement(s);
         });
@@ -411,56 +410,51 @@ public class Smjerovi extends javax.swing.JFrame {
     private void promjenaIzgleda() {
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlPodaci.setBackground(Color.decode("#082F4E"));
-            try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
-    
-  
-      private class BrisanjeSmjerova extends Thread {
+
+    private class BrisanjeSmjerova extends Thread {
 
         public void run() {
-             prbBrisanje.setMinimum(0);
-        prbBrisanje.setMaximum(lstSmjerovi.getSelectedValuesList().size());
-        int i=0;
-        
-        for (Smjer e : lstSmjerovi.getSelectedValuesList()) {
-             prbBrisanje.setValue(++i);
-            try {
-                 o.obrisi(e);
-            } catch (Exception ex) {
-                 HibernateUtil.getSession().clear();
-               
+            prbBrisanje.setMinimum(0);
+            prbBrisanje.setMaximum(lstSmjerovi.getSelectedValuesList().size());
+            int i = 0;
+
+            for (Smjer e : lstSmjerovi.getSelectedValuesList()) {
+                prbBrisanje.setValue(++i);
+                try {
+                    o.obrisi(e);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+
+                }
             }
-        }
-         ucitajIzBaze();
-         prbBrisanje.setValue(0);
+            ucitajIzBaze();
+            prbBrisanje.setValue(0);
         }
     }
-      
-      public void ucitajSektoreAutore() {
 
-          ObradaSektor o = new ObradaSektor();
+    public void ucitajSektoreAutore() {
+
+        ObradaSektor o = new ObradaSektor();
         DefaultComboBoxModel<Sektor> m = new DefaultComboBoxModel<>();
         o.getEntiteti().forEach((s) -> {
             // System.out.println( s + " - " + s.hashCode());
             m.addElement(s);
         });
         cmbSektori.setModel(m);
-        
-          ObradaAutor a = new ObradaAutor();
+
+        ObradaAutor a = new ObradaAutor();
         DefaultComboBoxModel<Autor> m2 = new DefaultComboBoxModel<>();
         a.getEntiteti().forEach((s) -> {
             // System.out.println( s + " - " + s.hashCode());
             m2.addElement(s);
         });
         cmbAutori.setModel(m2);
-
-
-        
 
     }
 }

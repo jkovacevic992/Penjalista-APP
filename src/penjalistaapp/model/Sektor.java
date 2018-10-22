@@ -13,22 +13,22 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Josip
  */
 @Entity
-public class Sektor extends Entitet implements Serializable{
-      private String naziv;
+public class Sektor extends Entitet implements Serializable {
+
+    private String naziv;
     private Double lat;
     private Double lon;
     @ManyToOne
-    @JoinColumn(name="penjaliste_sifra")
+    @JoinColumn(name = "penjaliste_sifra")
     private Penjaliste penjaliste;
     @OneToMany(mappedBy = "sektor")
-    private List<Smjer> smjerovi =  new ArrayList<>();
+    private List<Smjer> smjerovi = new ArrayList<>();
 
     public List<Smjer> getSmjerovi() {
         return smjerovi;
@@ -37,11 +37,6 @@ public class Sektor extends Entitet implements Serializable{
     public void setSmjerovi(List<Smjer> smjerovi) {
         this.smjerovi = smjerovi;
     }
-
-
-
-  
-    
 
     public String getNaziv() {
         return naziv;
@@ -77,13 +72,12 @@ public class Sektor extends Entitet implements Serializable{
 
     @Override
     public String getCSV() {
-        return getNaziv()+ "\t" + getLat()+ "\t" + getLon() + "\t" + getPenjaliste() + "\t" + getSmjerovi();
+        return getNaziv() + "\t" + getLat() + "\t" + getLon() + "\t" + getPenjaliste() + "\t" + getSmjerovi();
     }
 
     @Override
     public String toString() {
         return getNaziv();
     }
-    
-    
+
 }

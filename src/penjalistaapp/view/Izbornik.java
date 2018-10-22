@@ -32,7 +32,6 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -68,19 +67,16 @@ public class Izbornik extends javax.swing.JFrame {
     Image image = Toolkit.getDefaultToolkit().getImage("Slike/climbingIcon.png");
     final TrayIcon icon = new TrayIcon(image, "Penjališta APP");
     private Date pocetakRada;
-   
+    
     public Izbornik(Operater operater) {
-       
+        
         initComponents();
         this.operater = operater;
         setTitle("Penjališta APP " + operater.getIme() + " " + operater.getPrezime());
-         promjenaIzgleda();
-         pocetakRada=new Date();
-
-         definirajTimer();
-         
- 
-
+        promjenaIzgleda();
+        pocetakRada = new Date();
+        
+        definirajTimer();
         
         minimizeToSysTray();
     }
@@ -107,7 +103,6 @@ public class Izbornik extends javax.swing.JFrame {
         jmbMenu = new javax.swing.JMenuBar();
         menFile = new javax.swing.JMenu();
         jmiExit = new javax.swing.JMenuItem();
-        menImport = new javax.swing.JMenu();
         menExport = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jmiJsonPenjalista = new javax.swing.JMenuItem();
@@ -258,9 +253,6 @@ public class Izbornik extends javax.swing.JFrame {
         menFile.add(jmiExit);
 
         jmbMenu.add(menFile);
-
-        menImport.setText("Import");
-        jmbMenu.add(menImport);
 
         menExport.setText("Export");
 
@@ -444,13 +436,13 @@ public class Izbornik extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEraActionPerformed
 
     private void btnGitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGitActionPerformed
-
+        
         try {
             Desktop.getDesktop().browse(new URL("https://github.com/jkovacevic992/Penjalista-APP").toURI());
         } catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
         }
-
+        
 
     }//GEN-LAST:event_btnGitActionPerformed
 
@@ -487,7 +479,7 @@ public class Izbornik extends javax.swing.JFrame {
         ObradaAutor o = new ObradaAutor();
         spremiJSON(o.getListEntitet());
         
-        
+
     }//GEN-LAST:event_jmiJsonAutoriActionPerformed
 
     private void jmiCsvAutoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCsvAutoriActionPerformed
@@ -521,8 +513,8 @@ public class Izbornik extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSektoriActionPerformed
 
     private void btnSmjeroviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSmjeroviActionPerformed
-       Smjerovi smjer = new Smjerovi();
-       smjer.setVisible(true);
+        Smjerovi smjer = new Smjerovi();
+        smjer.setVisible(true);
     }//GEN-LAST:event_btnSmjeroviActionPerformed
 
     private void jmiExcelAutoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelAutoriActionPerformed
@@ -538,22 +530,24 @@ public class Izbornik extends javax.swing.JFrame {
                 c.setCellValue(lista.get(rownum).getIme());
                 c = r.createCell(1);
                 c.setCellValue(lista.get(rownum).getPrezime());
-                
-
+                if (lista.get(rownum).getSmjerovi() != null) {
+                    c = r.createCell(2);
+                    c.setCellValue(lista.get(rownum).getSmjerovi().toString());
+                }
             }
-            HSSFRow r = s.createRow(++rownum);
             
+            HSSFRow r = s.createRow(++rownum);
 
             // Create various cells and rows for spreadsheet.
             spremiExcel("autori.xls", wb, true);
-
+            
         } catch (IOException e) {
-
+            
         }
     }//GEN-LAST:event_jmiExcelAutoriActionPerformed
 
     private void jmiExcelPenjalistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelPenjalistaActionPerformed
-         ObradaPenjaliste o = new ObradaPenjaliste();
+        ObradaPenjaliste o = new ObradaPenjaliste();
         List<Penjaliste> lista = o.getEntiteti();
         try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
 
@@ -567,22 +561,24 @@ public class Izbornik extends javax.swing.JFrame {
                 c.setCellValue(lista.get(rownum).getLon());
                 c = r.createCell(2);
                 c.setCellValue(lista.get(rownum).getLat());
+                if (lista.get(rownum).getSektori() != null) {
+                    c = r.createCell(3);
+                    c.setCellValue(lista.get(rownum).getSektori().toString());
+                }
                 
-
             }
             HSSFRow r = s.createRow(++rownum);
-            
 
             // Create various cells and rows for spreadsheet.
             spremiExcel("penjalista.xls", wb, true);
-
+            
         } catch (IOException e) {
-
+            
         }
     }//GEN-LAST:event_jmiExcelPenjalistaActionPerformed
 
     private void jmiExcelPenjaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExcelPenjaciActionPerformed
-       ObradaPenjac o = new ObradaPenjac();
+        ObradaPenjac o = new ObradaPenjac();
         List<Penjac> lista = o.getEntiteti();
         try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
 
@@ -595,16 +591,14 @@ public class Izbornik extends javax.swing.JFrame {
                 c = r.createCell(1);
                 c.setCellValue(lista.get(rownum).getPrezime());
                 
-
             }
             HSSFRow r = s.createRow(++rownum);
-            
 
             // Create various cells and rows for spreadsheet.
             spremiExcel("penjaci.xls", wb, true);
-
+            
         } catch (IOException e) {
-
+            
         }
     }//GEN-LAST:event_jmiExcelPenjaciActionPerformed
 
@@ -628,26 +622,28 @@ public class Izbornik extends javax.swing.JFrame {
             for (rownum = 0; rownum < lista.size(); rownum++) {
                 HSSFRow r = s.createRow(rownum);
                 HSSFCell c = r.createCell(0);
-                 c.setCellValue(lista.get(rownum).getNaziv());
+                c.setCellValue(lista.get(rownum).getNaziv());
                 c = r.createCell(1);
                 c.setCellValue(lista.get(rownum).getLon());
                 c = r.createCell(2);
                 c.setCellValue(lista.get(rownum).getLat());
-                if(lista.get(rownum).getPenjaliste()!=null){
+                if (lista.get(rownum).getPenjaliste() != null) {
                     c = r.createCell(3);
-                c.setCellValue(lista.get(rownum).getPenjaliste().toString());
+                    c.setCellValue(lista.get(rownum).getPenjaliste().toString());
+                }
+                if (lista.get(rownum).getSmjerovi()!= null) {
+                    c = r.createCell(4);
+                    c.setCellValue(lista.get(rownum).getSmjerovi().toString());
                 }
                 
-
             }
             HSSFRow r = s.createRow(++rownum);
-            
 
             // Create various cells and rows for spreadsheet.
             spremiExcel("sektori.xls", wb, true);
-
+            
         } catch (IOException e) {
-
+            
         }
     }//GEN-LAST:event_jmiExcelSektoriActionPerformed
 
@@ -671,40 +667,38 @@ public class Izbornik extends javax.swing.JFrame {
             for (rownum = 0; rownum < lista.size(); rownum++) {
                 HSSFRow r = s.createRow(rownum);
                 HSSFCell c = r.createCell(0);
-                 c.setCellValue(lista.get(rownum).getNaziv());
+                c.setCellValue(lista.get(rownum).getNaziv());
                 c = r.createCell(1);
                 c.setCellValue(lista.get(rownum).getOcjena());
                 c = r.createCell(2);
-                c.setCellValue(lista.get(rownum).getDuzina()+"m");
-                if(lista.get(rownum).getSektor()!=null){
+                c.setCellValue(lista.get(rownum).getDuzina() + "m");
+                if (lista.get(rownum).getSektor() != null) {
                     c = r.createCell(3);
-                c.setCellValue(lista.get(rownum).getSektor().toString());
+                    c.setCellValue(lista.get(rownum).getSektor().toString());
                 }
                 
-                
-                
-
             }
             HSSFRow r = s.createRow(++rownum);
-            
 
             // Create various cells and rows for spreadsheet.
             spremiExcel("smjerovi.xls", wb, true);
-
+            
         } catch (IOException e) {
-
+            
         }
     }//GEN-LAST:event_jmiExcelSmjeroviActionPerformed
-
     
-    private void spremiCSV(List<Entitet> lista){
-         String naziv="podaci";
-        if(lista.size()>0){
+    private void spremiCSV(List<Entitet> lista) {
+        String naziv = "podaci";
+        if (lista.size() > 0) {
             Entitet e = lista.get(0);
             naziv = e.getClass().getSimpleName().toLowerCase();
             StringBuilder s = new StringBuilder();
-            lista.forEach((en)->{s.append(en.getCSV());s.append("\n");});
-            spremiTekst(s.toString(), "CSV DATOTEKA", "csv", naziv,false);
+            lista.forEach((en) -> {
+                s.append(en.getCSV());
+                s.append("\n");
+            });
+            spremiTekst(s.toString(), "CSV DATOTEKA", "csv", naziv, false);
             
         }
     }
@@ -748,130 +742,125 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JMenu menExport;
     private javax.swing.JMenu menFile;
     private javax.swing.JMenu menHelp;
-    private javax.swing.JMenu menImport;
     private javax.swing.JPanel pnlIzbornik;
     // End of variables declaration//GEN-END:variables
 
     private void minimizeToSysTray() {
-     
-         if (SystemTray.isSupported()) {
-      SystemTray tray = SystemTray.getSystemTray();
-
-      icon.setImageAutoSize(true);
-      icon.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            setVisible(true);
-            setExtendedState(JFrame.NORMAL);
+        
+        if (SystemTray.isSupported()) {
+            SystemTray tray = SystemTray.getSystemTray();
             
-         
-         }
-      });
-
-      try {
-        tray.add(icon);
-      } catch (AWTException e) {
-        System.err.println("Nije moguće dodati ikonu.");
-      }
-    }
+            icon.setImageAutoSize(true);
+            icon.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    setVisible(true);
+                    setExtendedState(JFrame.NORMAL);
+                    
+                }
+            });
+            
+            try {
+                tray.add(icon);
+            } catch (AWTException e) {
+                System.err.println("Nije moguće dodati ikonu.");
             }
-
-  
-
+        }
+    }
+    
     private void promjenaIzgleda() {
         
         getContentPane().setBackground(Color.decode("#082F4E"));
         pnlIzbornik.setBackground(Color.decode("#082F4E"));
-          try {
-    setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
-}
-catch (IOException exc) {
-    exc.printStackTrace();
-}
+        try {
+            setIconImage(ImageIO.read(new File("Slike/climbingIcon.png")));
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
     
-        
-    private void spremiJSON(List<Entitet> lista){
+    private void spremiJSON(List<Entitet> lista) {
         Gson gson = new GsonBuilder()
                 .setExclusionStrategies(new IzbjegniPovratno())
-//                .setExclusionStrategies(new IzbjegniPovratnoPenjalista())
+                //                .setExclusionStrategies(new IzbjegniPovratnoPenjalista())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
         
         String json = gson.toJson(lista);
         
-        
-        String naziv="podaci";
-        if(lista.size()>0){
+        String naziv = "podaci";
+        if (lista.size() > 0) {
             Entitet e = lista.get(0);
             naziv = e.getClass().getSimpleName().toLowerCase();
-            spremiTekst(json, "JSON DATOTEKA", "json", naziv,false);
+            spremiTekst(json, "JSON DATOTEKA", "json", naziv, false);
         }
-        
         
     }
     
-     private void spremiTekst(String s,String nazivEkstenzije, String ekstenzija, String nazivDatoteke,boolean otvoriNakonSpremanja){
+    private void spremiTekst(String s, String nazivEkstenzije, String ekstenzija, String nazivDatoteke, boolean otvoriNakonSpremanja) {
         JFileChooser spremiKao = new JFileChooser();
         spremiKao.setSelectedFile(new File(System.getProperty("user.home") + File.separator + nazivDatoteke));
         spremiKao.setCurrentDirectory(new File(System.getProperty("user.home")));
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(nazivEkstenzije , ekstenzija);
-       
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(nazivEkstenzije, ekstenzija);
+        
         spremiKao.setFileFilter(filter);
-        if (spremiKao.showSaveDialog(getParent())==JFileChooser.APPROVE_OPTION){
+        if (spremiKao.showSaveDialog(getParent()) == JFileChooser.APPROVE_OPTION) {
             String putanja = spremiKao.getSelectedFile().getAbsolutePath();
-            if(!putanja.endsWith("." + ekstenzija)){
-                putanja+="." + ekstenzija;
+            if (!putanja.endsWith("." + ekstenzija)) {
+                putanja += "." + ekstenzija;
             }
             File dat = new File(putanja);
-            if(!(!dat.exists() || 
-                    JOptionPane.showConfirmDialog(getRootPane(),"Datoteka postoji, zamijeniti?","Datoteka postoji",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION)){
+            if (!(!dat.exists()
+                    || JOptionPane.showConfirmDialog(getRootPane(), "Datoteka postoji, zamijeniti?", "Datoteka postoji", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)) {
                 return;
             }
             try {
                 FileWriter fw = new FileWriter(putanja);
                 fw.write(s);
                 fw.close();
-                if(otvoriNakonSpremanja){
-                    Desktop d = Desktop.getDesktop();  
+                if (otvoriNakonSpremanja) {
+                    Desktop d = Desktop.getDesktop();
                     d.open(dat);
                 }
-                       
+                
             } catch (IOException ex) {
                 ex.printStackTrace();
-               JOptionPane.showMessageDialog(getRootPane(), "Problem kod spremanja datoteke.");
+                JOptionPane.showMessageDialog(getRootPane(), "Problem kod spremanja datoteke.");
             }
-           
+            
         }
     }
-            
-    private void definirajTimer(){
-         Timer timer = new Timer();
-        timer.schedule(new  TimerTask() {
+    
+    private void definirajTimer() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 
-                long diffInSeconds = (new Date().getTime() - pocetakRada.getTime())/1000;
-             
-
-    long diff[] = new long[] { 0, 0, 0, 0 };
-    /* sec */diff[3] = (diffInSeconds >= 60 ? diffInSeconds % 60 : diffInSeconds);
-    /* min */diff[2] = (diffInSeconds = (diffInSeconds / 60)) >= 60 ? diffInSeconds % 60 : diffInSeconds;
-    /* hours */diff[1] = (diffInSeconds = (diffInSeconds / 60)) >= 24 ? diffInSeconds % 24 : diffInSeconds;
-    /* days */diff[0] = (diffInSeconds = (diffInSeconds / 24));
-
+                long diffInSeconds = (new Date().getTime() - pocetakRada.getTime()) / 1000;
+                
+                long diff[] = new long[]{0, 0, 0, 0};
+                /* sec */
+                diff[3] = (diffInSeconds >= 60 ? diffInSeconds % 60 : diffInSeconds);
+                /* min */
+                diff[2] = (diffInSeconds = (diffInSeconds / 60)) >= 60 ? diffInSeconds % 60 : diffInSeconds;
+                /* hours */
+                diff[1] = (diffInSeconds = (diffInSeconds / 60)) >= 24 ? diffInSeconds % 24 : diffInSeconds;
+                /* days */
+                diff[0] = (diffInSeconds = (diffInSeconds / 24));
+                
                 lblVrijeme.setText(String.format(
-        "%s%d:%s%d:%s%d",
-        diff[1]<10 ? "0" : "",
-        diff[1],
-        diff[2]<10 ? "0" : "",
-        diff[2],
-        diff[3]<10 ? "0" : "",
-        diff[3]));
+                        "%s%d:%s%d:%s%d",
+                        diff[1] < 10 ? "0" : "",
+                        diff[1],
+                        diff[2] < 10 ? "0" : "",
+                        diff[2],
+                        diff[3] < 10 ? "0" : "",
+                        diff[3]));
             }
         }, 0, 1000);
     }
-
-     private void spremiExcel(String nazivDatoteke, HSSFWorkbook wb, boolean otvoriNakonSpremanja) {
+    
+    private void spremiExcel(String nazivDatoteke, HSSFWorkbook wb, boolean otvoriNakonSpremanja) {
         JFileChooser spremiKao = new JFileChooser();
         spremiKao.setSelectedFile(new File(System.getProperty("user.home") + File.separator + nazivDatoteke));
         spremiKao.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -898,24 +887,25 @@ catch (IOException exc) {
                     Logger.getLogger(Izbornik.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         }
     }
-      private class IzbjegniPovratno implements ExclusionStrategy {
-
+    
+    private class IzbjegniPovratno implements ExclusionStrategy {
+        
         public boolean shouldSkipClass(Class<?> arg0) {
             return false;
         }
-
+        
         public boolean shouldSkipField(FieldAttributes f) {
-
+            
             return (f.getDeclaringClass() == Smjer.class && f.getName().equals("sektor")
                     || f.getDeclaringClass() == Sektor.class && f.getName().equals("penjaliste")
                     || f.getDeclaringClass() == Smjer.class && f.getName().equals("autor")
                     || f.getDeclaringClass() == Smjer.class && f.getName().equals("penjac")
                     || f.getDeclaringClass() == Penjac.class && f.getName().equals("smjer"));
         }
-
+        
     }
 //       private class IzbjegniPovratnoPenjalista implements ExclusionStrategy {
 //
@@ -930,9 +920,4 @@ catch (IOException exc) {
 //        }
 //
 //    }
-    }
-
-
-
-    
-
+}

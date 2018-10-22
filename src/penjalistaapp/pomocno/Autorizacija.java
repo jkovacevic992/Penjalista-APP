@@ -5,7 +5,6 @@
  */
 package penjalistaapp.pomocno;
 
-
 import java.security.spec.KeySpec;
 import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
@@ -18,12 +17,12 @@ import org.hibernate.Session;
  * @author Profesor
  */
 public class Autorizacija {
-    
-    public static String getHash(String lozinka){
-         try {
-            
+
+    public static String getHash(String lozinka) {
+        try {
+
             byte[] salt = new byte[16];
-            salt="1214525214525252".getBytes();
+            salt = "1214525214525252".getBytes();
             KeySpec spec = new PBEKeySpec(lozinka.toCharArray(), salt, 65536, 128);
             SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
@@ -31,22 +30,21 @@ public class Autorizacija {
             Base64.Encoder enc = Base64.getEncoder();
             return enc.encodeToString(hash);
         } catch (Exception e) {
-            
+
         }
-         
-         return String.valueOf(Math.random());
+
+        return String.valueOf(Math.random());
     }
-    
-    public static Operater autoriziraj(String email, char[] lozinka){
+
+    public static Operater autoriziraj(String email, char[] lozinka) {
         Session session = HibernateUtil.getSession();
-     
-        return (Operater)session.createQuery("from Operater o where "
+
+        return (Operater) session.createQuery("from Operater o where "
                 + " o.email=:email and o.lozinka=:lozinka")
                 .setString("email", email)
                 .setString("lozinka", getHash(String.valueOf(lozinka)))
                 .uniqueResult();
-        
-        
+
     }
-    
+
 }
