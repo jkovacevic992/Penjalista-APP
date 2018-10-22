@@ -76,6 +76,7 @@ public class Smjerovi extends javax.swing.JFrame {
         cmbAutori = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstSmjerovi = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Smjerovi");
@@ -84,13 +85,19 @@ public class Smjerovi extends javax.swing.JFrame {
         lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
         lblNaziv.setText("Naziv");
 
+        txtNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         lblLon.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLon.setForeground(new java.awt.Color(255, 255, 255));
         lblLon.setText("Ocjena");
 
+        txtOcjena.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         lblLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLat.setForeground(new java.awt.Color(255, 255, 255));
         lblLat.setText("Dužina (m)");
+
+        txtDuzina.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
 
         btnDodaj.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnDodaj.setText("Dodaj");
@@ -147,6 +154,10 @@ public class Smjerovi extends javax.swing.JFrame {
         lblLat2.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLat2.setForeground(new java.awt.Color(255, 255, 255));
         lblLat2.setText("Autor");
+
+        cmbSektori.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
+        cmbAutori.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
@@ -212,6 +223,7 @@ public class Smjerovi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lstSmjerovi.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lstSmjerovi.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstSmjeroviValueChanged(evt);
@@ -219,13 +231,19 @@ public class Smjerovi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstSmjerovi);
 
+        jLabel1.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Smjerovi");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -233,10 +251,12 @@ public class Smjerovi extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlPodaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
 
@@ -355,6 +375,7 @@ public class Smjerovi extends javax.swing.JFrame {
     private javax.swing.JButton btnPromjena;
     private javax.swing.JComboBox<Autor> cmbAutori;
     private javax.swing.JComboBox<Sektor> cmbSektori;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLat;
     private javax.swing.JLabel lblLat1;
@@ -403,6 +424,7 @@ public class Smjerovi extends javax.swing.JFrame {
         o.getEntiteti().forEach((s) -> {
             m.addElement(s);
         });
+     
         lstSmjerovi.setModel(m);
         ocistiPolja();
     }
@@ -443,7 +465,7 @@ public class Smjerovi extends javax.swing.JFrame {
         ObradaSektor o = new ObradaSektor();
         DefaultComboBoxModel<Sektor> m = new DefaultComboBoxModel<>();
         o.getEntiteti().forEach((s) -> {
-            // System.out.println( s + " - " + s.hashCode());
+           
             m.addElement(s);
         });
         cmbSektori.setModel(m);
@@ -451,7 +473,7 @@ public class Smjerovi extends javax.swing.JFrame {
         ObradaAutor a = new ObradaAutor();
         DefaultComboBoxModel<Autor> m2 = new DefaultComboBoxModel<>();
         a.getEntiteti().forEach((s) -> {
-            // System.out.println( s + " - " + s.hashCode());
+     
             m2.addElement(s);
         });
         cmbAutori.setModel(m2);

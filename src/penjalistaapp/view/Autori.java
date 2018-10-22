@@ -125,10 +125,15 @@ public class Autori extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Ime");
 
+        txtIme.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         jLabel2.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Prezime");
 
+        txtPrezime.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
+        lstAutoroviSmjerovi.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         jScrollPane2.setViewportView(lstAutoroviSmjerovi);
 
         jLabel4.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
@@ -188,6 +193,7 @@ public class Autori extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
+        lstAutori.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lstAutori.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstAutoriValueChanged(evt);

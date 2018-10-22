@@ -61,9 +61,9 @@ public class Penjalista extends javax.swing.JFrame {
         lblNaziv = new javax.swing.JLabel();
         txtNaziv = new javax.swing.JTextField();
         lblLon = new javax.swing.JLabel();
-        txtLon = new javax.swing.JTextField();
-        lblLat = new javax.swing.JLabel();
         txtLat = new javax.swing.JTextField();
+        lblLat = new javax.swing.JLabel();
+        txtLon = new javax.swing.JTextField();
         btnDodaj = new javax.swing.JButton();
         btnPromjena = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
@@ -78,18 +78,25 @@ public class Penjalista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Penjališta");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
         lblNaziv.setText("Naziv");
 
+        txtNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         lblLon.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLon.setForeground(new java.awt.Color(255, 255, 255));
         lblLon.setText("Geografska dužina");
 
+        txtLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         lblLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLat.setForeground(new java.awt.Color(255, 255, 255));
         lblLat.setText("Geograska širina");
+
+        txtLon.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
 
         btnDodaj.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnDodaj.setText("Dodaj");
@@ -139,6 +146,7 @@ public class Penjalista extends javax.swing.JFrame {
             }
         });
 
+        btnMap.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnMap.setText("Google maps");
         btnMap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,26 +169,24 @@ public class Penjalista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(prbBrisanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtLat)
+                    .addComponent(txtNaziv)
+                    .addComponent(btnMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNaziv)
+                    .addComponent(lblLat)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMap, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNaziv)
-                            .addComponent(lblLon)
-                            .addComponent(lblLat)
-                            .addGroup(pnlPodaciLayout.createSequentialGroup()
-                                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(38, 38, 38)
-                        .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPromjena, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLon)
+                    .addComponent(txtLon))
+                .addGap(18, 18, 18)
+                .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         pnlPodaciLayout.setVerticalGroup(
             pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,17 +199,17 @@ public class Penjalista extends javax.swing.JFrame {
                 .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPodaciLayout.createSequentialGroup()
                         .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(lblLon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(13, 13, 13)
                         .addComponent(txtLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblLat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblLat)
+                        .addGap(11, 11, 11)
                         .addComponent(txtLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnMap)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjena)
@@ -214,6 +220,9 @@ public class Penjalista extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
+        getContentPane().add(pnlPodaci, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 472, -1));
+
+        lstPenjalista.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lstPenjalista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstPenjalistaValueChanged(evt);
@@ -221,34 +230,12 @@ public class Penjalista extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstPenjalista);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 44, 103, 250));
+
         jLabel1.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Penjališta");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addGap(38, 38, 38)
-                .addComponent(pnlPodaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlPodaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -266,8 +253,8 @@ public class Penjalista extends javax.swing.JFrame {
         ocistiPolja();
 
         txtNaziv.setText(p.getNaziv());
-        txtLat.setText(String.valueOf(p.getLat()));
         txtLon.setText(String.valueOf(p.getLon()));
+        txtLat.setText(String.valueOf(p.getLat()));
 //         if (p.getSektori()!= null) {
 
         DefaultListModel<Sektor> m2 = new DefaultListModel<>();
@@ -370,7 +357,7 @@ public class Penjalista extends javax.swing.JFrame {
     private void btnMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapActionPerformed
         try {
 
-            Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q=" + txtLon.getText() + "," + txtLat.getText()));
+            Desktop.getDesktop().browse(new URI("https://www.google.com/maps/?q=" + txtLat.getText() + "," + txtLon.getText()));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -441,9 +428,8 @@ public class Penjalista extends javax.swing.JFrame {
         });
         lstPenjalista.setModel(m);
         ocistiPolja();
-        if (m.getSize() > 0) {
-            lstPenjalista.setSelectedIndex(0);
-        }
+
+         
     }
 
     private boolean popuniSvojstva() {

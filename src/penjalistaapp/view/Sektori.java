@@ -38,7 +38,7 @@ public class Sektori extends javax.swing.JFrame {
     final private ObradaSektor o;
     private Sektor sektor;
     final private DecimalFormat df;
-//    private List<Smjer> smjeroviUBazi;
+
 
     public Sektori() {
         initComponents();
@@ -91,13 +91,19 @@ public class Sektori extends javax.swing.JFrame {
         lblNaziv.setForeground(new java.awt.Color(255, 255, 255));
         lblNaziv.setText("Naziv");
 
+        txtNaziv.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         lblLon.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLon.setForeground(new java.awt.Color(255, 255, 255));
         lblLon.setText("Geografska dužina");
 
+        txtLon.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+
         lblLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lblLat.setForeground(new java.awt.Color(255, 255, 255));
         lblLat.setText("Geograska širina");
+
+        txtLat.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
 
         btnDodaj.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnDodaj.setText("Dodaj");
@@ -147,8 +153,10 @@ public class Sektori extends javax.swing.JFrame {
             }
         });
 
+        lstSmjeroviNaSektoru.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         jScrollPane3.setViewportView(lstSmjeroviNaSektoru);
 
+        btnMaps.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnMaps.setText("Google Maps");
         btnMaps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +171,8 @@ public class Sektori extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Penjalište");
+
+        cmbPenjalista.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout pnlPodaciLayout = new javax.swing.GroupLayout(pnlPodaci);
         pnlPodaci.setLayout(pnlPodaciLayout);
@@ -221,7 +231,7 @@ public class Sektori extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbPenjalista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnMaps)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlPodaciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -234,6 +244,7 @@ public class Sektori extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
+        lstSektori.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         lstSektori.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstSektoriValueChanged(evt);
@@ -267,7 +278,7 @@ public class Sektori extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -377,7 +388,7 @@ public class Sektori extends javax.swing.JFrame {
 
             DefaultListModel<Smjer> m2 = new DefaultListModel<>();
             s.getSmjerovi().forEach((d) -> {
-                // System.out.println( s + " - " + s.hashCode());
+             
                 m2.addElement(d);
             });
             lstSmjeroviNaSektoru.setModel(m2);
@@ -480,8 +491,8 @@ private class BrisanjeSektora extends Thread {
     private boolean popuniSvojstva() {
         try {
             sektor.setNaziv(txtNaziv.getText());
-            sektor.setLat(Double.parseDouble(txtLat.getText()));
-            sektor.setLon(Double.parseDouble(txtLon.getText()));
+            sektor.setLat(Double.parseDouble(txtLat.getText().replace(',', '.')));
+            sektor.setLon(Double.parseDouble(txtLon.getText().replace(',', '.')));
             sektor.setPenjaliste((Penjaliste) cmbPenjalista.getSelectedItem());
 
         } catch (StringIndexOutOfBoundsException e) {
@@ -499,7 +510,7 @@ private class BrisanjeSektora extends Thread {
         ObradaPenjaliste o = new ObradaPenjaliste();
         DefaultComboBoxModel<Penjaliste> m = new DefaultComboBoxModel<>();
         o.getEntiteti().forEach((s) -> {
-            // System.out.println( s + " - " + s.hashCode());
+
             m.addElement(s);
         });
         cmbPenjalista.setModel(m);

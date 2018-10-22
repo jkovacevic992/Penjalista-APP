@@ -48,6 +48,17 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
         } catch (NullPointerException e) {
             throw new MojException("Penjalište obavezno.");
         }
+        
+        Double maxLat = 90.0;
+            Double minLat = -90.0;
+            Double maxLon = 180.0;
+            double minLon = -180.0;
+            if(s.getLat().compareTo(maxLat)>0 || s.getLat().compareTo(minLat)<0){
+                throw new MojException("Lokacija s tom geografskom širinom ne postoji.");
+            }
+            if(s.getLon().compareTo(maxLon)>0 || s.getLon().compareTo(minLon)<0){
+                throw new MojException("Lokacija s tom geografskom dužinom ne postoji.");
+            }
 
     }
 }
