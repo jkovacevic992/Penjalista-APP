@@ -41,10 +41,13 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
         try {
             BigInteger postojeciNaziv = (BigInteger) session.createSQLQuery("select count(sifra) from sektor where naziv=:naziv and lat=:lat and lon=:lon").
                     setString("naziv", s.getNaziv()).setString("lat", s.getLat().toString()).setString("lon", s.getLon().toString()).uniqueResult();
-
-            if (postojeciNaziv.intValue() == 1) {
+            BigInteger postojecaLokacija = (BigInteger) session.createSQLQuery("select count(sifra) from penjaliste where lat=:lat and lon=:lon")
+                 .setString("lat", s.getLat().toString())
+                 .setString("lon", s.getLon().toString()).uniqueResult();
+            if (postojeciNaziv.intValue() == 1 || postojecaLokacija.intValue()==1) {
                 throw new MojException("Taj sektor već postoji.");
             }
+            
         } catch (NullPointerException e) {
             throw new MojException("Penjalište obavezno.");
         }

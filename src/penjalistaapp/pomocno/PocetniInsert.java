@@ -5,8 +5,11 @@
  */
 package penjalistaapp.pomocno;
 
+import java.util.ArrayList;
+import java.util.List;
 import penjalistaapp.model.Operater;
 import org.hibernate.Session;
+import penjalistaapp.model.Penjaliste;
 
 /**
  *
@@ -18,6 +21,13 @@ public class PocetniInsert {
         Session session = HibernateUtil.getSession();
 
         session.beginTransaction();
+        kreirajOperatera(session);
+        List<Penjaliste> lista1 = kreirajPenjalista(session, 50);
+
+        session.getTransaction().commit();
+    }
+    
+     private static void kreirajOperatera(Session session) {
         Operater o = new Operater();
         o.setIme("Josip");
         o.setPrezime("Kovačević");
@@ -25,6 +35,24 @@ public class PocetniInsert {
         o.setLozinka(Autorizacija.getHash("j"));
         session.save(o);
 
-        session.getTransaction().commit();
+        session.save(o);
     }
+     
+     private static List<Penjaliste> kreirajPenjalista(Session session, int broj){
+         Penjaliste p;
+        List<Penjaliste> l1 = new ArrayList<>();
+        for (int i = 0; i < broj; i++) {
+            p = new Penjaliste();
+            p.setNaziv("Penjalište "+i);
+            p.setLat(0.0 + i);
+            p.setLon(0.0 + i);
+            session.save(p);
+            
+            l1.add(p);
+            
+        }
+        return l1;
+     }
+
+  
 }
