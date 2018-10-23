@@ -147,7 +147,7 @@ public class Penjalista extends javax.swing.JFrame {
         });
 
         btnMap.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
-        btnMap.setText("Google maps");
+        btnMap.setText("Google Maps");
         btnMap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMapActionPerformed(evt);
