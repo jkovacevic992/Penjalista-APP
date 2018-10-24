@@ -22,6 +22,12 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
 
     public Sektor dodaj(Sektor s) throws MojException {
         kontrola(s);
+        BigInteger postojecaLokacija = (BigInteger) session.createSQLQuery("select count(sifra) from sektor where lat=:lat and lon=:lon")
+                 .setString("lat", s.getLat().toString())
+                 .setString("lon", s.getLon().toString()).uniqueResult();
+        if (postojecaLokacija.intValue() == 1) {
+                throw new MojException("Taj sektor već postoji.");
+            }
         spremi(s);
 
         return s;
@@ -41,10 +47,8 @@ public class ObradaSektor extends Obrada implements ObradaInterface<Sektor> {
         try {
             BigInteger postojeciNaziv = (BigInteger) session.createSQLQuery("select count(sifra) from sektor where naziv=:naziv and lat=:lat and lon=:lon").
                     setString("naziv", s.getNaziv()).setString("lat", s.getLat().toString()).setString("lon", s.getLon().toString()).uniqueResult();
-            BigInteger postojecaLokacija = (BigInteger) session.createSQLQuery("select count(sifra) from sektor where lat=:lat and lon=:lon")
-                 .setString("lat", s.getLat().toString())
-                 .setString("lon", s.getLon().toString()).uniqueResult();
-            if (postojeciNaziv.intValue() == 1 || postojecaLokacija.intValue()==1) {
+            
+            if (postojeciNaziv.intValue() == 1) {
                 throw new MojException("Taj sektor već postoji.");
             }
             

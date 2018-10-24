@@ -24,6 +24,12 @@ public class ObradaPenjaliste extends Obrada implements ObradaInterface<Penjalis
     @Override
     public Penjaliste dodaj(Penjaliste e) throws MojException {
         kontrola(e);
+        BigInteger postojecaLokacija = (BigInteger) session.createSQLQuery("select count(sifra) from penjaliste where lat=:lat and lon=:lon")
+                 .setString("lat", e.getLat().toString())
+                 .setString("lon", e.getLon().toString()).uniqueResult();
+         if (postojecaLokacija.intValue()==1) {
+                throw new MojException("To penjalište već postoji.");
+            }
         spremi(e);
 
         return e;
@@ -44,11 +50,9 @@ public class ObradaPenjaliste extends Obrada implements ObradaInterface<Penjalis
         
          BigInteger postojeciNaziv = (BigInteger) session.createSQLQuery("select count(sifra) from penjaliste where naziv=:naziv and lat=:lat and lon=:lon").
                     setString("naziv", e.getNaziv()).setString("lat", e.getLat().toString()).setString("lon", e.getLon().toString()).uniqueResult();
-         BigInteger postojecaLokacija = (BigInteger) session.createSQLQuery("select count(sifra) from penjaliste where lat=:lat and lon=:lon")
-                 .setString("lat", e.getLat().toString())
-                 .setString("lon", e.getLon().toString()).uniqueResult();
+         
      
-            if (postojeciNaziv.intValue() == 1 || postojecaLokacija.intValue()==1) {
+            if (postojeciNaziv.intValue() == 1) {
                 throw new MojException("To penjalište već postoji.");
             }
             

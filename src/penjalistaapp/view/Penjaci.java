@@ -328,9 +328,11 @@ public class Penjaci extends javax.swing.JFrame {
         try {
             o.dodaj(penjac);
             ucitajIzBaze();
+            
         } catch (MojException ex) {
             JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
         }
+        
 
     }//GEN-LAST:event_btnDodajActionPerformed
 
@@ -442,6 +444,7 @@ public class Penjaci extends javax.swing.JFrame {
             if (c instanceof JTextField) {
                 ((JTextField) c).setText("");
             }
+           
 
         }
     }
