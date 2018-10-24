@@ -280,11 +280,11 @@ public class Smjerovi extends javax.swing.JFrame {
         }
         try {
             o.dodaj(smjer);
-            
+            ucitajIzBaze();
         } catch (MojException ex) {
             JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
         }
-        ucitajIzBaze();
+        
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnPromjenaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPromjenaMouseEntered
