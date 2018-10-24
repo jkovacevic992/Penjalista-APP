@@ -35,6 +35,7 @@ public class ObradaSmjer extends Obrada implements ObradaInterface<Smjer> {
     public Smjer promjena(Smjer s) throws MojException {
         kontrola(s);
         spremi(s);
+        
 
         return s;
     }

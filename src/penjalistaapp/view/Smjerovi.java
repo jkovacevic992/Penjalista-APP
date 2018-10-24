@@ -280,10 +280,11 @@ public class Smjerovi extends javax.swing.JFrame {
         }
         try {
             o.dodaj(smjer);
-            ucitajIzBaze();
+            
         } catch (MojException ex) {
             JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
         }
+        ucitajIzBaze();
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnPromjenaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPromjenaMouseEntered
@@ -355,6 +356,7 @@ public class Smjerovi extends javax.swing.JFrame {
             return;
         }
         ocistiPolja();
+        
 
         txtNaziv.setText(s.getNaziv());
         txtDuzina.setText(String.valueOf(s.getDuzina()));
@@ -426,7 +428,7 @@ public class Smjerovi extends javax.swing.JFrame {
         });
      
         lstSmjerovi.setModel(m);
-        ocistiPolja();
+        
     }
 
     private void promjenaIzgleda() {

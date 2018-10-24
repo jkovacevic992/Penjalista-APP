@@ -378,6 +378,7 @@ public class Sektori extends javax.swing.JFrame {
         }
         ocistiPolja();
 
+
         txtNaziv.setText(s.getNaziv());
         txtLat.setText(String.valueOf(s.getLat()));
         txtLon.setText(String.valueOf(s.getLon()));

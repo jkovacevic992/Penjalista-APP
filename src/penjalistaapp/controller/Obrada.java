@@ -39,14 +39,14 @@ public abstract class Obrada<T extends Entitet> {
         session.beginTransaction();
         session.save(e);
         session.getTransaction().commit();
-        session.clear();
+        session.flush();
     }
 
     public void obrisi(Entitet e) {
         session.beginTransaction();
         session.delete(e);
         session.getTransaction().commit();
-        session.clear();
+        session.flush();
     }
 
 }
