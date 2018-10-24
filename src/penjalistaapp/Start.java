@@ -23,10 +23,7 @@ public class Start {
 //        PocetniInsert.izvedi();
 
 new Loading().setVisible(true);
-//        HibernateUtil.getSession();
-//        
-//        Izbornik izbornik = new Izbornik();
-//       izbornik.setVisible(true);
+
     }
 
 }

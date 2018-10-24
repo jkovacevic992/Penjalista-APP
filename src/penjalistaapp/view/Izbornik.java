@@ -550,7 +550,7 @@ public class Izbornik extends javax.swing.JFrame {
         ObradaPenjaliste o = new ObradaPenjaliste();
         List<Penjaliste> lista = o.getEntiteti();
         try (HSSFWorkbook wb = new HSSFWorkbook()) { //or new HSSFWorkbook();
-
+           
             HSSFSheet s = wb.createSheet("Podaci");
             int rownum;
             for (rownum = 0; rownum < lista.size(); rownum++) {
@@ -565,6 +565,7 @@ public class Izbornik extends javax.swing.JFrame {
                     c = r.createCell(3);
                     c.setCellValue(lista.get(rownum).getSektori().toString());
                 }
+                
                 
             }
             HSSFRow r = s.createRow(++rownum);
