@@ -38,9 +38,12 @@ public abstract class Obrada<T extends Entitet> {
         System.out.println(e.getClass().toString());
         session.beginTransaction();
         session.save(e);
+        
         session.getTransaction().commit();
         session.flush();
-        session.refresh(e);
+session.refresh(e);
+       
+        
     }
 
     public void obrisi(Entitet e) {
