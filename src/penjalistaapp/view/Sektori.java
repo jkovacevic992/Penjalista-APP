@@ -21,6 +21,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import org.hibernate.Session;
 import penjalistaapp.controller.ObradaPenjaliste;
 import penjalistaapp.controller.ObradaSektor;
 import penjalistaapp.model.Penjaliste;
@@ -371,18 +372,20 @@ public class Sektori extends javax.swing.JFrame {
         if (evt.getValueIsAdjusting()) {
             return;
         }
-
+        
         Sektor s = lstSektori.getSelectedValue();
         if (s == null) {
             return;
         }
         ocistiPolja();
+        ucitajPenjalista();
 
 
         txtNaziv.setText(s.getNaziv());
         txtLat.setText(String.valueOf(s.getLat()));
         txtLon.setText(String.valueOf(s.getLon()));
         cmbPenjalista.setSelectedItem(s.getPenjaliste());
+        
         if (s.getSmjerovi() != null) {
 
             DefaultListModel<Smjer> m2 = new DefaultListModel<>();
@@ -391,10 +394,10 @@ public class Sektori extends javax.swing.JFrame {
                 m2.addElement(d);
             });
             lstSmjeroviNaSektoru.setModel(m2);
-            lstSmjeroviNaSektoru.repaint();
-            lstSmjeroviNaSektoru.revalidate();
+            
 
         }
+        
 
     }//GEN-LAST:event_lstSektoriValueChanged
 
@@ -464,7 +467,8 @@ private class BrisanjeSektora extends Thread {
             m.addElement(s);
         });
         lstSektori.setModel(m);
-
+        lstSektori.repaint();
+        lstSektori.revalidate();
     }
 
     private void promjenaIzgleda() {

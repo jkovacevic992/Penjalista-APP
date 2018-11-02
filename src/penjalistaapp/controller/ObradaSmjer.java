@@ -9,7 +9,9 @@ import com.mysql.jdbc.StringUtils;
 import java.math.BigInteger;
 import java.util.List;
 import org.apache.poi.util.StringUtil;
+import org.hibernate.Session;
 import penjalistaapp.model.Smjer;
+import penjalistaapp.pomocno.HibernateUtil;
 import penjalistaapp.pomocno.MojException;
 
 /**
@@ -20,6 +22,8 @@ public class ObradaSmjer extends Obrada implements ObradaInterface<Smjer> {
 
     @Override
     public List<Smjer> getEntiteti() {
+        
+        
         return session.createQuery(" from Smjer").list();
     }
 

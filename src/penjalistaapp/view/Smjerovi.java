@@ -356,6 +356,7 @@ public class Smjerovi extends javax.swing.JFrame {
             return;
         }
         ocistiPolja();
+        ucitajSektoreAutore();
         
 
         txtNaziv.setText(s.getNaziv());
@@ -409,7 +410,7 @@ public class Smjerovi extends javax.swing.JFrame {
             smjer.setSektor((Sektor) cmbSektori.getSelectedItem());
             smjer.setAutor((Autor) cmbAutori.getSelectedItem());
 
-//            smjer.setAutor(txtAutor.getText());
+
         } catch (StringIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(getRootPane(), "Nisu upisani svi potrebni podaci");
             return false;
